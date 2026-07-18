@@ -3,20 +3,6 @@ import <vector>;
 import <string>;
 import card;
 
-/* A note on Info and State:
-
-   We have separated the collection of fields into two parts: its Info
-   and its State.
-
-   Info is for the parts of the subject inherent to what it is: its position
-   and its colour.
-
-   State is for the parts of the subject that, when changed, trigger
-   notifications.  This is the information that the Observer "gets" when it
-   calls getState on the subject.  It comprises the type of state, a direction,
-   and a colour.  For more details, see state.h.
-*/
-
 using namespace std;
 
 export class Spell: public Card {
@@ -37,6 +23,7 @@ export class Spell: public Card {
     void blizzard(Player played, Player owner);
 };
 
+//CTOR
 Spell::Spell(string name, int cost): Card{name, cost} {
     if (name == "Banish") { this->desc = "Destroy target minion or ritual"; }
     else if (name == "Unsummon") { this->desc = "Return target minion to its owner's hand"; }
@@ -44,8 +31,25 @@ Spell::Spell(string name, int cost): Card{name, cost} {
     else if (name == "Disenchant") { this->desc = "Destroy the top enchantment"; }
     else if (name == "Raise Dead") { this->desc = "Resurrect the top minion in your graveyard and set its defence to 1"; }
     else if (name == "Blizzard") { this->desc = "Deal 2 damage to all minions"; }
-    
 }
+
+//selects which spell to use
+void Spell::playspell(Player played, Player owner, Spell s, void *p) {
+    string name = s.getName();
+    if (name == "Banish") { banish(played, owner, p); }
+    else if (name == "Unsummon") { this->desc = "Return target minion to its owner's hand"; }
+    else if (name == "Recharge") { this->desc = "Your ritual gains 3 charges"; }
+    else if (name == "Disenchant") { this->desc = "Destroy the top enchantment"; }
+    else if (name == "Raise Dead") { this->desc = "Resurrect the top minion in your graveyard and set its defence to 1"; }
+    else if (name == "Blizzard") { this->desc = "Deal 2 damage to all minions"; }
+}
+
+    void banish(Player played, Player owner, void *p);
+    void unsummon(Player played, Player owner, void *p);
+    void recharge(Player played);
+    void disenchant(Player played, Player owner, void *p);
+    void raisedead(Player played);
+    void blizzard(Player played, Player owner);
 
 // |-------------------------------||-------------------------------||-------------------------------|
 // | Banish                  |   2 || Unsummon                |   1 || Recharge                |   1 |
