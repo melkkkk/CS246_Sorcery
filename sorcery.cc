@@ -57,7 +57,7 @@ int main(int argc, char *argv []){
     // main game loop
     string command;
     while (getline(cin, command)){
-        
+        cout << command << endl;
     }
 
     // string 
