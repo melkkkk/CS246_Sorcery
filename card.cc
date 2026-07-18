@@ -33,8 +33,8 @@ export class Card {
     //State state;
   protected:
     //void setState(State newS);
-    Card(string name, int cost = 0);
   public:
+    Card(string name, int cost = 0);
     //void attach(Observer *o);  
     //void notifyObservers();
     //virtual Info getInfo() const = 0;
