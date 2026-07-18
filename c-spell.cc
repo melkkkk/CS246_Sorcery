@@ -2,6 +2,7 @@ export module spell;
 import <vector>;
 import <string>;
 import card;
+import player;
 
 using namespace std;
 
@@ -37,19 +38,19 @@ Spell::Spell(string name, int cost): Card{name, cost} {
 void Spell::playspell(Player played, Player owner, Spell s, void *p) {
     string name = s.getName();
     if (name == "Banish") { banish(played, owner, p); }
-    else if (name == "Unsummon") { this->desc = "Return target minion to its owner's hand"; }
-    else if (name == "Recharge") { this->desc = "Your ritual gains 3 charges"; }
+    else if (name == "Unsummon") { unsummon(played, owner, p); }
+    else if (name == "Recharge") { recharge(played); }
     else if (name == "Disenchant") { this->desc = "Destroy the top enchantment"; }
     else if (name == "Raise Dead") { this->desc = "Resurrect the top minion in your graveyard and set its defence to 1"; }
     else if (name == "Blizzard") { this->desc = "Deal 2 damage to all minions"; }
 }
 
-    void banish(Player played, Player owner, void *p);
-    void unsummon(Player played, Player owner, void *p);
-    void recharge(Player played);
-    void disenchant(Player played, Player owner, void *p);
-    void raisedead(Player played);
-    void blizzard(Player played, Player owner);
+// void banish(Player played, Player owner, void *p) {}
+// void unsummon(Player played, Player owner, void *p) {}
+// void recharge(Player played) {}
+// void disenchant(Player played, Player owner, void *p) {}
+// void raisedead(Player played) {}
+// void blizzard(Player played, Player owner){}
 
 // |-------------------------------||-------------------------------||-------------------------------|
 // | Banish                  |   2 || Unsummon                |   1 || Recharge                |   1 |

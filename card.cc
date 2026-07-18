@@ -1,6 +1,7 @@
 export module card;
 import <vector>;
 import <string>;
+import player;
 
 /* A note on Info and State:
 
@@ -37,6 +38,12 @@ export class Card {
     string getCost();
   public:
     Card(string name, int cost = 0);
+
+    // player that played card i from their deck
+    // owner is the selected players card
+    // void pointer is for card i, or ritual r
+    //void playcard(Player played, int i, Player owner, void *p);
+
     //void attach(Observer *o);  
     //void notifyObservers();
     //virtual Info getInfo() const = 0;
