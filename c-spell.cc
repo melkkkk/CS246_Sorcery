@@ -26,8 +26,15 @@ export class Spell: public Card {
     //void setState(State newS);
   public:
     Spell(string name, int cost);
-    void playspell(Player played, Card c, Spell s, void *p);
-    void banish(Player played, Card c, void *p);
+    //owner is owner of card selected in input or opponent based on spell
+    //void pointer for card i or ritual r
+    void playspell(Player played, Player owner, Spell s, void *p);
+    void banish(Player played, Player owner, void *p);
+    void unsummon(Player played, Player owner, void *p);
+    void recharge(Player played);
+    void disenchant(Player played, Player owner, void *p);
+    void raisedead(Player played);
+    void blizzard(Player played, Player owner);
 };
 
 Spell::Spell(string name, int cost): Card{name, cost} {
