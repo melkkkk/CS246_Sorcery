@@ -10,5 +10,6 @@ export class Player;
 
 export class Player{
     string name;
+    
 };
 

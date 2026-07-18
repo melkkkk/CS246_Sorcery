@@ -13,7 +13,7 @@ int main(int argc, char *argv []){
     for (int i = 1; i < argc; ++i){
         string command(argv[i]);
         // cout << command << endl;
-        if (command == "-deck1"){
+        if (command == "-deck1") {
             ++i;
             ifstream infile{argv[i]};
             // create deck for p1 from file
@@ -30,7 +30,7 @@ int main(int argc, char *argv []){
         } else if (command == "-graphics") {
             // activate graphics idk
         } else {
-            cout << "'" << command << "' is an invalid command" << endl;
+            cerr << "'" << command << "' is an invalid command" << endl;
         }
     }
 
