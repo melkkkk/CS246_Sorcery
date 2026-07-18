@@ -1,31 +1,10 @@
 export module card;
 import <vector>;
 import <string>;
-import player;
+//import player;
 
-/* A note on Info and State:
 
-   We have separated the collection of fields into two parts: its Info
-   and its State.
-
-   Info is for the parts of the subject inherent to what it is: its position
-   and its colour.
-
-   State is for the parts of the subject that, when changed, trigger
-   notifications.  This is the information that the Observer "gets" when it
-   calls getState on the subject.  It comprises the type of state, a direction,
-   and a colour.  For more details, see state.h.
-*/
-
-using namespace std;
 export class Card;
-
-// export class Observer {
-//   public:
-//     // Pass the Subject that called the notify method.
-//     virtual void notify(Subject &whoFrom) = 0; 
-//     virtual ~Observer() = default;
-// };
 
 export class Card {
     std::string name;
@@ -34,10 +13,10 @@ export class Card {
     //State state;
   protected:
     //void setState(State newS);
-    string getName();
-    string getCost();
+    std::string getName();
+    int getCost();
   public:
-    Card(string name, int cost = 0);
+    Card(std::string name, int cost = 0);
 
     // player that played card i from their deck
     // owner is the selected players card
@@ -49,3 +28,10 @@ export class Card {
     //virtual Info getInfo() const = 0;
     //State getState() const;
 };
+
+// export class Observer {
+//   public:
+//     // Pass the Subject that called the notify method.
+//     virtual void notify(Subject &whoFrom) = 0; 
+//     virtual ~Observer() = default;
+// };
