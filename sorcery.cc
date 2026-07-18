@@ -21,11 +21,12 @@ int main(int argc, char *argv []){
         if (command == "-deck1") {
             ++i;
             ifstream infile{argv[i]};
-            p1.set_deck(infile);
+            p1.setDeck(infile);
             // create deck for p1 from file
         } else if (command == "-deck2") {
             ++i;
             ifstream infile{argv[i]};
+            p2.setDeck(infile);
             // create deck for p2 file
         } else if (command == "-init") {
             ++i;
@@ -41,8 +42,23 @@ int main(int argc, char *argv []){
     }
 
     // add more initialization stuff here
+    
+    // get names of players, change if -init is being used
+    string name;
+    cout << "Input Player 1:" << endl;
+    getline(cin, name);
+    p1.setName(name);
+    cout << "player name is " << p1.getName() << endl;
+    cout << "Input Player 2:" << endl;
+    getline(cin, name);
+    p2.setName(name);
+    cout << "player name is " << p2.getName() << endl;
 
     // main game loop
+    string command;
+    while (getline(cin, command)){
+        
+    }
 
     // string 
 }

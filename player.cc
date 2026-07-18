@@ -17,8 +17,9 @@ export class Player{
     // vector<Card*> board;
 
   public:
-    void set_name(string name);
-    void set_deck(ifstream& infile);
+    void setName(string name);
+    void setDeck(ifstream& infile);
+    string getName();
     
 };
 

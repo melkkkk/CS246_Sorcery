@@ -9,14 +9,17 @@ import <iostream>;
 
 using namespace std;
 
-void Player::set_name(string name){
+void Player::setName(string name){
     this->name = name;
 }
 
-void Player::set_deck(ifstream& infile){
+void Player::setDeck(ifstream& infile){
     string card_name;
     while (getline(infile, card_name)){
         deck.emplace_back(card_name);
-        cout << card_name << endl;
     }
+}
+
+string Player::getName(){
+    return name;
 }
