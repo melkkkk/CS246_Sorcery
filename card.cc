@@ -32,6 +32,7 @@ export class Card {
     //State state;
   protected:
     //void setState(State newS);
+    Card(string name, int cost);
   public:
     //void attach(Observer *o);  
     //void notifyObservers();
