@@ -1,14 +1,19 @@
+import card;
+import player;
+
 import <iostream>;
 import <fstream>;
 
 using namespace std;
 
 int main(int argc, char *argv []){
-    cout << "Hello world!" << endl;
-
     // for testing mode
-    bool testing = false;
+    // bool testing = false;
 
+    // creating player objects
+    Player p1;
+    Player p2;
+    
     // parsing through command line arguments
     for (int i = 1; i < argc; ++i){
         string command(argv[i]);
@@ -16,6 +21,7 @@ int main(int argc, char *argv []){
         if (command == "-deck1") {
             ++i;
             ifstream infile{argv[i]};
+            p1.set_deck(infile);
             // create deck for p1 from file
         } else if (command == "-deck2") {
             ++i;
@@ -26,7 +32,7 @@ int main(int argc, char *argv []){
             ifstream infile{argv[i]};
             // read in commands from  file
         } else if (command == "-testing") {
-            testing = true;
+            // testing = true;
         } else if (command == "-graphics") {
             // activate graphics idk
         } else {
