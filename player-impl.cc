@@ -16,7 +16,7 @@ void Player::set_name(string name){
 void Player::set_deck(ifstream& infile){
     string card_name;
     while (getline(infile, card_name)){
-        //deck.emplace_back(card_name);
+        deck.emplace_back(card_name);
         cout << card_name << endl;
     }
 }
