@@ -1,6 +1,5 @@
 module card;
 
-using namespace std;
 Card::Card(string name, int cost): name{name}, cost{cost} {}
 //void Subject::attach(Observer *o) { observers.emplace_back(o); }
 //void Subject::notifyObservers() { for (auto &ob : observers) ob->notify(*this); }
