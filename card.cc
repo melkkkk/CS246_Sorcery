@@ -16,6 +16,8 @@ import <string>;
    and a colour.  For more details, see state.h.
 */
 
+using namespace std; 
+
 export class Card;
 
 // export class Observer {

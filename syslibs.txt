@@ -1,2 +1,4 @@
 iostream
 fstream
+vector
+string

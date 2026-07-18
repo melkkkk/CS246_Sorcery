@@ -1,1 +1,5 @@
 sorcery.cc
+card.cc
+card-impl.cc
+player.cc
+player-impl.cc
