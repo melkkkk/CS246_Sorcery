@@ -18,23 +18,23 @@ import <string>;
 
 export class Card;
 
-export class Observer {
-  public:
-    // Pass the Subject that called the notify method.
-    virtual void notify(Subject &whoFrom) = 0; 
-    virtual ~Observer() = default;
-};
+// export class Observer {
+//   public:
+//     // Pass the Subject that called the notify method.
+//     virtual void notify(Subject &whoFrom) = 0; 
+//     virtual ~Observer() = default;
+// };
 
 export class Card {
     std::string name;
     int cost;
-    std::vector<Observer*> observers;
+    //std::vector<Observer*> observers;
     //State state;
   protected:
     //void setState(State newS);
   public:
-    void attach(Observer *o);  
-    void notifyObservers();
+    //void attach(Observer *o);  
+    //void notifyObservers();
     //virtual Info getInfo() const = 0;
     //State getState() const;
 };
