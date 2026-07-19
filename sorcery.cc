@@ -97,7 +97,7 @@ int main(int argc, char *argv []){
                 cout << "DRAW COMMAND ONLY AVAILABLE IN TESTING MODE" << endl;
             }
         } else if (first == "discard") {
-            if (inputs == 1) {
+            if (inputs >= 1) {
                 ss >> i;
                 if (testing){
                     cout << "PLAYER DISCARDS " << i << " CARD IN HAND! ONLY AVALIABLE IN TEST MODE" << endl;
@@ -109,7 +109,7 @@ int main(int argc, char *argv []){
             if (inputs == 1) {
                 ss >> i;
                 cout << "MINION " << i << " ATTACKS PLAYER" << endl;
-            } else if (inputs == 2) {
+            } else if (inputs >= 2) {
                 ss >> i >> j;
                 cout << "MINION " << i << " ATTACKS OPPOSING MINION " << j << endl;
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
@@ -117,7 +117,7 @@ int main(int argc, char *argv []){
             if (inputs == 1) {
                 ss >> i;
                 cout << "PLAY " << i << " CARD NO TARGET" << endl;
-            } else if (inputs == 3) {
+            } else if (inputs >= 3) {
                 ss >> i >> j >> k;
                 cout << "PLAY " << i << " CARD ON PLAYER " << j << " ON THEIR " << k << " MINION" << endl;
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
@@ -125,12 +125,12 @@ int main(int argc, char *argv []){
             if (inputs == 1) {
                 ss >> i;
                 cout << "PLAY " << i << " ACTIVATED ABILITY NO TARGET" << endl;
-            } else if (inputs == 3) {
+            } else if (inputs >= 3) {
                 ss >> i >> j >> k;
                 cout << "USE " << i << " ACTIVATED ABILITY ON PLAYER " << j << " ON THEIR " << k << " MINION" << endl;
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
         } else if (first == "inspect") {
-            if (inputs == 1) {
+            if (inputs >= 1) {
                 ss >> i;
                 cout << "DESCRIBE " << i << " MINION" << endl;
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
