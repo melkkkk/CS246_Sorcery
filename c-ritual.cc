@@ -39,7 +39,7 @@ void Ritual::playRitual(Player *played, Player *owner, int *p) {
     else if (name == "Standstill") { standstill(played); }
 }
 
-void darkRitual(Player played) {}
+void darkRitual(Player played) { }
 void auraOfPower(Player played) {}
 void standstill(Player played) {}
 
