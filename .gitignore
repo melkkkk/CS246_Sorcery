@@ -1,3 +1,4 @@
 *.o
 a.out
 gcm.cache/*
+.vscode/*

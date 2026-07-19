@@ -4,6 +4,8 @@ import player;
 import <iostream>;
 import <fstream>;
 import <sstream>;
+import <chrono>;   
+import <random>;
 
 using namespace std;
 
@@ -25,6 +27,12 @@ int main(int argc, char *argv []){
     // creating player objects
     Player p1;
     Player p2;
+    Player *actPlayer = &p1;
+    Player *nonPlayer = &p2;
+
+    // setting up random seed
+    unsigned seed = chrono::system_clock::now().time_since_epoch().count();
+    default_random_engine rng{seed};
     
     // parsing through command line arguments
     for (int i = 1; i < argc; ++i){
@@ -56,7 +64,17 @@ int main(int argc, char *argv []){
 
     // add more initialization stuff here
     // shuffle decks
-    // add hands
+    if (!testing) {
+        p1.shuffleDeck(rng);
+        p2.shuffleDeck(rng);
+    }
+
+    // initialize hands of 5 cards
+    int startCards = 5;
+    for (int i = 0; i < startCards; ++i){
+        p1.drawCard();
+        p2.drawCard();
+    }
     
     // get names of players, change later if -init is being used
     string name;
@@ -90,7 +108,14 @@ int main(int argc, char *argv []){
             cout << "   hand -- Describe all cards in your hand." << endl;
             cout << "   board -- Describe all cards on the board." << endl;
         } else if (first == "end") {
-            cout << "PLAYER TURN END" << endl;
+            if (actPlayer == &p1){
+                cout << "PLAYER 1 TURN END" << endl;
+                cout << "PLAYER 2 TURN START" << endl;
+            } else {
+                cout << "PLAYER 2 TURN END" << endl;
+                cout << "PLAYER 1 TURN START" << endl;
+            }
+            swap(actPlayer, nonPlayer);
         } else if (first == "quit"){
             cout << "END GAME" << endl;
             break;

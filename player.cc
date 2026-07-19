@@ -4,6 +4,8 @@ import card;
 import <string>;
 import <vector>;
 import <fstream>;
+import <chrono>;   
+import <random>;
 
 using namespace std;
 
@@ -13,7 +15,7 @@ export class Player{
     string name;
     int life;
     int magic;
-    vector<Card> deck;
+    vector<string> deck;
     vector<Card> hand;
     vector<Card> graveyard;
     // vector<Card> board;
@@ -21,10 +23,11 @@ export class Player{
 
   public:
     Player(string name = "", int life = 20, int magic = 3);
+    string getName();
     void setName(string name);
     void setDeck(ifstream& infile);
-    string getName();
-    
+    void shuffleDeck(default_random_engine &rng);
+    void drawCard();
 };
 
 // export class Board{
