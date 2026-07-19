@@ -35,7 +35,7 @@ Spell::Spell(string name, int cost): Card{name, cost} {
 }
 
 //selects which spell to use
-void Spell::playspell(Player played, Player owner, Spell s, void *p) {
+void Spell::playspell(Player *played, Player *owner, Spell s, void *p) {
     string name = s.getName();
     if (name == "Banish") { banish(played, owner, p); }
     else if (name == "Unsummon") { unsummon(played, owner, p); }
@@ -45,12 +45,55 @@ void Spell::playspell(Player played, Player owner, Spell s, void *p) {
     else if (name == "Blizzard") { this->desc = "Deal 2 damage to all minions"; }
 }
 
-// void banish(Player played, Player owner, void *p) {}
-// void unsummon(Player played, Player owner, void *p) {}
-// void recharge(Player played) {}
-// void disenchant(Player played, Player owner, void *p) {}
-// void raisedead(Player played) {}
-// void blizzard(Player played, Player owner){}
+void banish(Player *played, Player *owner, void *p) {
+    int i = &p;
+    Card *it = owner->board[i];
+    owner->board.erase(it);
+}
+void unsummon(Player *played, Player *owner. void *p) {
+    int i = &p;
+    owner->hand.emplace_back = owner->board[i]; //add to hand
+    Card *it = owner->board[i];
+    owner->board.erase(it); //remove from board
+
+}
+void recharge(Player *played) {
+    int len = played->board.size;
+    string t = "";
+    for (int i = 0; i < len; i++) {
+        t = played->board[i].getType();
+        if (t == "ritual") {
+            played->board[i].charges += 3;
+        }
+    }
+}
+void disenchant(Player *played, Player *owner, void *p) {
+    int i = &p;
+    int len = owner->board[i].enchantments.size(); //add to hand
+    if (len == 0) return;
+    else { 
+        auto it = owner->board[i].enchantments.begin();
+        owner->board[i].enchantments.erase(it);
+    }
+}
+void raisedead(Player *played) {
+    int len = owner->graveyard.size(); //add to hand
+    if (len == 0) return;
+    else { 
+        auto it = owner->graveyard.begin();
+        owner->graveyard.erase(it);
+    }
+}
+void blizzard(Player *played, Player *owner){
+    int len = played->board.size;
+    string t = "";
+    for (int i = 0; i < len; i++) {
+        t = owner->board[i].getType();
+        if (t == "minion") {
+            owner->board[i].defense -= 2;
+        }
+    }
+}
 
 // |-------------------------------||-------------------------------||-------------------------------|
 // | Banish                  |   2 || Unsummon                |   1 || Recharge                |   1 |
