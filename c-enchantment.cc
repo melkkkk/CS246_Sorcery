@@ -17,9 +17,11 @@ export class Enchantment: public Card {
     Ritual(string name, int cost, int attack = 0, int defense = 0, string desc = "");
     //owner is owner of card selected in input or opponent based on spell
     //void pointer for card i or ritual r
-    void darkRitual(Player played);
-    void auraOfPower(Player played);
-    void standstill(Player played);
+    void giantStrength(Player *played, Player *owner, int *p);
+    void enrage(Player *played, Player *owner, int *p);
+    void haste(Player *played, Player *owner, int *p);
+    void magicFatigue(Player *played, Player *owner, int *p);
+    void silence(Player *played, Player *owner, int *p);
 };
 
 //CTOR
@@ -34,11 +36,11 @@ Ritual::Ritual(string name, int cost, int attack = 0, int defense = 0, string de
 //selects which spell to use
 void Ritual::playRitual(Player *played, Player *owner, int *p) {
     string name = s.getName();
-    if (name == "Giant Strength") { darkRitual(played); }
-    else if (name == "Enrage") { auraOfPower(played); }
-    else if (name == "Haste") { this->desc = "Enchanted minion gains +1 action each turn"; }
-    else if (name == "Magic Fatigue") { this->desc = "Enchanted minion's activated ability costs 2 more"; }
-    else if (name == "Silence") { this->desc = "Whenever a minion enters play, destroy it"; }
+    if (name == "Giant Strength") { giantStrength(played, owner, p); }
+    else if (name == "Enrage") { enrage(played, owner, p); }
+    else if (name == "Haste") { haste(played, owner, p); }
+    else if (name == "Magic Fatigue") { magicFatigue(played, owner, p); }
+    else if (name == "Silence") { silence(played, owner, p); }
 }
 
 void giantStrength(Player *played, Player *owner, int *p) {}

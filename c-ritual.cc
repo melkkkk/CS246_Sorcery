@@ -7,14 +7,14 @@ import player;
 using namespace std;
 
 export class Ritual: public Card {
-    int charge;
+    int charges;
     int activiation;
     string desc;
 
   protected:
     //void setState(State newS);
   public:
-    Ritual(string name, int cost, int charge, int activation);
+    Ritual(string name, int cost, int charges, int activation);
     //owner is owner of card selected in input or opponent based on spell
     //void pointer for card i or ritual r
     void darkRitual(Player played);
@@ -23,7 +23,9 @@ export class Ritual: public Card {
 };
 
 //CTOR
-Ritual::Ritual(string name, int cost, int charge, int activation): Card{name, cost} {
+Ritual::Ritual(string name, int cost, int charges, int activation): Card{name, cost} {
+    this->charges = charges;
+    this->activation = activation;
     if (name == "Dark Ritual") { this->desc = "At the start of your turn, gain 1 magic"; }
     else if (name == "Aura of Power") { this->desc = "Whenever a minion enters play under your control it gains +1/+1"; }
     else if (name == "Standstill") { this->desc = "Whenever a minion enters play, destroy it"; }
