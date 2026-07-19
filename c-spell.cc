@@ -15,12 +15,12 @@ export class Spell: public Card {
     Spell(string name, int cost);
     //owner is owner of card selected in input or opponent based on spell
     //void pointer for card i or ritual r
-    void playspell(Player played, Player owner, Spell s, void *p);
-    void banish(Player played, Player owner, void *p);
-    void unsummon(Player played, Player owner, void *p);
+    void playspell(Player played, Player owner, Spell s, int *p);
+    void banish(Player played, Player owner, int *p);
+    void unsummon(Player played, Player owner, int *p);
     void recharge(Player played);
-    void disenchant(Player played, Player owner, void *p);
-    void raisedead(Player played);
+    void disenchant(Player played, Player owner, int *p);
+    void raiseDead(Player played);
     void blizzard(Player played, Player owner);
 };
 
@@ -35,22 +35,22 @@ Spell::Spell(string name, int cost): Card{name, cost} {
 }
 
 //selects which spell to use
-void Spell::playspell(Player *played, Player *owner, Spell s, void *p) {
-    string name = s.getName();
-    if (name == "Banish") { banish(played, owner, p); }
-    else if (name == "Unsummon") { unsummon(played, owner, p); }
-    else if (name == "Recharge") { recharge(played); }
-    else if (name == "Disenchant") { this->desc = "Destroy the top enchantment"; }
-    else if (name == "Raise Dead") { this->desc = "Resurrect the top minion in your graveyard and set its defence to 1"; }
-    else if (name == "Blizzard") { this->desc = "Deal 2 damage to all minions"; }
-}
+// void Spell::playspell(Player *played, Player *owner, Spell s, int *p) {
+//     string name = s.getName();
+//     if (name == "Banish") { banish(played, owner, p); }
+//     else if (name == "Unsummon") { unsummon(played, owner, p); }
+//     else if (name == "Recharge") { recharge(played); }
+//     else if (name == "Disenchant") { disenchant(played, owner, p); }
+//     else if (name == "Raise Dead") { raiseDead(played); }
+//     else if (name == "Blizzard") { blizzard(played, owner); }
+// }
 
-void banish(Player *played, Player *owner, void *p) {
+void banish(Player *played, Player *owner, int *p) {
     int i = &p;
     Card *it = owner->board[i];
     owner->board.erase(it);
 }
-void unsummon(Player *played, Player *owner. void *p) {
+void unsummon(Player *played, Player *owner. int *p) {
     int i = &p;
     owner->hand.emplace_back = owner->board[i]; //add to hand
     Card *it = owner->board[i];
@@ -67,7 +67,7 @@ void recharge(Player *played) {
         }
     }
 }
-void disenchant(Player *played, Player *owner, void *p) {
+void disenchant(Player *played, Player *owner, int *p) {
     int i = &p;
     int len = owner->board[i].enchantments.size(); //add to hand
     if (len == 0) return;
@@ -76,7 +76,7 @@ void disenchant(Player *played, Player *owner, void *p) {
         owner->board[i].enchantments.erase(it);
     }
 }
-void raisedead(Player *played) {
+void raiseDead(Player *played) {
     int len = owner->graveyard.size(); //add to hand
     if (len == 0) return;
     else { 
