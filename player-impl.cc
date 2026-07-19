@@ -9,9 +9,9 @@ import <iostream>;
 
 using namespace std;
 
-void Player::setName(string name){
-    this->name = name;
-}
+Player::Player(string name, int life, int magic): name{name}, life{life}, magic{magic}{}
+
+void Player::setName(string name) {this->name = name;}
 
 void Player::setDeck(ifstream& infile){
     string card_name;
@@ -20,6 +20,4 @@ void Player::setDeck(ifstream& infile){
     }
 }
 
-string Player::getName(){
-    return name;
-}
+string Player::getName(){return name;}

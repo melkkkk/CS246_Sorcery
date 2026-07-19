@@ -7,6 +7,7 @@ import <sstream>;
 
 using namespace std;
 
+// counts the number of inputs in a string like "attack 1 2 3" -> 3 inputs
 int count_inputs(string s){
     int counter = 0;
     stringstream ss{s};
@@ -49,10 +50,13 @@ int main(int argc, char *argv []){
             // activate graphics idk
         } else {
             cerr << "'" << command << "' is an invalid command" << endl;
+            return 2;
         }
     }
 
     // add more initialization stuff here
+    // shuffle decks
+    // add hands
     
     // get names of players, change later if -init is being used
     string name;
@@ -106,28 +110,28 @@ int main(int argc, char *argv []){
                 }
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
         } else if (first == "attack") {
-            if (inputs == 1) {
-                ss >> i;
-                cout << "MINION " << i << " ATTACKS PLAYER" << endl;
-            } else if (inputs >= 2) {
+            if (inputs >= 2) {
                 ss >> i >> j;
                 cout << "MINION " << i << " ATTACKS OPPOSING MINION " << j << endl;
+            } else if (inputs >= 1) {
+                ss >> i;
+                cout << "MINION " << i << " ATTACKS PLAYER" << endl;
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
         } else if (first == "play") {
-            if (inputs == 1) {
-                ss >> i;
-                cout << "PLAY " << i << " CARD NO TARGET" << endl;
-            } else if (inputs >= 3) {
+            if (inputs >= 3) {
                 ss >> i >> j >> k;
                 cout << "PLAY " << i << " CARD ON PLAYER " << j << " ON THEIR " << k << " MINION" << endl;
+            } else if (inputs >= 1) {
+                ss >> i;
+                cout << "PLAY " << i << " CARD NO TARGET" << endl;
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
         } else if (first == "use") {
-            if (inputs == 1) {
-                ss >> i;
-                cout << "PLAY " << i << " ACTIVATED ABILITY NO TARGET" << endl;
-            } else if (inputs >= 3) {
+            if (inputs >= 3) {
                 ss >> i >> j >> k;
                 cout << "USE " << i << " ACTIVATED ABILITY ON PLAYER " << j << " ON THEIR " << k << " MINION" << endl;
+            } else if (inputs >= 1) {
+                ss >> i;
+                cout << "PLAY " << i << " ACTIVATED ABILITY NO TARGET" << endl;
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
         } else if (first == "inspect") {
             if (inputs >= 1) {
@@ -143,7 +147,6 @@ int main(int argc, char *argv []){
         }
     }
 
-    // string 
+    return 0;
 }
 
-//

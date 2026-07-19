@@ -11,6 +11,8 @@ export class Player;
 
 export class Player{
     string name;
+    int life;
+    int magic;
     vector<Card> deck;
     vector<Card> hand;
     vector<Card> graveyard;
@@ -18,6 +20,7 @@ export class Player{
     // Board B;
 
   public:
+    Player(string name = "", int life = 20, int magic = 3);
     void setName(string name);
     void setDeck(ifstream& infile);
     string getName();
