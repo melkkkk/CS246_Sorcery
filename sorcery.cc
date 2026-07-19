@@ -9,7 +9,7 @@ import <random>;
 
 using namespace std;
 
-// counts the number of inputs in a string like "attack 1 2 3" -> 3 inputs
+// counts the number of inputs in a string like "attack 1 2" -> 2 inputs
 int count_inputs(string s){
     int counter = 0;
     stringstream ss{s};
@@ -21,19 +21,19 @@ int count_inputs(string s){
 }
 
 int main(int argc, char *argv []){
-    // for testing mode
-    bool testing = false;
+    // setting up random seed
+    unsigned seed = chrono::system_clock::now().time_since_epoch().count();
+    default_random_engine rng{seed};
 
     // creating player objects
     Player p1;
     Player p2;
-    Player *actPlayer = &p1;
+    Player *actPlayer = &p1; // going to be using these pointers for most the time i think
     Player *nonPlayer = &p2;
-
-    // setting up random seed
-    unsigned seed = chrono::system_clock::now().time_since_epoch().count();
-    default_random_engine rng{seed};
     
+    // for testing mode
+    bool testing = false;
+
     // parsing through command line arguments
     for (int i = 1; i < argc; ++i){
         string command(argv[i]);
