@@ -13,12 +13,13 @@ export module state;
              new piece, of my colour, and is a straight line away from me.  OR
              I am an in between piece, and am changing my colour now.
 */
-export enum class StateType { NewPiece, Relay, Reply };
-export enum class Colour { Nothing, Black, White };
-export enum class Direction { NW, N, NE, W, E, SW, S, SE };
+export enum class StateType { StartOfTurn, EndOfTurn, MinionPlayed };
+export enum class CardType { Ritual, Spell, Enchantment, Minion };
+//export enum class Direction { NW, N, NE, W, E, SW, S, SE };
 
 export struct State {
-    StateType type;  // See above
-    Colour colour;   // What colour was the new piece? (NOT what is my colour)
-    Direction direction;  // In which direction from me is the new piece?
+    StateType sType;  // See above
+    CardType cType;   // What colour was the new piece? (NOT what is my colour)
+    //Direction direction;  // In which direction from me is the new piece?
+    
 };

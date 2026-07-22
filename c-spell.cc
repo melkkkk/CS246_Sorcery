@@ -63,7 +63,7 @@ void recharge(Player *played) {
     for (int i = 0; i < len; i++) {
         t = played->board[i].getType();
         if (t == "ritual") {
-            played->board[i].charges += 3;
+            played->board[i].addC(3);
         }
     }
 }
@@ -77,11 +77,12 @@ void disenchant(Player *played, Player *owner, int *p) {
     }
 }
 void raiseDead(Player *played) {
-    int len = owner->graveyard.size(); //add to hand
+    int len = owner->graveyard.size(); //check non empty graveyard
     if (len == 0) return;
     else { 
+        owner->hand.emplace_back(owner->graveyard.begin()); //add to hand
         auto it = owner->graveyard.begin();
-        owner->graveyard.erase(it);
+        owner->graveyard.erase(it); //remove from graveyard
     }
 }
 void blizzard(Player *played, Player *owner){
@@ -90,7 +91,7 @@ void blizzard(Player *played, Player *owner){
     for (int i = 0; i < len; i++) {
         t = owner->board[i].getType();
         if (t == "minion") {
-            owner->board[i].defense -= 2;
+            owner->board[i].addD(-2);
         }
     }
 }

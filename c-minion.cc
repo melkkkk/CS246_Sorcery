@@ -51,12 +51,21 @@ export class Minion: public Card {
     void Minion::multA(int i = 1) { attack *= i; }
     void Minion::multD(int i = 1) { defense *= i; }
 
-void Minion::notify(Card &whoFrom) {
-  if () {
 
+//export enum class StateType { StartOfTurn, EndOfTurn, MinionPlayed };
+//export enum class CardType { Ritual, Spell, Enchantment, Minion };
+
+void Minion::notify(State &whoFrom, Player *active) {
+  if (whoFrom.sType == StateType::StartOfTurn) {
+    //check enchantment haste (+1 each start of turn)
   }
-  else if {}
-  
+  else if (whoFrom.sType == StateType::EndOfTurn) {
+
+  } else if (whoFrom.sType == StateType::MinionPlayed) {
+    if (whoFrom.cType == CardType::Minion) {
+      //have condition for jsut entered play
+    }
+  }
 }
 
 
