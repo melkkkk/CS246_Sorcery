@@ -8,7 +8,7 @@ using namespace std;
 
 export class Ritual: public Card {
     int charges;
-    int activiation;
+    int activation;
     string desc;
 
   protected:
@@ -25,12 +25,20 @@ export class Ritual: public Card {
     //multiply charge
     void addC(int i = 1);
     void multC(int i = 1);
+
+    //removes the activation from charge
+    void played();
 };
 
 //add charge
 //multiply charge
 void Ritual::addC(int i = 1) { charges += i; }
 void Ritual::multC(int i = 1) { charges *= i; }
+
+//removes the activation from charge
+void played() {
+  this.addC(-(activation));
+}
 
 //CTOR
 Ritual::Ritual(string name, int cost, int charges, int activation): Card{name, cost} {
@@ -61,7 +69,10 @@ void standstill(Player played) {
 
 void Ritual::notify(State &whoFrom, Player *active) {
   if (whoFrom.sType == StateType::StartOfTurn) {
-    //check enchantment haste (+1 each start of turn)
+    //check if dark ritual then add 1 to magic
+    if (this.getname() == "Dark Ritual") {
+      if (charges > activation) { active->addM(1); this.played(); }
+    }
   }
   else if (whoFrom.sType == StateType::EndOfTurn) {
     // would add any cards of end of turn type here
