@@ -52,7 +52,7 @@ export class Minion: public Card {
     void Minion::multD(int i = 1) { defense *= i; }
 
 
-//export enum class StateType { StartOfTurn, EndOfTurn, MinionPlayed };
+//export enum class StateType { StartOfTurn, EndOfTurn, MinionPlayed, Other };
 //export enum class CardType { Ritual, Spell, Enchantment, Minion };
 
 void Minion::notify(State &whoFrom, Player *active) {
@@ -60,10 +60,12 @@ void Minion::notify(State &whoFrom, Player *active) {
     //check enchantment haste (+1 each start of turn)
   }
   else if (whoFrom.sType == StateType::EndOfTurn) {
-
+    // would add any cards of end of turn type here
   } else if (whoFrom.sType == StateType::MinionPlayed) {
     if (whoFrom.cType == CardType::Minion) {
-      //have condition for jsut entered play
+      if (whoFrom.rType == RitualType::StandStill) { active->board.pop_back(); }
+      else if (whoFrom.rType == RitualType::AuraOfPower) { this.addA(); this.addD(); }
+      //any other minion play activated things
     }
   }
 }
