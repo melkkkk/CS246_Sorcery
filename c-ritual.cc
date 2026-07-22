@@ -20,7 +20,17 @@ export class Ritual: public Card {
     void darkRitual(Player played);
     void auraOfPower(Player played);
     void standstill(Player played);
+
+    //add charge
+    //multiply charge
+    void addC(int i = 1);
+    void multC(int i = 1);
 };
+
+//add charge
+//multiply charge
+void Ritual::addC(int i = 1) { charges += i; }
+void Ritual::multC(int i = 1) { charges *= i; }
 
 //CTOR
 Ritual::Ritual(string name, int cost, int charges, int activation): Card{name, cost} {
@@ -39,9 +49,15 @@ void Ritual::playRitual(Player *played, Player *owner, int *p) {
     else if (name == "Standstill") { standstill(played); }
 }
 
-void darkRitual(Player played) { }
-void auraOfPower(Player played) {}
-void standstill(Player played) {}
+void darkRitual(Player played) {
+  //change condition to activated at start of turn, gains value
+}
+void auraOfPower(Player played) {
+  //change condition to activated for minion in play under activated players control, add to value
+}
+void standstill(Player played) {
+  //change condition to activated for minion in play, destory it
+}
 
 // |-------------------------------||-------------------------------||-------------------------------|
 // | Dark Ritual             |   0 || Aura of Power           |   1 || Standstill              |   3 |

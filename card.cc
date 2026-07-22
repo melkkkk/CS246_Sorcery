@@ -29,11 +29,15 @@ export class Card {
     //State getState() const;
 };
 
-// export class Observer {
-//   public:
-//     // Pass the Subject that called the notify method.
-//     virtual void notify(Subject &whoFrom) = 0; 
-//     virtual ~Observer() = default;
-// };
+export class Observer {
+  public:
+    // Pass the Subject that called the notify method.
+    virtual void notify(Card &whoFrom) = 0; 
+    virtual ~Observer() = default;
+};
 
-//
+//void Subject::attach(Observer *o) { observers.emplace_back(o); }
+//void Subject::notifyObservers() { for (auto &ob : observers) ob->notify(*this); }
+//void Subject::setState(State newS) { state = newS; }
+//State Subject::getState() const { return state; }
+

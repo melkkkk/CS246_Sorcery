@@ -3,6 +3,7 @@ import <vector>;
 import <string>;
 import card;
 import player;
+import minion;
 
 using namespace std;
 
@@ -43,11 +44,21 @@ void Ritual::playRitual(Player *played, Player *owner, int *p) {
     else if (name == "Silence") { silence(played, owner, p); }
 }
 
-void giantStrength(Player *played, Player *owner, int *p) {}
+void giantStrength(Player *played, Player *owner, int *p) {
+  owner->hand[p].addA(2);
+  owner->hand[p].addD(2);
+}
 void enrage(Player *played, Player *owner, int *p) {}
 void haste(Player *played, Player *owner, int *p) {}
 void magicFatigue(Player *played, Player *owner, int *p) {}
 void silence(Player *played, Player *owner, int *p) {}
+
+string name;
+    int life;
+    int magic;
+    vector<string> deck;
+    vector<Card> hand;
+    vector<Card> graveyard;
 
 // |-------------------------------||-------------------------------||-------------------------------|
 // | Giant Strength          |   1 || Enrage                  |   2 || Haste                   |   1 |

@@ -27,7 +27,37 @@ export class Minion: public Card {
     void novicePyromancer(Player *played, int *target);
     void apprenticeSummoner(Player *played, int *target);
     void masterSummoner(Player *played, int *target);
+
+    //add Attack
+    //add Defense
+    void addA(int i = 1);
+    void addD(int i = 1);
+    //multiply Attack
+    //multiply Defense
+    void multA(int i = 1);
+    void multD(int i = 1);
+
+    //observer overrides
+    void notify(Card &whoFrom) override;
+
 };
+
+    //add Attack
+    //add Defense
+    void Minion::addA(int i = 1) { attack += i; }
+    void Minion::addD(int i = 1) { defense += i; }
+    //multiply Attack
+    //multiply Defense
+    void Minion::multA(int i = 1) { attack *= i; }
+    void Minion::multD(int i = 1) { defense *= i; }
+
+void Minion::notify(Card &whoFrom) {
+  if () {
+
+  }
+  else if {}
+  
+}
 
 
 // |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
