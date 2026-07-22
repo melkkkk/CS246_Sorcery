@@ -59,6 +59,21 @@ void standstill(Player played) {
   //change condition to activated for minion in play, destory it
 }
 
+void Ritual::notify(State &whoFrom, Player *active) {
+  if (whoFrom.sType == StateType::StartOfTurn) {
+    //check enchantment haste (+1 each start of turn)
+  }
+  else if (whoFrom.sType == StateType::EndOfTurn) {
+    // would add any cards of end of turn type here
+  } else if (whoFrom.sType == StateType::MinionPlayed) {
+    if (whoFrom.cType == CardType::Minion) {
+      if (whoFrom.rType == RitualType::StandStill) { active->board.pop_back(); }
+      else if (whoFrom.rType == RitualType::AuraOfPower) { this.addA(); this.addD(); }
+      //any other minion play activated things
+    }
+  }
+}
+
 // |-------------------------------||-------------------------------||-------------------------------|
 // | Dark Ritual             |   0 || Aura of Power           |   1 || Standstill              |   3 |
 // |-------------------------------||-------------------------------||-------------------------------|
