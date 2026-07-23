@@ -39,7 +39,7 @@ int main(int argc, char *argv []){
     // parsing through command line arguments
     for (int i = 1; i < argc; ++i){
         string command(argv[i]);
-        // cout << command << endl;
+        // cout << command << endl; // default.deck if no specified
         if (command == "-deck1") {
             ++i;
             ifstream infile{argv[i]};
