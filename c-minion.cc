@@ -42,14 +42,23 @@ export class Minion: public Card {
 
 };
 
-    //add Attack
-    //add Defense
-    void Minion::addA(int i = 1) { attack += i; }
-    void Minion::addD(int i = 1) { defense += i; }
-    //multiply Attack
-    //multiply Defense
-    void Minion::multA(int i = 1) { attack *= i; }
-    void Minion::multD(int i = 1) { defense *= i; }
+//add Attack
+//add Defense
+void Minion::addA(int i = 1) { attack += i; }
+void Minion::addD(int i = 1) { defense += i; }
+//multiply Attack
+//multiply Defense
+void Minion::multA(int i = 1) { attack *= i; }
+void Minion::multD(int i = 1) { defense *= i; }
+
+void Minion::airElemental(Player *played, int *target) {}
+void Minion::earthElemental(Player *played, int *target) {}
+void Minion::boneGolem(Player *played, int *target) {}
+void Minion::fireElemental(Player *played, int *target) {}
+void Minion::potionSeller(Player *played, int *target) {}
+void Minion::novicePyromancer(Player *played, int *target) {}
+void Minion::apprenticeSummoner(Player *played, int *target) {}
+void Minion::masterSummoner(Player *played, int *target) {}
 
 
 //export enum class StateType { StartOfTurn, EndOfTurn, MinionPlayed, Other };
@@ -69,6 +78,7 @@ void Minion::notify(State &whoFrom, Player *active) {
     }
   }
 }
+
 
 
 // |-------------------------------||-------------------------------||-------------------------------||-------------------------------|

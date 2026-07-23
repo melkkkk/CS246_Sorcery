@@ -1,5 +1,3 @@
-card.cc
-card-impl.cc
-player.cc
-player-impl.cc
+plard.cc
+plard-impl.cc
 sorcery.cc

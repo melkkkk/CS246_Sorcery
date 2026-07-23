@@ -35,14 +35,14 @@ Ritual::Ritual(string name, int cost, int attack = 0, int defense = 0, string de
 }
 
 //selects which spell to use
-void Ritual::playRitual(Player *played, Player *owner, int *p) {
-    string name = s.getName();
-    if (name == "Giant Strength") { giantStrength(played, owner, p); }
-    else if (name == "Enrage") { enrage(played, owner, p); }
-    else if (name == "Haste") { haste(played, owner, p); }
-    else if (name == "Magic Fatigue") { magicFatigue(played, owner, p); }
-    else if (name == "Silence") { silence(played, owner, p); }
-}
+// void Ritual::playRitual(Player *played, Player *owner, int *p) {
+//     string name = s.getName();
+//     if (name == "Giant Strength") { giantStrength(played, owner, p); }
+//     else if (name == "Enrage") { enrage(played, owner, p); }
+//     else if (name == "Haste") { haste(played, owner, p); }
+//     else if (name == "Magic Fatigue") { magicFatigue(played, owner, p); }
+//     else if (name == "Silence") { silence(played, owner, p); }
+// }
 
 void giantStrength(Player *played, Player *owner, int *p) {
   owner->hand[p].addA(2);

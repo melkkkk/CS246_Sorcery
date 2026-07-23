@@ -1,5 +1,4 @@
-import card;
-import player;
+import plard;
 
 import <iostream>;
 import <fstream>;

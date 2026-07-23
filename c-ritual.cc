@@ -50,12 +50,12 @@ Ritual::Ritual(string name, int cost, int charges, int activation): Card{name, c
 }
 
 //selects which spell to use
-void Ritual::playRitual(Player *played, Player *owner, int *p) {
-    string name = s.getName();
-    if (name == "Dark Ritual") { darkRitual(played); }
-    else if (name == "Aura of Power") { auraOfPower(played); }
-    else if (name == "Standstill") { standstill(played); }
-}
+// void Ritual::playRitual(Player *played, Player *owner, int *p) {
+//     string name = s.getName();
+//     if (name == "Dark Ritual") { darkRitual(played); }
+//     else if (name == "Aura of Power") { auraOfPower(played); }
+//     else if (name == "Standstill") { standstill(played); }
+// }
 
 void darkRitual(Player played) {
   //change condition to activated at start of turn, gains value
