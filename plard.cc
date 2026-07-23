@@ -64,6 +64,9 @@ export class Player{
     void setDeck(ifstream& infile);
     void shuffleDeck(default_random_engine &rng);
     void drawCard();
+
+    void addL(int i);
+    void addM(int i);
 };
 
 // export class Board{

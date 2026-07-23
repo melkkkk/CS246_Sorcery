@@ -78,8 +78,8 @@ void Ritual::notify(State &whoFrom, Player *active) {
     // would add any cards of end of turn type here
   } else if (whoFrom.sType == StateType::MinionPlayed) {
     if (whoFrom.cType == CardType::Minion) {
-      if (whoFrom.rType == RitualType::StandStill) { active->board.pop_back(); }
-      else if (whoFrom.rType == RitualType::AuraOfPower) { this.addA(); this.addD(); }
+      if (this->getname() == "Standstill") { active->board.pop_back(); }
+      else if (this->getname() == "Aura of Power") { this.addA(); this.addD(); }
       //any other minion play activated things
     }
   }

@@ -1,6 +1,14 @@
 export module game;
 
-import card;
+import plard;
+
+import minion;
+import ritual;
+import enchantment;
+import spell;
+
+import board;
+
 import <string>;
 import <vector>;
 import <fstream>;
@@ -46,16 +54,17 @@ void playCard(Player &active, int cindex, Player &other = nullptr, int i = -1) {
     else if (name == "Haste") { haste(active, other, i); }
     else if (name == "Magic Fatigue") { magicFatigue(active, other, i); }
     else if (name == "Silence") { silence(active, other, i); }
-    // minion
-    else if (name == "Air Elemental") { airElemental(active, i); }
-    else if (name == "Earth Elemental") { earthElemental(active, i); }
-    else if (name == "Bone Golem") { boneGolem(active, i); }
-    else if (name == "Fire  Elemental") { fireElemental(active, i); }
-    else if (name == "Potion Seller") { potionSeller(active, i); }
-    else if (name == "Novice Pyromancer") { novicePyromancer(active, i); }
-    else if (name == "Apprentice Summoner") { apprenticeSummoner(active, i); }
-    else if (name == "Master Summoner") { masterSummoner(active, i); }
+    // minion 
+    //just realized these dont even need this because they can only attack and use
+    // else if (name == "Air Elemental") { airElemental(active, i); }
+    // else if (name == "Earth Elemental") { earthElemental(active, i); }
+    // else if (name == "Bone Golem") { boneGolem(active, i); }
+    // else if (name == "Fire  Elemental") { fireElemental(active, i); }
+    // else if (name == "Potion Seller") { potionSeller(active, i); }
+    // else if (name == "Novice Pyromancer") { novicePyromancer(active, i); }
+    // else if (name == "Apprentice Summoner") { apprenticeSummoner(active, i); }
+    // else if (name == "Master Summoner") { masterSummoner(active, i); }
 
     //
-    
+
 }

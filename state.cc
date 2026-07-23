@@ -15,7 +15,7 @@ export module state;
 */
 
 //other is for any card played that either doesnt trigger anything
-export enum class StateType { StartOfTurn, EndOfTurn, MinionPlayed, Other };
+export enum class StateType { StartOfTurn, EndOfTurn, MinionPlayed, MinionLeft, Other };
 export enum class CardType { Ritual, Spell, Enchantment, Minion };
 export enum class RitualType { Nothing, Standstill, AuraOfPower };
 //export enum class Direction { NW, N, NE, W, E, SW, S, SE };

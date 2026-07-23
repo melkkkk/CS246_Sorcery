@@ -1,3 +1,4 @@
+state.cc
 plard.cc
 plard-impl.cc
 sorcery.cc

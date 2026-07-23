@@ -12,6 +12,7 @@ export class Minion: public Card {
     string desc;
     int actions;
     // vector of enchantments
+    vector<Enchantment *> enchanted;
 
   protected:
     //void setState(State newS);
@@ -19,19 +20,22 @@ export class Minion: public Card {
     Minion(string name, int cost, int attack = 0, int defense = 0, string desc = "", int actions = 0;);
     //owner is owner of card selected in input or opponent based on spell
     //void pointer for card i or ritual r
-    void airElemental(Player *played, int *target);
-    void earthElemental(Player *played, int *target);
-    void boneGolem(Player *played, int *target);
-    void fireElemental(Player *played, int *target);
-    void potionSeller(Player *played, int *target);
-    void novicePyromancer(Player *played, int *target);
-    void apprenticeSummoner(Player *played, int *target);
-    void masterSummoner(Player *played, int *target);
+    // void airElemental(Player *played, int *target);
+    // void earthElemental(Player *played, int *target);
+    // void boneGolem(Player *played, int *target);
+    // void fireElemental(Player *played, int *target);
+    // void potionSeller(Player *played, int *target);
+    // void novicePyromancer(Player *played, int *target);
+    // void apprenticeSummoner(Player *played, int *target);
+    // void masterSummoner(Player *played, int *target);
+
+    void attack(Player *active, int indexM, Player *other = nullptr, int i = -1);
 
     //add Attack
     //add Defense
     void addA(int i = 1);
     void addD(int i = 1);
+    void addAction(int i = 1)
     //multiply Attack
     //multiply Defense
     void multA(int i = 1);
@@ -39,27 +43,67 @@ export class Minion: public Card {
 
     //observer overrides
     void notify(Card &whoFrom) override;
+    int getAttack();
+    int getDefense();
+    
 
 };
 
+int Minion::getAttack() { return attack; }
+int Minion::getDefense() { return defense; }
 //add Attack
 //add Defense
 void Minion::addA(int i = 1) { attack += i; }
 void Minion::addD(int i = 1) { defense += i; }
+void Minion::addAction(int i = 1) { attack += i; }
+
 //multiply Attack
 //multiply Defense
 void Minion::multA(int i = 1) { attack *= i; }
 void Minion::multD(int i = 1) { defense *= i; }
 
-void Minion::airElemental(Player *played, int *target) {}
-void Minion::earthElemental(Player *played, int *target) {}
-void Minion::boneGolem(Player *played, int *target) {}
-void Minion::fireElemental(Player *played, int *target) {}
-void Minion::potionSeller(Player *played, int *target) {}
-void Minion::novicePyromancer(Player *played, int *target) {}
-void Minion::apprenticeSummoner(Player *played, int *target) {}
-void Minion::masterSummoner(Player *played, int *target) {}
+Minion::Minion(string name, int cost, int attack = 0, int defense = 0, string desc = "", int actions = 0) {
 
+}
+
+// attack minion other-minion -- Orders minion to attack other-minion." << endl;
+// attack minion -- Orders minion to attack the opponent." << endl;
+// use minion [target-player target-card] -- Use minion's special ability, optionally targeting target-card owned by target-player. << end" << endl;
+// inspect minion -- View a minion's card and all enchantments on that minion." << endl;
+
+// void Minion::airElemental(Player *played, int *target) {}
+// void Minion::earthElemental(Player *played, int *target) {}
+// void Minion::boneGolem(Player *played, int *target) {}
+// void Minion::fireElemental(Player *played, int *target) {}
+// void Minion::potionSeller(Player *played, int *target) {}
+// void Minion::novicePyromancer(Player *played, int *target) {}
+// void Minion::apprenticeSummoner(Player *played, int *target) {}
+// void Minion::masterSummoner(Player *played, int *target) {}
+
+//if int i is negative then attacks player instead
+void attack(Player *active, int indexM, Player *other = nullptr, int i = -1) {
+  if (i < 0) {
+    int damage = active->board[indexM]->getAttack() * -1;
+    other.addL(damage);
+  } else {
+    int damageTo = active->board[indexM]->getAttack() * -1;
+    int damageFrom = other->board[i]->getAttack() * -1;
+    other->board[i]->addD(damageTo);
+    active->board[i]->addD(damageFrom);
+  }
+}
+
+void attack(Player *active, int indexM, Player *other = nullptr, int i = -1) {
+  if (i < 0) {
+    int damage = active->board[indexM]->getAttack() * -1;
+    other.addL(damage);
+  } else {
+    int damageTo = active->board[indexM]->getAttack() * -1;
+    int damageFrom = other->board[i]->getAttack() * -1;
+    other->board[i]->addD(damageTo);
+    active->board[i]->addD(damageFrom);
+  }
+}
 
 //export enum class StateType { StartOfTurn, EndOfTurn, MinionPlayed, Other };
 //export enum class CardType { Ritual, Spell, Enchantment, Minion };
@@ -72,9 +116,7 @@ void Minion::notify(State &whoFrom, Player *active) {
     // would add any cards of end of turn type here
   } else if (whoFrom.sType == StateType::MinionPlayed) {
     if (whoFrom.cType == CardType::Minion) {
-      //if (whoFrom.rType == RitualType::StandStill) { active->board.pop_back(); }
-      //else if (whoFrom.rType == RitualType::AuraOfPower) { this.addA(); this.addD(); }
-      //any other minion play activated things
+      
     }
   }
 }

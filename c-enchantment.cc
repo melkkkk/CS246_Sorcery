@@ -48,8 +48,13 @@ void giantStrength(Player *played, Player *owner, int *p) {
   owner->hand[p].addA(2);
   owner->hand[p].addD(2);
 }
-void enrage(Player *played, Player *owner, int *p) {}
-void haste(Player *played, Player *owner, int *p) {}
+void enrage(Player *played, Player *owner, int *p) {
+  owner->hand[p].multA(2);
+  owner->hand[p].multD(2);
+}
+void haste(Player *played, Player *owner, int *p) {
+  owner->hand[p].addAction();
+}
 void magicFatigue(Player *played, Player *owner, int *p) {}
 void silence(Player *played, Player *owner, int *p) {}
 

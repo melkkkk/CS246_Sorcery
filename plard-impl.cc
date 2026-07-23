@@ -18,6 +18,10 @@ int Card::getCost() {return cost; }
 
 Player::Player(string name, int life, int magic): name{name}, life{life}, magic{magic} {}
 
+//adding
+void Player::addL(int i) { life += i; }
+void Player::addM(int i) { magic += i; }
+
 // name getter and setters
 string Player::getName() {return name;}
 void Player::setName(string name) {this->name = name;}
