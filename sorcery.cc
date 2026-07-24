@@ -2,6 +2,7 @@ import state;
 import plard;
 import minion;
 import enchantment;
+import ritual;
 import game;
 
 import <iostream>;

@@ -5,6 +5,10 @@ c-minion.cc
 c-minion-impl.cc
 c-enchantment.cc
 c-enchantment-impl.cc
+c-ritual.cc
+c-ritual-impl.cc
+c-spell.cc
+c-spell-impl.cc
 game.cc
 game-impl.cc
 sorcery.cc
