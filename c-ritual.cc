@@ -58,12 +58,15 @@ Ritual::Ritual(string name, int cost, int charges, int activation): Card{name, c
 // }
 
 void darkRitual(Player played) {
+  cout << "bone golem called" << endl;
   //change condition to activated at start of turn, gains value
 }
 void auraOfPower(Player played) {
+  cout << "bone golem called" << endl;
   //change condition to activated for minion in play under activated players control, add to value
 }
 void standstill(Player played) {
+  cout << "bone golem called" << endl;
   //change condition to activated for minion in play, destory it
 }
 
