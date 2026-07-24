@@ -1,6 +1,5 @@
-import plard;
-import minion;
-import game;
+import card;
+import player;
 
 import <iostream>;
 import <fstream>;
@@ -31,7 +30,6 @@ int main(int argc, char *argv []){
     Player p2;
     Player *actPlayer = &p1; // going to be using these pointers for most the time i think
     Player *nonPlayer = &p2;
-
     
     // for testing mode
     bool testing = false;
@@ -90,11 +88,6 @@ int main(int argc, char *argv []){
     p2.setName(name);
     cout << "player name is " << p2.getName() << endl;
 
-
-
-    //make game object to call playcard
-    //Game g = Game(actPlayer, nonPlayer);
-
     // main game loop
     // bool quit = false;
     string command;
@@ -145,7 +138,6 @@ int main(int argc, char *argv []){
             if (inputs >= 2) {
                 ss >> i >> j;
                 cout << "MINION " << i << " ATTACKS OPPOSING MINION " << j << endl;
-                //g.
             } else if (inputs >= 1) {
                 ss >> i;
                 cout << "MINION " << i << " ATTACKS PLAYER" << endl;
@@ -154,7 +146,6 @@ int main(int argc, char *argv []){
             if (inputs >= 3) {
                 ss >> i >> j >> k;
                 cout << "PLAY " << i << " CARD ON PLAYER " << j << " ON THEIR " << k << " MINION" << endl;
-                /////////playCard();
             } else if (inputs >= 1) {
                 ss >> i;
                 cout << "PLAY " << i << " CARD NO TARGET" << endl;
