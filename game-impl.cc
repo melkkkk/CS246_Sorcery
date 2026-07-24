@@ -14,6 +14,8 @@ import <random>;
 
 using namespace std;
 
+Game::~Game() {}
+
 Game::Game(Player *active, Player *inactive): active{active}, inactive{inactive} {}
 
 //if int i is negative then attacks player instead
@@ -22,7 +24,7 @@ Game::Game(Player *active, Player *inactive): active{active}, inactive{inactive}
 //default args aready declared for last 2
 void Game::attackM(Player *active, int indexM, Player *other, int i) {
     cout << "called attack" << endl;
-    Minion *temp = dynamic_cast<Minion*>(active->getCardB(indexM));
+    //Minion *temp = dynamic_cast<Minion*>(active->getCardB(indexM));
     if (i < 0) {
         cout << "attacked player" << endl;
     //int damage = active->board[indexM]->getAttack() * -1;
@@ -40,16 +42,16 @@ void Game::attackM(Player *active, int indexM, Player *other, int i) {
 //minion only
 void Game::use(Player *active, int indexM, Player *other, int i) {
     cout << "called use" << endl;
-    Minion *temp = dynamic_cast<Minion*>(active->getCardB(indexM));
-    string name = temp->getName();
-    // else if (name == "Air Elemental") { airElemental(active, i); }
-    // else if (name == "Earth Elemental") { earthElemental(active, i); }
-    if (name == "Bone Golem") { temp->boneGolem(); }
-    else if (name == "Fire  Elemental") { temp->fireElemental(); }
-    else if (name == "Potion Seller") { temp->potionSeller(); }
-    else if (name == "Novice Pyromancer") { temp->novicePyromancer(other, i); }
-    else if (name == "Apprentice Summoner") { temp->apprenticeSummoner(active); }
-    else if (name == "Master Summoner") { temp->masterSummoner(active); }
+    // Minion *temp = dynamic_cast<Minion*>(active->getCardB(indexM));
+    // string name = temp->getName();
+    // // else if (name == "Air Elemental") { airElemental(active, i); }
+    // // else if (name == "Earth Elemental") { earthElemental(active, i); }
+    // if (name == "Bone Golem") { temp->boneGolem(); }
+    // else if (name == "Fire  Elemental") { temp->fireElemental(); }
+    // else if (name == "Potion Seller") { temp->potionSeller(); }
+    // else if (name == "Novice Pyromancer") { temp->novicePyromancer(other, i); }
+    // else if (name == "Apprentice Summoner") { temp->apprenticeSummoner(active); }
+    // else if (name == "Master Summoner") { temp->masterSummoner(active); }
 }
 
 void Game::playCard(Player *active, int indexC, Player *other, int i) {
