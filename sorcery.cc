@@ -89,14 +89,11 @@ int main(int argc, char *argv []){
     p2.setName(name);
     cout << "player name is " << p2.getName() << endl;
 
-<<<<<<< HEAD
-=======
 
 
     //make game object to call playcard
     Game g = Game(actPlayer, nonPlayer);
 
->>>>>>> 4ca3d6b (save before thing)
     // main game loop
     // bool quit = false;
     string command;
@@ -147,13 +144,10 @@ int main(int argc, char *argv []){
             if (inputs >= 2) {
                 ss >> i >> j;
                 cout << "MINION " << i << " ATTACKS OPPOSING MINION " << j << endl;
-<<<<<<< HEAD
-=======
                 //
 
                 g.attackM(actPlayer, stoi(i), nonPlayer, stoi(j));
 
->>>>>>> 4ca3d6b (save before thing)
             } else if (inputs >= 1) {
                 ss >> i;
                 cout << "MINION " << i << " ATTACKS PLAYER" << endl;
