@@ -4,12 +4,11 @@ import <string>;
 import card;
 import player;
 
-using namespace std;
 
 export class Minion: public Card {
     int attack;
     int defense;
-    string desc;
+    std::string desc;
     int actions;
     // vector of enchantments
     vector<Enchantment *> enchanted;
@@ -17,7 +16,7 @@ export class Minion: public Card {
   protected:
     //void setState(State newS);
   public:
-    Minion(string name, int cost, int attack = 0, int defense = 0, string desc = "", int actions = 0;);
+    Minion(std::string name, int cost, int attack = 0, int defense = 0, string desc = "", int actions = 0;);
     //owner is owner of card selected in input or opponent based on spell
     //void pointer for card i or ritual r
     
@@ -42,7 +41,7 @@ export class Minion: public Card {
     //multiply Defense
     void multA(int i = 1);
     void multD(int i = 1);
-    
+
     int getAttack();
     int getDefense();
 

@@ -1,13 +1,8 @@
-export module game;
+module game;
 
 import plard;
 
 import minion;
-// import ritual;
-// import enchantment;
-// import spell;
-
-//import board;
 
 import <string>;
 import <vector>;
@@ -16,39 +11,25 @@ import <iostream>;
 import <chrono>;   
 import <random>;
 
-export class Game;
-
-export class Game{
-    Player &active;
-    Player &inactive;
-    Board &b;
-    // vector<Card> board;
-    // Board B;
-
-  public:
-    Game();
-    void use(Player *active, int i, Player *inactive = nullptr, int i = -1);
-    void playCard(Player *active, int indexC, Player *inactive = nullptr, int i = -1);
-    ~Game();
-};
+using namespace std;
 
 // Use minion's special ability, optionally targeting target-card owned by target-player 
 //minion only
-// void use(Player *active, int indexM, Player *other = nullptr, int i = -1) {
-//     cout << "called use" << endl;
-//     string name = active->board[indexM]->getName();
-//     // else if (name == "Air Elemental") { airElemental(active, i); }
-//     // else if (name == "Earth Elemental") { earthElemental(active, i); }
-//     if (name == "Bone Golem") { boneGolem(active, i); }
-//     else if (name == "Fire  Elemental") { fireElemental(active, i); }
-//     else if (name == "Potion Seller") { potionSeller(active, i); }
-//     else if (name == "Novice Pyromancer") { novicePyromancer(active, i); }
-//     else if (name == "Apprentice Summoner") { apprenticeSummoner(active, i); }
-//     else if (name == "Master Summoner") { masterSummoner(active, i); }
-// }
+void Game::use(Player *active, int indexM, Player *other = nullptr, int i = -1) {
+    cout << "called use" << endl;
+    string name = active->board[indexM]->getName();
+    // else if (name == "Air Elemental") { airElemental(active, i); }
+    // else if (name == "Earth Elemental") { earthElemental(active, i); }
+    if (name == "Bone Golem") { boneGolem(active, i); }
+    else if (name == "Fire  Elemental") { fireElemental(active, i); }
+    else if (name == "Potion Seller") { potionSeller(active, i); }
+    else if (name == "Novice Pyromancer") { novicePyromancer(active, i); }
+    else if (name == "Apprentice Summoner") { apprenticeSummoner(active, i); }
+    else if (name == "Master Summoner") { masterSummoner(active, i); }
+}
 
-// void playCard(Player &active, int indexC, Player &other = nullptr, int i = -1) {
-//     cout << "card played" << endl;
+void Game::playCard(Player &active, int indexC, Player &other = nullptr, int i = -1) {
+    cout << "card played" << endl;
     // card played 
     // string name = active->hand[i].getname();
     // //spell
@@ -69,7 +50,7 @@ export class Game{
     // else if (name == "Magic Fatigue") { magicFatigue(active, other, i); }
     // else if (name == "Silence") { silence(active, other, i); }
     // minion 
-    // just realized these dont even need this because they can only attack and use
+    //just realized these dont even need this because they can only attack and use
     // we can just move from hand to board ig,,,
 
     // else if (name == "Air Elemental") { airElemental(active, i); }
@@ -81,6 +62,6 @@ export class Game{
     // else if (name == "Apprentice Summoner") { apprenticeSummoner(active, i); }
     // else if (name == "Master Summoner") { masterSummoner(active, i); }
 
-    
+    //
 
-// }
+}
