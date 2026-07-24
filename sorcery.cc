@@ -1,5 +1,7 @@
-import card;
-import player;
+import state;
+import plard;
+import minion;
+import game;
 
 import <iostream>;
 import <fstream>;
