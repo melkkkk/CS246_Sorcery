@@ -45,23 +45,6 @@ void Minion::apprenticeSummoner(Player *played) {
 void Minion::masterSummoner(Player *played) {
   cout << "master summoner called" << endl;}
 
-//if int i is negative then attacks player instead
-//deoesnt remove if one of them dies,,,
-
-//default args aready declared for last 2
-void Minion::attackM(Player *active, int indexM, Player *other, int i) {
-  if (i < 0) {
-  cout << "attacked player" << endl;
-    //int damage = active->board[indexM]->getAttack() * -1;
-    //other.addL(damage);
-  } else {
-  cout << "attacked minion: " << i << endl;
-    //int damageTo = active->board[indexM]->getAttack() * -1;
-    //int damageFrom = other->board[i]->getAttack() * -1;
-    //other->board[i]->addD(damageTo);
-    //active->board[i]->addD(damageFrom);
-  }
-}
 
 //export enum class StateType { StartOfTurn, EndOfTurn, MinionPlayed, Other };
 //export enum class CardType { Ritual, Spell, Enchantment, Minion };

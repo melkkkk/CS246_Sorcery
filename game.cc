@@ -19,8 +19,8 @@ import <random>;
 export class Game;
 
 export class Game{
-    Player &active;
-    Player &inactive;
+    Player *active;
+    Player *inactive;
 
     //will add these on later
     //Board &b;
@@ -28,7 +28,8 @@ export class Game{
     // Board B;
 
   public:
-    Game();
+    Game(Player *active, Player *inactive); //add board to this eventually
+    void attackM(Player *active, int indexM, Player *other = nullptr, int i = -1);
     void use(Player *active, int indexM, Player *inactive = nullptr, int i = -1);
     void playCard(Player *active, int indexC, Player *inactive = nullptr, int i = -1);
     ~Game();

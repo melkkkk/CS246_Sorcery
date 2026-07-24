@@ -30,7 +30,6 @@ export class Minion: public Card, public Observer {
     void apprenticeSummoner(Player *played);
     void masterSummoner(Player *played);
 
-    void attackM(Player *active, int indexM, Player *other = nullptr, int i = -1);
 
     //add Attack
     //add Defense

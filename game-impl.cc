@@ -14,6 +14,28 @@ import <random>;
 
 using namespace std;
 
+Game::Game(Player *active, Player *inactive): active{active}, inactive{inactive} {}
+
+//if int i is negative then attacks player instead
+//deoesnt remove if one of them dies,,,
+
+//default args aready declared for last 2
+void Game::attackM(Player *active, int indexM, Player *other, int i) {
+    cout << "called attack" << endl;
+    Minion *temp = dynamic_cast<Minion*>(active->getCardB(indexM));
+    if (i < 0) {
+        cout << "attacked player" << endl;
+    //int damage = active->board[indexM]->getAttack() * -1;
+    //other.addL(damage);
+    } else {
+        cout << "attacked minion: " << i << endl;
+    //int damageTo = active->board[indexM]->getAttack() * -1;
+    //int damageFrom = other->board[i]->getAttack() * -1;
+    //other->board[i]->addD(damageTo);
+    //active->board[i]->addD(damageFrom);
+    } 
+}
+
 // Use minion's special ability, optionally targeting target-card owned by target-player 
 //minion only
 void Game::use(Player *active, int indexM, Player *other, int i) {
