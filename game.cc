@@ -28,13 +28,26 @@ export class Game{
 
   public:
     Game();
-    void playCard(Player *active, int i, Player *inactive = nullptr, int i = -1);
+    void use(Player *active, int i, Player *inactive = nullptr, int i = -1);
+    void playCard(Player *active, int indexC, Player *inactive = nullptr, int i = -1);
     ~Game();
 };
 
+// Use minion's special ability, optionally targeting target-card owned by target-player 
+//minion only
+void use(Player *active, int indexM, Player *other = nullptr, int i = -1) {
+  if (i < 0) {
+    int damage = active->board[indexM]->getAttack() * -1;
+    other.addL(damage);
+  } else {
+    int damageTo = active->board[indexM]->getAttack() * -1;
+    int damageFrom = other->board[i]->getAttack() * -1;
+    other->board[i]->addD(damageTo);
+    active->board[i]->addD(damageFrom);
+  }
+}
 
-
-void playCard(Player &active, int cindex, Player &other = nullptr, int i = -1) {
+void playCard(Player &active, int indexC, Player &other = nullptr, int i = -1) {
     // card played 
     string name = active->hand[i].getname();
     //spell

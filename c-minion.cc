@@ -20,14 +20,16 @@ export class Minion: public Card {
     Minion(string name, int cost, int attack = 0, int defense = 0, string desc = "", int actions = 0;);
     //owner is owner of card selected in input or opponent based on spell
     //void pointer for card i or ritual r
-    // void airElemental(Player *played, int *target);
-    // void earthElemental(Player *played, int *target);
-    // void boneGolem(Player *played, int *target);
-    // void fireElemental(Player *played, int *target);
-    // void potionSeller(Player *played, int *target);
-    // void novicePyromancer(Player *played, int *target);
-    // void apprenticeSummoner(Player *played, int *target);
-    // void masterSummoner(Player *played, int *target);
+    
+
+    //void airElemental(Player *played, int *target);
+    //void earthElemental(Player *played, int *target);
+    void boneGolem(Player *played, int *target);
+    void fireElemental(Player *played, int *target);
+    void potionSeller(Player *played, int *target);
+    void novicePyromancer(Player *played, int *target);
+    void apprenticeSummoner(Player *played, int *target);
+    void masterSummoner(Player *played, int *target);
 
     void attack(Player *active, int indexM, Player *other = nullptr, int i = -1);
 
@@ -66,33 +68,17 @@ Minion::Minion(string name, int cost, int attack = 0, int defense = 0, string de
 
 }
 
-// attack minion other-minion -- Orders minion to attack other-minion." << endl;
-// attack minion -- Orders minion to attack the opponent." << endl;
-// use minion [target-player target-card] -- Use minion's special ability, optionally targeting target-card owned by target-player. << end" << endl;
-// inspect minion -- View a minion's card and all enchantments on that minion." << endl;
-
-// void Minion::airElemental(Player *played, int *target) {}
-// void Minion::earthElemental(Player *played, int *target) {}
-// void Minion::boneGolem(Player *played, int *target) {}
-// void Minion::fireElemental(Player *played, int *target) {}
-// void Minion::potionSeller(Player *played, int *target) {}
-// void Minion::novicePyromancer(Player *played, int *target) {}
-// void Minion::apprenticeSummoner(Player *played, int *target) {}
-// void Minion::masterSummoner(Player *played, int *target) {}
+//void Minion::airElemental(Player *played, int *target) {}
+//void Minion::earthElemental(Player *played, int *target) {}
+void Minion::boneGolem(Player *played, int *target) {}
+void Minion::fireElemental(Player *played, int *target) {}
+void Minion::potionSeller(Player *played, int *target) {}
+void Minion::novicePyromancer(Player *played, int *target) {}
+void Minion::apprenticeSummoner(Player *played, int *target) {}
+void Minion::masterSummoner(Player *played, int *target) {}
 
 //if int i is negative then attacks player instead
-void attack(Player *active, int indexM, Player *other = nullptr, int i = -1) {
-  if (i < 0) {
-    int damage = active->board[indexM]->getAttack() * -1;
-    other.addL(damage);
-  } else {
-    int damageTo = active->board[indexM]->getAttack() * -1;
-    int damageFrom = other->board[i]->getAttack() * -1;
-    other->board[i]->addD(damageTo);
-    active->board[i]->addD(damageFrom);
-  }
-}
-
+//deoesnt remove if one of them dies,,,
 void attack(Player *active, int indexM, Player *other = nullptr, int i = -1) {
   if (i < 0) {
     int damage = active->board[indexM]->getAttack() * -1;
