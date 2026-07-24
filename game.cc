@@ -36,15 +36,15 @@ export class Game{
 // Use minion's special ability, optionally targeting target-card owned by target-player 
 //minion only
 void use(Player *active, int indexM, Player *other = nullptr, int i = -1) {
-  if (i < 0) {
-    int damage = active->board[indexM]->getAttack() * -1;
-    other.addL(damage);
-  } else {
-    int damageTo = active->board[indexM]->getAttack() * -1;
-    int damageFrom = other->board[i]->getAttack() * -1;
-    other->board[i]->addD(damageTo);
-    active->board[i]->addD(damageFrom);
-  }
+    string name = active->board[indexM]->getName();
+    // else if (name == "Air Elemental") { airElemental(active, i); }
+    // else if (name == "Earth Elemental") { earthElemental(active, i); }
+    if (name == "Bone Golem") { boneGolem(active, i); }
+    else if (name == "Fire  Elemental") { fireElemental(active, i); }
+    else if (name == "Potion Seller") { potionSeller(active, i); }
+    else if (name == "Novice Pyromancer") { novicePyromancer(active, i); }
+    else if (name == "Apprentice Summoner") { apprenticeSummoner(active, i); }
+    else if (name == "Master Summoner") { masterSummoner(active, i); }
 }
 
 void playCard(Player &active, int indexC, Player &other = nullptr, int i = -1) {
@@ -69,6 +69,8 @@ void playCard(Player &active, int indexC, Player &other = nullptr, int i = -1) {
     else if (name == "Silence") { silence(active, other, i); }
     // minion 
     //just realized these dont even need this because they can only attack and use
+    // we can just move from hand to board ig,,,
+
     // else if (name == "Air Elemental") { airElemental(active, i); }
     // else if (name == "Earth Elemental") { earthElemental(active, i); }
     // else if (name == "Bone Golem") { boneGolem(active, i); }
