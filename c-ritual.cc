@@ -17,9 +17,9 @@ export class Ritual: public Card {
     Ritual(string name, int cost, int charges, int activation);
     //owner is owner of card selected in input or opponent based on spell
     //void pointer for card i or ritual r
-    void darkRitual(Player played);
-    void auraOfPower(Player played);
-    void standstill(Player played);
+    void darkRitual(Player *played);
+    void auraOfPower(Player *played);
+    void standstill(Player *played);
 
     //add charge
     //multiply charge
@@ -28,6 +28,9 @@ export class Ritual: public Card {
 
     //removes the activation from charge
     void played();
+
+    //observer
+    //void Ritual::notify(State &whoFrom, Player *active)
 };
 
 //add charge
@@ -37,7 +40,7 @@ void Ritual::multC(int i = 1) { charges *= i; }
 
 //removes the activation from charge
 void played() {
-  this.addC(-(activation));
+  //this.addC(-(activation));
 }
 
 //CTOR
@@ -57,36 +60,36 @@ Ritual::Ritual(string name, int cost, int charges, int activation): Card{name, c
 //     else if (name == "Standstill") { standstill(played); }
 // }
 
-void darkRitual(Player played) {
-  cout << "bone golem called" << endl;
+void darkRitual(Player *played) {
+  cout << "darkRitual called" << endl;
   //change condition to activated at start of turn, gains value
 }
-void auraOfPower(Player played) {
-  cout << "bone golem called" << endl;
+void auraOfPower(Player *played) {
+  cout << "auraOfPower called" << endl;
   //change condition to activated for minion in play under activated players control, add to value
 }
-void standstill(Player played) {
-  cout << "bone golem called" << endl;
+void standstill(Player *played) {
+  cout << "standstill called" << endl;
   //change condition to activated for minion in play, destory it
 }
 
-void Ritual::notify(State &whoFrom, Player *active) {
-  if (whoFrom.sType == StateType::StartOfTurn) {
-    //check if dark ritual then add 1 to magic
-    if (this.getname() == "Dark Ritual") {
-      if (charges > activation) { active->addM(1); this.played(); }
-    }
-  }
-  else if (whoFrom.sType == StateType::EndOfTurn) {
-    // would add any cards of end of turn type here
-  } else if (whoFrom.sType == StateType::MinionPlayed) {
-    if (whoFrom.cType == CardType::Minion) {
-      if (this->getname() == "Standstill") { active->board.pop_back(); }
-      else if (this->getname() == "Aura of Power") { this.addA(); this.addD(); }
-      //any other minion play activated things
-    }
-  }
-}
+// void Ritual::notify(State &whoFrom, Player *active) {
+//   if (whoFrom.sType == StateType::StartOfTurn) {
+//     //check if dark ritual then add 1 to magic
+//     if (this.getname() == "Dark Ritual") {
+//       if (charges > activation) { active->addM(1); this.played(); }
+//     }
+//   }
+//   else if (whoFrom.sType == StateType::EndOfTurn) {
+//     // would add any cards of end of turn type here
+//   } else if (whoFrom.sType == StateType::MinionPlayed) {
+//     if (whoFrom.cType == CardType::Minion) {
+//       if (this->getname() == "Standstill") { active->board.pop_back(); }
+//       else if (this->getname() == "Aura of Power") { this.addA(); this.addD(); }
+//       //any other minion play activated things
+//     }
+//   }
+// }
 
 // |-------------------------------||-------------------------------||-------------------------------|
 // | Dark Ritual             |   0 || Aura of Power           |   1 || Standstill              |   3 |

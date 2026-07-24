@@ -1,6 +1,7 @@
 import state;
 import plard;
 import minion;
+import enchantment;
 import game;
 
 import <iostream>;

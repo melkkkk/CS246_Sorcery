@@ -3,6 +3,8 @@ plard.cc
 plard-impl.cc
 c-minion.cc
 c-minion-impl.cc
+c-enchantment.cc
+c-enchantment-impl.cc
 game.cc
 game-impl.cc
 sorcery.cc

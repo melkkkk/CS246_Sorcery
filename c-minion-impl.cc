@@ -13,7 +13,7 @@ int Minion::getDefense() { return defense; }
 //add Defense
 void Minion::addA(int i) { attack += i; }
 void Minion::addD(int i) { defense += i; }
-void Minion::addAction(int i) { attack += i; }
+void Minion::addAction(int i) { actions += i; }
 
 //multiply Attack
 //multiply Defense
