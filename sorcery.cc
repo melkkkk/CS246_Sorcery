@@ -1,5 +1,6 @@
 import plard;
 import minion;
+import game;
 
 import <iostream>;
 import <fstream>;
@@ -92,7 +93,7 @@ int main(int argc, char *argv []){
 
 
     //make game object to call playcard
-    Game g = Game(actPlayer, nonPlayer);
+    //Game g = Game(actPlayer, nonPlayer);
 
     // main game loop
     // bool quit = false;
@@ -144,7 +145,7 @@ int main(int argc, char *argv []){
             if (inputs >= 2) {
                 ss >> i >> j;
                 cout << "MINION " << i << " ATTACKS OPPOSING MINION " << j << endl;
-                g.
+                //g.
             } else if (inputs >= 1) {
                 ss >> i;
                 cout << "MINION " << i << " ATTACKS PLAYER" << endl;
