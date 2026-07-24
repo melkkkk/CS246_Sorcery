@@ -5,10 +5,13 @@ import <fstream>;
 import <chrono>;   
 import <random>;
 import <iostream>;
+import state;
 
 using namespace std; 
 
 export class Card;
+
+export class Player;
 
 export class Card {
     std::string name;
@@ -17,11 +20,11 @@ export class Card {
     //State state;
   protected:
     //void setState(State newS);
-    std::string getName();
-    int getCost();
   public:
     Card(std::string name, int cost = 0);
-
+    std::string getName();
+    int getCost();
+    virtual ~Card();
     // player that played card i from their deck
     // owner is the selected players card
     // void pointer is for card i, or ritual r
@@ -36,7 +39,7 @@ export class Card {
 export class Observer {
   public:
     // Pass the Subject that called the notify method.
-    virtual void notify(Card &whoFrom) = 0; 
+    virtual void notify(State &whoFrom, Player *active) = 0; 
     virtual ~Observer() = default;
 };
 
@@ -45,16 +48,16 @@ export class Observer {
 //void Subject::setState(State newS) { state = newS; }
 //State Subject::getState() const { return state; }
 
-export class Player;
 
 export class Player{
     string name;
     int life;
     int magic;
     vector<string> deck;
-    vector<Card> hand;
+    vector<Card *> hand;
     vector<Card> graveyard;
-    // vector<Card> board;
+    
+    vector<Card *> board;
     // Board B;
 
   public:
@@ -67,6 +70,9 @@ export class Player{
 
     void addL(int i);
     void addM(int i);
+
+    Card *getCardH(int i);
+    Card *getCardB(int i);
 };
 
 // export class Board{

@@ -1,7 +1,7 @@
 export module game;
 
+import state;
 import plard;
-
 import minion;
 // import ritual;
 // import enchantment;
@@ -21,13 +21,15 @@ export class Game;
 export class Game{
     Player &active;
     Player &inactive;
-    Board &b;
+
+    //will add these on later
+    //Board &b;
     // vector<Card> board;
     // Board B;
 
   public:
     Game();
-    void use(Player *active, int i, Player *inactive = nullptr, int i = -1);
+    void use(Player *active, int indexM, Player *inactive = nullptr, int i = -1);
     void playCard(Player *active, int indexC, Player *inactive = nullptr, int i = -1);
     ~Game();
 };

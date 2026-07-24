@@ -1,5 +1,6 @@
 module game;
 
+import state;
 import plard;
 
 import minion;
@@ -15,20 +16,21 @@ using namespace std;
 
 // Use minion's special ability, optionally targeting target-card owned by target-player 
 //minion only
-void Game::use(Player *active, int indexM, Player *other = nullptr, int i = -1) {
+void Game::use(Player *active, int indexM, Player *other, int i) {
     cout << "called use" << endl;
-    string name = active->board[indexM]->getName();
+    Minion *temp = dynamic_cast<Minion*>(active->getCardB(indexM));
+    string name = temp->getName();
     // else if (name == "Air Elemental") { airElemental(active, i); }
     // else if (name == "Earth Elemental") { earthElemental(active, i); }
-    if (name == "Bone Golem") { boneGolem(active, i); }
-    else if (name == "Fire  Elemental") { fireElemental(active, i); }
-    else if (name == "Potion Seller") { potionSeller(active, i); }
-    else if (name == "Novice Pyromancer") { novicePyromancer(active, i); }
-    else if (name == "Apprentice Summoner") { apprenticeSummoner(active, i); }
-    else if (name == "Master Summoner") { masterSummoner(active, i); }
+    if (name == "Bone Golem") { temp->boneGolem(); }
+    else if (name == "Fire  Elemental") { temp->fireElemental(); }
+    else if (name == "Potion Seller") { temp->potionSeller(); }
+    else if (name == "Novice Pyromancer") { temp->novicePyromancer(other, i); }
+    else if (name == "Apprentice Summoner") { temp->apprenticeSummoner(active); }
+    else if (name == "Master Summoner") { temp->masterSummoner(active); }
 }
 
-void Game::playCard(Player &active, int indexC, Player &other = nullptr, int i = -1) {
+void Game::playCard(Player *active, int indexC, Player *other, int i) {
     cout << "card played" << endl;
     // card played 
     // string name = active->hand[i].getname();

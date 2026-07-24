@@ -1,42 +1,42 @@
 export module minion;
 import <vector>;
 import <string>;
-import card;
-import player;
+import state;
+import plard;
 
 
-export class Minion: public Card {
+export class Minion: public Card, public Observer {
     int attack;
     int defense;
     std::string desc;
     int actions;
     // vector of enchantments
-    vector<Enchantment *> enchanted;
+    //vector<Enchantment *> enchanted;
 
   protected:
     //void setState(State newS);
   public:
-    Minion(std::string name, int cost, int attack = 0, int defense = 0, string desc = "", int actions = 0;);
+    Minion(std::string name, int cost);
     //owner is owner of card selected in input or opponent based on spell
     //void pointer for card i or ritual r
     
 
     //void airElemental(Player *played, int *target);
     //void earthElemental(Player *played, int *target);
-    void boneGolem(Player *played, int *target);
-    void fireElemental(Player *played, int *target);
-    void potionSeller(Player *played, int *target);
-    void novicePyromancer(Player *played, int *target);
-    void apprenticeSummoner(Player *played, int *target);
-    void masterSummoner(Player *played, int *target);
+    void boneGolem();
+    void fireElemental();
+    void potionSeller();
+    void novicePyromancer(Player *owner, int target);
+    void apprenticeSummoner(Player *played);
+    void masterSummoner(Player *played);
 
-    void attack(Player *active, int indexM, Player *other = nullptr, int i = -1);
+    void attackM(Player *active, int indexM, Player *other = nullptr, int i = -1);
 
     //add Attack
     //add Defense
     void addA(int i = 1);
     void addD(int i = 1);
-    void addAction(int i = 1)
+    void addAction(int i = 1);
     //multiply Attack
     //multiply Defense
     void multA(int i = 1);
@@ -46,7 +46,7 @@ export class Minion: public Card {
     int getDefense();
 
     //observer overrides
-    void notify(Card &whoFrom) override;
+    void notify(State &whoFrom, Player *active) override;
     
     
 

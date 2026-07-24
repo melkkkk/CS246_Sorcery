@@ -2,6 +2,7 @@ module minion;
 import <vector>;
 import <string>;
 import <iostream>;
+import state;
 import plard;
 
 using namespace std;
@@ -10,17 +11,17 @@ int Minion::getAttack() { return attack; }
 int Minion::getDefense() { return defense; }
 //add Attack
 //add Defense
-void Minion::addA(int i = 1) { attack += i; }
-void Minion::addD(int i = 1) { defense += i; }
-void Minion::addAction(int i = 1) { attack += i; }
+void Minion::addA(int i) { attack += i; }
+void Minion::addD(int i) { defense += i; }
+void Minion::addAction(int i) { attack += i; }
 
 //multiply Attack
 //multiply Defense
-void Minion::multA(int i = 1) { attack *= i; }
-void Minion::multD(int i = 1) { defense *= i; }
+void Minion::multA(int i) { attack *= i; }
+void Minion::multD(int i) { defense *= i; }
 
-Minion::Minion(string name, int cost, int attack = 0, int defense = 0, string desc = "", int actions = 0):
-  Card{name, cost}, attack{attack}, defense{defense} {
+Minion::Minion(string name, int cost):
+  Card{name, cost} {
     //set defense and actions if applicable
 
     cout << "minion ctor" << endl;
@@ -28,22 +29,27 @@ Minion::Minion(string name, int cost, int attack = 0, int defense = 0, string de
 
 //void Minion::airElemental(Player *played, int *target) {}
 //void Minion::earthElemental(Player *played, int *target) {}
-void Minion::boneGolem(Player *played, int *target) {
+void Minion::boneGolem() {
+  //needs notify implementation
   cout << "bone golem called" << endl;}
-void Minion::fireElemental(Player *played, int *target) {
+void Minion::fireElemental() {
+  //needs notify implementation
   cout << "fire elemental called" << endl;}
-void Minion::potionSeller(Player *played, int *target) {
+void Minion::potionSeller() {
+  //needs notify implementation
   cout << "potion seller called" << endl;}
-void Minion::novicePyromancer(Player *played, int *target) {
+void Minion::novicePyromancer(Player *owner, int target) {
   cout << "novice pyromancer called" << endl;}
-void Minion::apprenticeSummoner(Player *played, int *target) {
+void Minion::apprenticeSummoner(Player *played) {
   cout << "apprentice summoner called" << endl;}
-void Minion::masterSummoner(Player *played, int *target) {{
+void Minion::masterSummoner(Player *played) {
   cout << "master summoner called" << endl;}
 
 //if int i is negative then attacks player instead
 //deoesnt remove if one of them dies,,,
-void attack(Player *active, int indexM, Player *other = nullptr, int i = -1) {
+
+//default args aready declared for last 2
+void Minion::attackM(Player *active, int indexM, Player *other, int i) {
   if (i < 0) {
   cout << "attacked player" << endl;
     //int damage = active->board[indexM]->getAttack() * -1;
@@ -61,6 +67,7 @@ void attack(Player *active, int indexM, Player *other = nullptr, int i = -1) {
 //export enum class CardType { Ritual, Spell, Enchantment, Minion };
 
 void Minion::notify(State &whoFrom, Player *active) {
+  cout << "notified minion" << endl;
   // if (whoFrom.sType == StateType::StartOfTurn) {
   //   //check enchantment haste (+1 each start of turn)
   // }
