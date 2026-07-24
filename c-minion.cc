@@ -42,70 +42,72 @@ export class Minion: public Card {
     //multiply Defense
     void multA(int i = 1);
     void multD(int i = 1);
+    
+    int getAttack();
+    int getDefense();
 
     //observer overrides
     void notify(Card &whoFrom) override;
-    int getAttack();
-    int getDefense();
+    
     
 
 };
 
-int Minion::getAttack() { return attack; }
-int Minion::getDefense() { return defense; }
-//add Attack
-//add Defense
-void Minion::addA(int i = 1) { attack += i; }
-void Minion::addD(int i = 1) { defense += i; }
-void Minion::addAction(int i = 1) { attack += i; }
+// int Minion::getAttack() { return attack; }
+// int Minion::getDefense() { return defense; }
+// //add Attack
+// //add Defense
+// void Minion::addA(int i = 1) { attack += i; }
+// void Minion::addD(int i = 1) { defense += i; }
+// void Minion::addAction(int i = 1) { attack += i; }
 
-//multiply Attack
-//multiply Defense
-void Minion::multA(int i = 1) { attack *= i; }
-void Minion::multD(int i = 1) { defense *= i; }
+// //multiply Attack
+// //multiply Defense
+// void Minion::multA(int i = 1) { attack *= i; }
+// void Minion::multD(int i = 1) { defense *= i; }
 
-Minion::Minion(string name, int cost, int attack = 0, int defense = 0, string desc = "", int actions = 0) {
+// Minion::Minion(string name, int cost, int attack = 0, int defense = 0, string desc = "", int actions = 0) {
 
-}
+// }
 
-//void Minion::airElemental(Player *played, int *target) {}
-//void Minion::earthElemental(Player *played, int *target) {}
-void Minion::boneGolem(Player *played, int *target) {}
-void Minion::fireElemental(Player *played, int *target) {}
-void Minion::potionSeller(Player *played, int *target) {}
-void Minion::novicePyromancer(Player *played, int *target) {}
-void Minion::apprenticeSummoner(Player *played, int *target) {}
-void Minion::masterSummoner(Player *played, int *target) {}
+// //void Minion::airElemental(Player *played, int *target) {}
+// //void Minion::earthElemental(Player *played, int *target) {}
+// void Minion::boneGolem(Player *played, int *target) {}
+// void Minion::fireElemental(Player *played, int *target) {}
+// void Minion::potionSeller(Player *played, int *target) {}
+// void Minion::novicePyromancer(Player *played, int *target) {}
+// void Minion::apprenticeSummoner(Player *played, int *target) {}
+// void Minion::masterSummoner(Player *played, int *target) {}
 
-//if int i is negative then attacks player instead
-//deoesnt remove if one of them dies,,,
-void attack(Player *active, int indexM, Player *other = nullptr, int i = -1) {
-  if (i < 0) {
-    int damage = active->board[indexM]->getAttack() * -1;
-    other.addL(damage);
-  } else {
-    int damageTo = active->board[indexM]->getAttack() * -1;
-    int damageFrom = other->board[i]->getAttack() * -1;
-    other->board[i]->addD(damageTo);
-    active->board[i]->addD(damageFrom);
-  }
-}
+// //if int i is negative then attacks player instead
+// //deoesnt remove if one of them dies,,,
+// void attack(Player *active, int indexM, Player *other = nullptr, int i = -1) {
+//   if (i < 0) {
+//     int damage = active->board[indexM]->getAttack() * -1;
+//     other.addL(damage);
+//   } else {
+//     int damageTo = active->board[indexM]->getAttack() * -1;
+//     int damageFrom = other->board[i]->getAttack() * -1;
+//     other->board[i]->addD(damageTo);
+//     active->board[i]->addD(damageFrom);
+//   }
+// }
 
-//export enum class StateType { StartOfTurn, EndOfTurn, MinionPlayed, Other };
-//export enum class CardType { Ritual, Spell, Enchantment, Minion };
+// //export enum class StateType { StartOfTurn, EndOfTurn, MinionPlayed, Other };
+// //export enum class CardType { Ritual, Spell, Enchantment, Minion };
 
-void Minion::notify(State &whoFrom, Player *active) {
-  if (whoFrom.sType == StateType::StartOfTurn) {
-    //check enchantment haste (+1 each start of turn)
-  }
-  else if (whoFrom.sType == StateType::EndOfTurn) {
-    // would add any cards of end of turn type here
-  } else if (whoFrom.sType == StateType::MinionPlayed) {
-    if (whoFrom.cType == CardType::Minion) {
+// void Minion::notify(State &whoFrom, Player *active) {
+//   if (whoFrom.sType == StateType::StartOfTurn) {
+//     //check enchantment haste (+1 each start of turn)
+//   }
+//   else if (whoFrom.sType == StateType::EndOfTurn) {
+//     // would add any cards of end of turn type here
+//   } else if (whoFrom.sType == StateType::MinionPlayed) {
+//     if (whoFrom.cType == CardType::Minion) {
       
-    }
-  }
-}
+//     }
+//   }
+// }
 
 
 
