@@ -33,6 +33,9 @@ Card *Player::getCardB(int i) { return board[i].get(); }
 unique_ptr<Card>& Player::getUniqueH(int i) { return hand[i]; }
 unique_ptr<Card>& Player::getUniqueB(int i) { return board[i]; }
 
+int Player::getSizeH() { return hand.size(); }
+int Player::getSizeB() { return board.size(); }
+
 vector<string>& Player::getDeck() { return deck; }
 
 // name getter and setters

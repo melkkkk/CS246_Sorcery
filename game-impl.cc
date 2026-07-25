@@ -75,20 +75,26 @@ std::string Game::getName(int i){
 //deoesnt remove if one of them dies,,,
 
 //default args aready declared for last 2
-void Game::attackM(Player *active, int indexM, Player *other, int i) {
-    cout << "called attack" << endl;
-    //Minion *temp = dynamic_cast<Minion*>(active->getCardB(indexM));
-    if (i < 0) {
-        cout << "attacked player" << endl;
-    //int damage = active->board[indexM]->getAttack() * -1;
-    //other.addL(damage);
+void Game::attackM(int indexM, int i) {
+    if ((active->getSizeB() > indexM) && (inactive->getSizeB() > i)) {
+        cout << "called attack" << endl;
+        Minion *temp = dynamic_cast<Minion*>(active->getCardB(indexM));
+        if (i < 0) {
+            cout << "attacked player" << endl;
+            int damage = temp->getAttack() * -1;
+            inactive->addL(damage);
+        } else {
+            cout << "attacked minion: " << i << endl;
+            Minion *tempOther = dynamic_cast<Minion*>(inactive->getCardB(i));
+            int damageTo = temp->getAttack() * -1;
+            int damageFrom = tempOther->getAttack() * -1;
+            tempOther->addD(damageTo);
+            temp->addD(damageFrom);
+        } 
     } else {
-        cout << "attacked minion: " << i << endl;
-    //int damageTo = active->board[indexM]->getAttack() * -1;
-    //int damageFrom = other->board[i]->getAttack() * -1;
-    //other->board[i]->addD(damageTo);
-    //active->board[i]->addD(damageFrom);
-    } 
+        cout << "args out of bounds" << endl;
+    }
+    
 }
 
 // Use minion's special ability, optionally targeting target-card owned by target-player 

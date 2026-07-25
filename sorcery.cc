@@ -180,14 +180,14 @@ int main(int argc, char *argv []){
                 cout << "MINION " << i << " ATTACKS OPPOSING MINION " << j << endl;
                 //
 
-                // g.attackM(actPlayer, stoi(i), nonPlayer, stoi(j));
+                g.attackM(stoi(i), stoi(j));
 
             } else if (inputs >= 1) {
                 ss >> i;
                 cout << "MINION " << i << " ATTACKS PLAYER" << endl;
                 //
 
-                // g.attackM(actPlayer, stoi(i));
+                g.attackM(stoi(i));
 
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
         } else if (first == "play") {

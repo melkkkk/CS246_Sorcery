@@ -80,6 +80,8 @@ export class Player{
     unique_ptr<Card>& getUniqueH(int i);
     unique_ptr<Card>& getUniqueB(int i);
 
+    int getSizeH();
+    int getSizeB();
 };
 
 // export class Board{
