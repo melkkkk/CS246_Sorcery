@@ -82,6 +82,9 @@ export class Player{
 
     int getSizeH();
     int getSizeB();
+
+    void playEffect(int i);
+
 };
 
 // export class Board{

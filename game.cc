@@ -46,7 +46,7 @@ export class Game{
     // Game(Player *active, Player *inactive); //add board to this eventually
     Game(); 
     void attackM(int indexM, int i = -1);
-    void use(Player *active, int indexM, Player *inactive = nullptr, int i = -1);
+    void use(int indexM, Player *other = nullptr, int i = -1);
     void playCard(int indexC, Player *other = nullptr, int i = -1);
     void changeTurn();
 

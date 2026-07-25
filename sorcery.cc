@@ -211,13 +211,14 @@ int main(int argc, char *argv []){
                 ss >> i >> j >> k;
                 cout << "USE " << i << " ACTIVATED ABILITY ON PLAYER " << j << " ON THEIR " << k << " MINION" << endl;
 
-                // g.use(actPlayer, stoi(i), nonPlayer, stoi(j));
+                if (g.getName(stoi(j)) == g.getName()) { g.use(stoi(i), g.getActive(), stoi(k)); }
+                else { g.use(stoi(i), g.getInactive(), stoi(k)); }
 
             } else if (inputs >= 1) {
                 ss >> i;
                 cout << "PLAY " << i << " ACTIVATED ABILITY NO TARGET" << endl;
 
-                // g.use(actPlayer, stoi(i));
+                g.use(stoi(i));
 
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
         } else if (first == "inspect") {

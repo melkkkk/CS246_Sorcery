@@ -19,7 +19,10 @@ import <random>;
 
 using namespace std;
 
-Game::~Game() {}
+Game::~Game() {
+    // delete active;
+    // delete inactive;
+}
 
 // Game::Game(Player *active, Player *inactive): active{active}, inactive{inactive} {
 //     p1 = std::make_unique<Player>();
@@ -83,38 +86,47 @@ void Game::attackM(int indexM, int i) {
     if ((active->getSizeB() > indexM) && (inactive->getSizeB() > i)) {
         cout << "called attack" << endl;
         Minion *temp = dynamic_cast<Minion*>(active->getCardB(indexM));
-        if (i < 0) {
-            cout << "attacked player" << endl;
-            int damage = temp->getAttack() * -1;
-            inactive->addL(damage);
-        } else {
-            cout << "attacked minion: " << i << endl;
-            Minion *tempOther = dynamic_cast<Minion*>(inactive->getCardB(i));
-            int damageTo = temp->getAttack() * -1;
-            int damageFrom = tempOther->getAttack() * -1;
-            tempOther->addD(damageTo);
-            temp->addD(damageFrom);
-        } 
-    } else {
-        cout << "args out of bounds" << endl;
-    }
+        if (temp->getAction() > 0) {
+            temp->addAction(-1);
+            if (i < 0) {
+                cout << "attacked player" << endl;
+                int damage = temp->getAttack() * -1;
+                inactive->addL(damage);
+            } else {
+                cout << "attacked minion: " << i << endl;
+                Minion *tempOther = dynamic_cast<Minion*>(inactive->getCardB(i));
+                int damageTo = temp->getAttack() * -1;
+                int damageFrom = tempOther->getAttack() * -1;
+                tempOther->addD(damageTo);
+                temp->addD(damageFrom);
+            } 
+        } else cout << "no actions left" << endl;
+        //delete temp;
+    } else cout << "args out of bounds" << endl;
     
 }
 
 // Use minion's special ability, optionally targeting target-card owned by target-player 
 //minion only
-void Game::use(Player *active, int indexM, Player *other, int i) {
-    cout << "called use" << endl;
-    // Minion *temp = dynamic_cast<Minion*>(active->getCardB(indexM));
-    // string name = temp->getName();
-    // // else if (name == "Air Elemental") { airElemental(active, i); }
-    // // else if (name == "Earth Elemental") { earthElemental(active, i); }
-    // if (name == "Bone Golem") { temp->boneGolem(); }
-    // else if (name == "Fire  Elemental") { temp->fireElemental(); }
-    // else if (name == "Potion Seller") { temp->potionSeller(); }
-    // else if (name == "Novice Pyromancer") { temp->novicePyromancer(other, i); }
-    // else if (name == "Apprentice Summoner") { temp->apprenticeSummoner(active); }
-    // else if (name == "Master Summoner") { temp->masterSummoner(active); }
+void Game::use(int indexM, Player *other, int i) {
+    if ((active->getSizeB() > indexM) && (inactive->getSizeB() > i)) {
+        cout << "called use" << endl;
+        Minion *temp = dynamic_cast<Minion*>(active->getCardB(indexM));
+        string name = temp->getName();
+
+        if (temp->getAction() > 0) {
+            temp->addAction(-1);
+            // else if (name == "Air Elemental") { airElemental(active, i); }
+            // else if (name == "Earth Elemental") { earthElemental(active, i); }
+            if (name == "Bone Golem") { temp->boneGolem(); }
+            else if (name == "Fire  Elemental") { temp->fireElemental(); }
+            else if (name == "Potion Seller") { temp->potionSeller(); }
+            else if (name == "Novice Pyromancer") { temp->novicePyromancer(other, i); }
+            else if (name == "Apprentice Summoner") { temp->apprenticeSummoner(active); }
+            else if (name == "Master Summoner") { temp->masterSummoner(active); }
+        } else cout << "no actions left" << endl;
+        //delete temp;
+    } else cout << "args out of bounds" << endl;
 }
 
 void Game::playCard(int indexC, Player *other, int i) {
@@ -124,6 +136,8 @@ void Game::playCard(int indexC, Player *other, int i) {
         Card *c = active->getCardH(indexC);
         string name = c->getName();
 
+
+
         if (std::find(spellCards.begin(), spellCards.end(), name) != spellCards.end()) {
             Spell *temp = dynamic_cast<Spell*>(c);
             if (name == "Banish") { temp->banish(active, indexC, other, i); }
@@ -132,6 +146,7 @@ void Game::playCard(int indexC, Player *other, int i) {
             else if (name == "Disenchant") { temp->disenchant(active, indexC, other, i); }
             else if (name == "Raise Dead") { temp->raiseDead(active, indexC); }
             else if (name == "Blizzard") { temp->blizzard(active, indexC, other); }
+            //delete temp;
 
         } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), name) != enchantmentCards.end()) {
             Enchantment *temp = dynamic_cast<Enchantment*>(c);
@@ -140,6 +155,7 @@ void Game::playCard(int indexC, Player *other, int i) {
             else if (name == "Haste") { temp->haste(active, other, i); }
             else if (name == "Magic Fatigue") { temp->magicFatigue(active, other, i); }
             else if (name == "Silence") { temp->silence(active, other, i); }
+            //delete temp;
 
         } else if (std::find(ritualCards.begin(), ritualCards.end(), name) != ritualCards.end()) {
             Ritual *temp = dynamic_cast<Ritual*>(c);
@@ -150,6 +166,7 @@ void Game::playCard(int indexC, Player *other, int i) {
 
             // add to slot
             active->moveToBoard(move(active->getUniqueH(indexC)), 0);
+            //delete temp;
 
             // function call the tell board smth has been added
             
@@ -157,6 +174,7 @@ void Game::playCard(int indexC, Player *other, int i) {
             Minion *temp = dynamic_cast<Minion*>(c);
             //add to board
             active->moveToBoard(move(active->getUniqueH(indexC)));
+            //delete temp;
 
             // function call the tell board smth has been added
 
@@ -169,6 +187,7 @@ void Game::playCard(int indexC, Player *other, int i) {
             // else if (name == "Apprentice Summoner") { apprenticeSummoner(active, i); }
             // else if (name == "Master Summoner") { masterSummoner(active, i); }
         }
+    //delete c;
     } else {
         cout << "args out of bounds" << endl;
     }

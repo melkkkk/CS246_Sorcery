@@ -9,8 +9,8 @@ export class Minion: public Card, public Observer {
     int attack;
     int defense;
     std::string desc;
-    int actions = 1;
-    int abilityCost = 0;
+    int actions = 0;
+    int abilityCost = -1;
     bool hasAbility = false;
     // vector of enchantments
     //vector<Enchantment *> enchanted;
@@ -45,6 +45,7 @@ export class Minion: public Card, public Observer {
 
     int getAttack();
     int getDefense();
+    int getAction();
 
     //observer overrides
     void notify(State &whoFrom, Player *active) override;
