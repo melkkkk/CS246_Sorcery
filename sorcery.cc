@@ -101,14 +101,7 @@ int main(int argc, char *argv []){
         g.shuffleDeck(2, rng);
     }
 
-    // initialize hands of 5 cards
-    int startCards = 5;
-    for (int i = 0; i < startCards; ++i){
-        // g.drawCard(actPlayer);
-        // g.drawCard(nonPlayer);
-        g.drawCard(1);
-        g.drawCard(2);
-    }
+    
 
     // get names of players, change later if -init is being used
     string name;
@@ -125,6 +118,23 @@ int main(int argc, char *argv []){
     g.setName(2, name);
     // cout << "player name is " << p2.getName() << endl;
     cout << "player name is " << g.getName(2) << endl;
+
+
+
+
+// initialize hands of 5 cards
+    int startCards = 5;
+    for (int i = 0; i < startCards; ++i){
+        // g.drawCard(actPlayer);
+        // g.drawCard(nonPlayer);
+        g.drawCard(1);
+        g.changeTurn();
+        g.drawCard(2);
+        g.changeTurn();
+    }
+
+
+
 
     // main game loop
     // bool quit = false;

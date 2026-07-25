@@ -37,11 +37,7 @@ Game::Game() {
 }
 
 void Game::changeTurn(){
-    cout << "Active: " << active->getName() << " address " << active << endl;
-    cout << "Inactive: " << inactive->getName() << " address " << inactive << endl;
     std::swap(active, inactive);
-    cout << "Active: " << active->getName() << " address " << active << endl;
-    cout << "Inactive: " << inactive->getName() << " address " << inactive << endl;
 }
 
 void Game::setDeck(int i, std::ifstream& infile){
