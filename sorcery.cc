@@ -101,11 +101,6 @@ int main(int argc, char *argv []){
         g.drawCard(nonPlayer);
     }
 
-    // for (const auto& card : actPlayer.deck) {
-    //     cout << card.getName() << endl;
-    // }
-    // cout << endl;
-    
     // get names of players, change later if -init is being used
     string name;
     cout << "Input Player 1:" << endl;
@@ -117,8 +112,6 @@ int main(int argc, char *argv []){
     getline(cin, name);
     p2.setName(name);
     cout << "player name is " << p2.getName() << endl;
-
-
 
     // main game loop
     // bool quit = false;

@@ -108,6 +108,7 @@ void Game::drawCard(Player *active) {
     // get the top card of the deck
     string s = active->getDeck().at(0);
     active->getDeck().erase(active->getDeck().begin());
+    // active->addToHand(make_unique<Minion>(s, 0));
     
     // cout << s << endl;
 

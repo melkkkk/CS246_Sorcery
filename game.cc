@@ -18,6 +18,7 @@ import <iostream>;
 import <chrono>;   
 import <random>;
 import <algorithm>;
+import <memory>;
 
 
 export class Game;
@@ -25,6 +26,9 @@ export class Game;
 export class Game{
     Player *active;
     Player *inactive;
+
+    // std::unique_ptr<Player> p1 = std::make_unique<Player>();
+    // std::unique_ptr<Player> p2 = std::make_unique<Player>();
 
     //will add these on later
     //Board &b;
