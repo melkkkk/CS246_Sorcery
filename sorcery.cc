@@ -31,13 +31,14 @@ int main(int argc, char *argv []){
     default_random_engine rng{seed};
 
     // creating player objects
-    Player p1;
-    Player p2;
-    Player *actPlayer = &p1; // going to be using these pointers for most the time i think
-    Player *nonPlayer = &p2;
+    // Player p1;
+    // Player p2;
+    // Player *actPlayer = &p1; // going to be using these pointers for most the time i think
+    // Player *nonPlayer = &p2;
 
     //make game object to call playcard
-    Game g = Game(actPlayer, nonPlayer);
+    // Game g = Game(actPlayer, nonPlayer);
+    Game g = Game();
     
     // for testing mode
     bool testing = false;
@@ -53,13 +54,15 @@ int main(int argc, char *argv []){
         if (command == "-deck1") {
             ++i;
             ifstream infile{argv[i]};
-            p1.setDeck(infile);
+            // p1.setDeck(infile);
+            g.setDeck(1, infile);
             deck1 = true;
             // create deck for p1 from file
         } else if (command == "-deck2") {
             ++i;
             ifstream infile{argv[i]};
-            p2.setDeck(infile);
+            // p2.setDeck(infile);
+            g.setDeck(2, infile);
             deck2 = true;
             // create deck for p2 file
         } else if (command == "-init") {
@@ -80,38 +83,48 @@ int main(int argc, char *argv []){
     // temp fix for deck specification, can change later 
     if (!deck1) {
         ifstream infile{"default.deck"};
-        p1.setDeck(infile);
+        // p1.setDeck(infile);
+        g.setDeck(1, infile);
     } 
     if (!deck2) {
         ifstream infile{"default.deck"};
-        p2.setDeck(infile);
+        // p2.setDeck(infile);
+        g.setDeck(2, infile);
     } 
 
     // add more initialization stuff here
     // shuffle decks
     if (!testing) {
-        p1.shuffleDeck(rng);
-        p2.shuffleDeck(rng);
+        // p1.shuffleDeck(rng);
+        // p2.shuffleDeck(rng);
+        g.shuffleDeck(1, rng);
+        g.shuffleDeck(2, rng);
     }
 
     // initialize hands of 5 cards
     int startCards = 5;
     for (int i = 0; i < startCards; ++i){
-        g.drawCard(actPlayer);
-        g.drawCard(nonPlayer);
+        // g.drawCard(actPlayer);
+        // g.drawCard(nonPlayer);
+        g.drawCard(1);
+        g.drawCard(2);
     }
 
     // get names of players, change later if -init is being used
     string name;
     cout << "Input Player 1:" << endl;
     getline(cin, name);
-    p1.setName(name);
-    cout << "player name is " << p1.getName() << endl;
+    // p1.setName(name);
+    g.setName(1, name);
+    // cout << "player name is " << p1.getName() << endl;
+    cout << "player name is " << g.getName(1) << endl;
     
     cout << "Input Player 2:" << endl;
     getline(cin, name);
-    p2.setName(name);
-    cout << "player name is " << p2.getName() << endl;
+    // p2.setName(name);
+    g.setName(2, name);
+    // cout << "player name is " << p2.getName() << endl;
+    cout << "player name is " << g.getName(2) << endl;
 
     // main game loop
     // bool quit = false;
@@ -133,14 +146,16 @@ int main(int argc, char *argv []){
             cout << "   hand -- Describe all cards in your hand." << endl;
             cout << "   board -- Describe all cards on the board." << endl;
         } else if (first == "end") {
-            if (actPlayer == &p1){
-                cout << "PLAYER 1 TURN END" << endl;
-                cout << "PLAYER 2 TURN START" << endl;
-            } else {
-                cout << "PLAYER 2 TURN END" << endl;
-                cout << "PLAYER 1 TURN START" << endl;
-            }
-            swap(actPlayer, nonPlayer);
+            // if (actPlayer == &p1){
+            //     cout << "PLAYER 1 TURN END" << endl;
+            //     cout << "PLAYER 2 TURN START" << endl;
+            // } else {
+            //     cout << "PLAYER 2 TURN END" << endl;
+            //     cout << "PLAYER 1 TURN START" << endl;
+            // }
+            cout << "CHANGE TURN< WE CAN ADD A GETT AND SETTER IF NEED TO PRINT LATER" << endl;
+            // swap(actPlayer, nonPlayer);
+            g.changeTurn();
         } else if (first == "quit"){
             cout << "END GAME" << endl;
             break;
@@ -165,14 +180,14 @@ int main(int argc, char *argv []){
                 cout << "MINION " << i << " ATTACKS OPPOSING MINION " << j << endl;
                 //
 
-                g.attackM(actPlayer, stoi(i), nonPlayer, stoi(j));
+                // g.attackM(actPlayer, stoi(i), nonPlayer, stoi(j));
 
             } else if (inputs >= 1) {
                 ss >> i;
                 cout << "MINION " << i << " ATTACKS PLAYER" << endl;
                 //
 
-                g.attackM(actPlayer, stoi(i));
+                // g.attackM(actPlayer, stoi(i));
 
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
         } else if (first == "play") {
@@ -188,13 +203,13 @@ int main(int argc, char *argv []){
                 ss >> i >> j >> k;
                 cout << "USE " << i << " ACTIVATED ABILITY ON PLAYER " << j << " ON THEIR " << k << " MINION" << endl;
 
-                g.use(actPlayer, stoi(i), nonPlayer, stoi(j));
+                // g.use(actPlayer, stoi(i), nonPlayer, stoi(j));
 
             } else if (inputs >= 1) {
                 ss >> i;
                 cout << "PLAY " << i << " ACTIVATED ABILITY NO TARGET" << endl;
 
-                g.use(actPlayer, stoi(i));
+                // g.use(actPlayer, stoi(i));
 
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
         } else if (first == "inspect") {

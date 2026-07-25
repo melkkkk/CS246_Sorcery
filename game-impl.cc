@@ -16,14 +16,61 @@ import <fstream>;
 import <iostream>;
 import <chrono>;   
 import <random>;
+import <algorithm>;
+import <memory>;
 
 using namespace std;
 
 Game::~Game() {}
 
-Game::Game(Player *active, Player *inactive): active{active}, inactive{inactive} {
+// Game::Game(Player *active, Player *inactive): active{active}, inactive{inactive} {
+//     p1 = std::make_unique<Player>();
+//     p2 = std::make_unique<Player>();
+// }
+
+Game::Game() {
     p1 = std::make_unique<Player>();
     p2 = std::make_unique<Player>();
+    active = p1.get();
+    inactive = p2.get();
+}
+
+void Game::changeTurn(){
+    std::swap(active, inactive);
+}
+
+void Game::setDeck(int i, std::ifstream& infile){
+    if (i == 1){
+        p1->setDeck(infile);
+    } else {
+        p2->setDeck(infile);
+    }
+}
+
+void Game::shuffleDeck(int i, std::default_random_engine &rng){
+    if (i == 1){
+        p1->shuffleDeck(rng);
+    } else {
+        p2->shuffleDeck(rng);
+    }
+}
+
+void Game::setName(int i, std::string name){
+    if (i == 1){
+        p1->setName(name);
+    } else {
+        p2->setName(name);
+    }
+}
+
+std::string Game::getName(int i){
+    std::string s;
+    if (i == 1){
+        s = p1->getName();
+    } else {
+        s = p2->getName();
+    }
+    return s;
 }
 
 //if int i is negative then attacks player instead
@@ -63,8 +110,8 @@ void Game::use(Player *active, int indexM, Player *other, int i) {
 }
 
 void Game::playCard(Player *active, int indexC, Player *other, int i) {
-    cout << "card played" << endl;
-    // card played 
+    // cout << "card played" << endl;
+    // // card played 
     // string name = active->hand[i].getname();
     // //spell
     // if (name == "Banish") { banish(active, other, i); }
@@ -83,9 +130,9 @@ void Game::playCard(Player *active, int indexC, Player *other, int i) {
     // else if (name == "Haste") { haste(active, other, i); }
     // else if (name == "Magic Fatigue") { magicFatigue(active, other, i); }
     // else if (name == "Silence") { silence(active, other, i); }
-    // minion 
-    //just realized these dont even need this because they can only attack and use
-    // we can just move from hand to board ig,,,
+    // // minion 
+    // // just realized these dont even need this because they can only attack and use
+    // // we can just move from hand to board ig,,,
 
     // else if (name == "Air Elemental") { airElemental(active, i); }
     // else if (name == "Earth Elemental") { earthElemental(active, i); }
@@ -95,13 +142,16 @@ void Game::playCard(Player *active, int indexC, Player *other, int i) {
     // else if (name == "Novice Pyromancer") { novicePyromancer(active, i); }
     // else if (name == "Apprentice Summoner") { apprenticeSummoner(active, i); }
     // else if (name == "Master Summoner") { masterSummoner(active, i); }
-
-    //
-
 }
 
 // draws top card from the deck, probably needs to raise error later on?
-void Game::drawCard(Player *active) {
+void Game::drawCard(int i) {
+    if (i == 1){
+        active = p1.get();
+    } else {
+        active = p2.get();
+    }
+
     // checking if the deck is empty
     if (active->getDeck().empty()){
         cout << "Deck is empty" << endl;

@@ -43,14 +43,22 @@ export class Game{
     inline static std::vector<std::string> enchantmentCards = {"Giant Strength", "Enrage", "Haste", "Magic Fatigue", "Silence"};
 
   public:
-    Game(Player *active, Player *inactive); //add board to this eventually
+    // Game(Player *active, Player *inactive); //add board to this eventually
+    Game(); 
     void attackM(Player *active, int indexM, Player *other = nullptr, int i = -1);
     void use(Player *active, int indexM, Player *inactive = nullptr, int i = -1);
     void playCard(Player *active, int indexC, Player *inactive = nullptr, int i = -1);
+    void changeTurn();
+
+    void setDeck(int i, std::ifstream& infile);
+    void shuffleDeck(int i, std::default_random_engine &rng);
+    void setName(int i, std::string name);
+    std::string getName(int i);
+
     ~Game();
 
     // draws top card from the deck, probably needs to raise error later on?
-    void drawCard(Player *active);
+    void drawCard(int i);
 };
 
 // Use minion's special ability, optionally targeting target-card owned by target-player 
