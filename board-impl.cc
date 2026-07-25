@@ -1,31 +1,79 @@
 module board;
 
 import plard;
+import state;
 import ascii_graphics;
+
+import minion;
+import ritual;
+import enchantment;
+import spell;
 
 import <vector>;
 import <string>;
 import <iostream>;
+import <memory>;
 
-card_template_t Board::convertCard(){
-    if (std::find(minionCards.begin(), minionCards.end(), s) != minionCards.end()) {
-        
-    } else if (std::find(spellCards.begin(), spellCards.end(), s) != spellCards.end()) {
-        active->addToHand(make_unique<Spell>(s, 0));
-    } else if (std::find(ritualCards.begin(), ritualCards.end(), s) != ritualCards.end()) {
-        active->addToHand(make_unique<Ritual>(s, 0));
-    } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), s) != enchantmentCards.end()) {
-        active->addToHand(make_unique<Enchantment>(s, 0));
-    } else {
-        cout << "Card found in deck does not match up: " << s << endl;
-    }
-}
-std::vector<card_template_t> Board::convertBoardRow(){
+card_template_t Board::convertCard(std::unique_ptr<Card>& card){
 
-}
-std::vector<card_template_t> Board::convertPlayerRow(){
 
+    // if (auto temp = dynamic_cast<Minion*>(card.get())) {
+    //     std::cout << "MINION" << std::endl;
+    //     if (temp->hasAbility && (temp->abilityCost < 0)){
+    //         return display_minion_triggered_ability(temp->getName(), temp->cost, temp->attack, temp->defence, temp->desc);
+    //     } else if (temp->hasAbility) {
+    //         return display_minion_activated_ability(temp->getName(), temp->cost, temp->attack, temp->defence, temp->abilityCost, temp->desc);
+    //     } else {
+    //         return display_minion_no_ability(temp->getName(), temp->cost, temp->attack, temp->defence);
+    //     }
+    // }
+    // else if (auto temp = dynamic_cast<Spell*>(card.get())) {
+    //     std::cout << "MINION" << std::endl;
+    //     return display_spell(temp->getName(), temp->cost, temp->desc);
+    // }
+    // else if (auto temp = dynamic_cast<Ritual*>(card.get())) {
+    //     std::cout << "MINION" << std::endl;
+    //     return display_ritual(temp->getName(), temp->cost, temp->activataion, temp->ritual_desc, temp->charges);
+    // }
+    // else if (auto temp = dynamic_cast<Enchantment*>(card.get())) {
+    //     std::cout << "MINION" << std::endl;
+    //     if (temp->attack == "" && temp->defense == ""){
+    //         return display_enchantment(temp->getName(), temp->cost, temp->desc);
+    //     }
+    //     return display_enchantment_attack_defence(temp->getName(), temp->cost, temp->desc, temp->attack, temp->defence);
+    // }
+
+    // if (std::find(minionCards.begin(), minionCards.end(), card->getName()) != minionCards.end()) { 
+    //     Minion *temp = dynamic_cast<Minion*>(card);
+    //     if (temp->hasAbility && (temp->abilityCost < 0)){
+    //         return display_minion_triggered_ability(temp->name, temp->cost, temp->attack, temp->defence, temp->desc);
+    //     } else if (temp->hasAbility) {
+    //         return display_minion_activated_ability(temp->name, temp->cost, temp->attack, temp->defence, temp->abilityCost, temp->desc);
+    //     } else {
+    //         return display_minion_no_ability(temp->name, temp->cost, temp->attack, temp->defence);
+    //     }
+    // } else if (std::find(spellCards.begin(), spellCards.end(), card->getName()) != spellCards.end()) {
+    //     Spell *temp = dynamic_cast<Spell*>(card);
+    //     return display_spell(temp->name, temp->cost, temp->desc);
+    // } else if (std::find(ritualCards.begin(), ritualCards.end(), card->getName()) != ritualCards.end()) {
+    //     Ritual *temp = dynamic_cast<Ritual*>(card);
+    //     return display_ritual(temp->name, temp->cost, temp->activataion, temp->ritual_desc, temp->charges);
+    // } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), card->getName()) != enchantmentCards.end()) {
+    //     Enchantment *temp = dynamic_cast<Enchantment*>(card);
+    //     if (temp->attack == "" && temp->defense == ""){
+    //         return display_enchantment(temp->name, temp->cost, temp->desc);
+    //     }
+    //     return display_enchantment_attack_defence(temp->name, temp->cost, temp->desc, temp->attack, temp->defence);
+    // } 
+    return display_minion_no_ability("NOTHING", 0, 0, 0);
 }
+
+// std::vector<card_template_t> Board::convertBoardRow(){
+
+// }
+// std::vector<card_template_t> Board::convertPlayerRow(){
+
+// }
 
 void Board::printHBorder(int upOrLow){
     if (upOrLow == 0){std::cout << EXTERNAL_BORDER_CHAR_TOP_LEFT;}
