@@ -25,19 +25,41 @@ Minion::Minion(string name, int cost):
     //set defense and actions if applicable
 
     cout << "minion ctor" << endl;
+
+    // if (name == "Dark Ritual") { 
+    //   desc = "At the start of your turn, gain 1 magic"; 
+    //   abilityCost = 1;
+    //   //charges = 5;
+    //   //activation = 1;
+    // }
+    // else if (name == "Apprentice Summoner") { 
+    //   desc = "Whenever a minion enters play under your control it gains +1/+1"; 
+    //   abilityCost = 1;
+    //   //charges = 4;
+    //   //activation = 1;
+    // }
+    // else if (name == "Master Summoner") { 
+    //   desc = "Whenever a minion enters play, destroy it"; 
+    //   abilityCost = 2;
+    //   //charges = 4;
+    //   //activation = 2;
+    // }
 }
 
 //void Minion::airElemental(Player *played, int *target) {}
 //void Minion::earthElemental(Player *played, int *target) {}
 void Minion::boneGolem() {
   //needs notify implementation
-  cout << "bone golem called" << endl;}
+  cout << "bone golem called" << endl;
+}
 void Minion::fireElemental() {
   //needs notify implementation
-  cout << "fire elemental called" << endl;}
+  cout << "fire elemental called" << endl;
+}
 void Minion::potionSeller() {
   //needs notify implementation
-  cout << "potion seller called" << endl;}
+  cout << "potion seller called" << endl;
+}
 void Minion::novicePyromancer(Player *owner, int target) {
   cout << "novice pyromancer called" << endl;}
 void Minion::apprenticeSummoner(Player *played) {

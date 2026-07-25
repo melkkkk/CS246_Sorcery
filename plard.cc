@@ -69,6 +69,7 @@ export class Player{
 
     // new functions because everything is private ohhh soft private
     void addToHand(unique_ptr<Card> card);
+    void moveToBoard(unique_ptr<Card> card, int i = 1);
     vector<string>& getDeck();
 
     void addL(int i);

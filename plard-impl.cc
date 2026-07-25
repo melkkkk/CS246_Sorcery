@@ -60,3 +60,15 @@ void Player::addToHand(unique_ptr<Card> card){
     int i = hand.size() - 1;
     std::cout << hand[i]->getName() << " has been added to hand!" << endl;
 }
+
+void Player::moveToBoard(unique_ptr<Card> card, int i){
+    if (i != 0) {
+        board.push_back(move(card));
+        int i = board.size() - 1;
+        std::cout << board[i]->getName() << " has been added to board!" << endl;
+    } else {
+        //set ritual pointer to given ritual
+        board[i] = card;
+        std::cout << board[i]->getName() << " has been added to board!" << endl;
+    }
+}

@@ -65,9 +65,25 @@ void Game::use(Player *active, int indexM, Player *other, int i) {
 void Game::playCard(int indexC, Player *other, int i) {
     cout << "card played" << endl;
     // card played 
-    Card *c = active->getCardH(indexC);
+    unique_ptr<Card> c = active->getCardH(indexC);
+
     string name = c->getname();
-    if (std::find(spellCards.begin(), spellCards.end(), name) != spellCards.end()) {
+    
+    if (std::find(minionCards.begin(), minionCards.end(), name) != minionCards.end()) {
+        Minion *temp = dynamic_cast<Minion*>(c);
+        //add to board
+        active->moveToBoard(c);
+
+        // else if (name == "Air Elemental") { airElemental(active, i); }
+        // else if (name == "Earth Elemental") { earthElemental(active, i); }
+        // else if (name == "Bone Golem") { boneGolem(active, i); }
+        // else if (name == "Fire  Elemental") { fireElemental(active, i); }
+        // else if (name == "Potion Seller") { potionSeller(active, i); }
+        // else if (name == "Novice Pyromancer") { novicePyromancer(active, i); }
+        // else if (name == "Apprentice Summoner") { apprenticeSummoner(active, i); }
+        // else if (name == "Master Summoner") { masterSummoner(active, i); }
+
+    } else if (std::find(spellCards.begin(), spellCards.end(), s) != spellCards.end()) {
         Spell *temp = dynamic_cast<Spell*>(c);
         if (name == "Banish") { c->banish(active, other, i); }
         else if (name == "Unsummon") { c->unsummon(active, other, i); }
@@ -75,43 +91,25 @@ void Game::playCard(int indexC, Player *other, int i) {
         else if (name == "Disenchant") { c->disenchant(active, other, i); }
         else if (name == "Raise Dead") { c->raiseDead(active); }
         else if (name == "Blizzard") { c->blizzard(active, other); }
-    } else if (std::find(spellCards.begin(), spellCards.end(), s) != spellCards.end()) {
-        Spell *temp = dynamic_cast<Spell*>(c);
-        
+
     } else if (std::find(ritualCards.begin(), ritualCards.end(), s) != ritualCards.end()) {
-        active->addToHand(make_unique<Ritual>(s, 0));
+        Ritual *temp = dynamic_cast<Ritual*>(c);
+        // add to slot
+        active->moveToBoard(c, 0);
+
+        else if (name == "Dark Ritual") { c->darkRitual(active); }
+        else if (name == "Aura of Power") { c->auraOfPower(active); }
+        else if (name == "Standstill") { c->standstill(active); }
+        
     } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), s) != enchantmentCards.end()) {
-        active->addToHand(make_unique<Enchantment>(s, 0));
+        Enchantment *temp = dynamic_cast<Enchantment*>(c);
+        else if (name == "Giant Strength") { c->giantStrength(active, other, i); }
+        else if (name == "Enrage") { c->enrage(active, other, i); }
+        else if (name == "Haste") { c->haste(active, other, i); }
+        else if (name == "Magic Fatigue") { c->magicFatigue(active, other, i); }
+        else if (name == "Silence") { c->silence(active, other, i); }
+
     }
-    //spell
-    
-    // ritual
-    else if (name == "Dark Ritual") { darkRitual(active); }
-    else if (name == "Aura of Power") { auraOfPower(active); }
-    else if (name == "Standstill") { standstill(active); }
-    //enchantment
-    else if (name == "Giant Strength") { giantStrength(active, other, i); }
-    else if (name == "Enrage") { enrage(active, other, i); }
-    else if (name == "Haste") { haste(active, other, i); }
-    else if (name == "Magic Fatigue") { magicFatigue(active, other, i); }
-    else if (name == "Silence") { silence(active, other, i); }
-    // minion 
-    // just realized these dont even need this because they can only attack and use
-    // we can just move from hand to board ig,,,
-    
-    //Minion *temp = dynamic_cast<Minion*>(c);
-
-    else if (name == "Air Elemental") { airElemental(active, i); }
-    else if (name == "Earth Elemental") { earthElemental(active, i); }
-    else if (name == "Bone Golem") { boneGolem(active, i); }
-    else if (name == "Fire  Elemental") { fireElemental(active, i); }
-    else if (name == "Potion Seller") { potionSeller(active, i); }
-    else if (name == "Novice Pyromancer") { novicePyromancer(active, i); }
-    else if (name == "Apprentice Summoner") { apprenticeSummoner(active, i); }
-    else if (name == "Master Summoner") { masterSummoner(active, i); }
-
-    
-
 }
 
 // draws top card from the deck, probably needs to raise error later on?
