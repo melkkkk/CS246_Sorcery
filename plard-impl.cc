@@ -68,7 +68,8 @@ void Player::addToHand(unique_ptr<Card> card){
     std::cout << hand[i]->getName() << " has been added to hand!" << endl;
 }
 
-void Player::moveToBoard(unique_ptr<Card> card, int i){
+void Player::moveToBoard(unique_ptr<Card> card, int indexH, int i){
+    //leave space for ritua;
     if (board.size() == 0) {
         board.push_back(nullptr);
     }
@@ -82,4 +83,13 @@ void Player::moveToBoard(unique_ptr<Card> card, int i){
         board[i] = move(card);
         std::cout << board[i]->getName() << " has been added to board!" << endl;
     }
+    //deletes from hand
+    hand.erase(hand.begin() + indexH);
+}
+
+void Player::moveToGraveyard(unique_ptr<Card> card, int indexB){
+    graveyard.push_back(move(card));
+    int j = graveyard.size() - 1;
+    std::cout << graveyard[j]->getName() << " has been added to graveyard!" << endl;
+    board.erase(board.begin() + indexB);
 }

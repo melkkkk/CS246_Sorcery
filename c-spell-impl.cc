@@ -39,7 +39,7 @@ void Spell::banish(Player *played, int indexC, Player *owner, int i) {
 void Spell::unsummon(Player *played, int indexC, Player *owner, int i) {
   cout << "unsummon called" << endl;
     // owner->hand.emplace_back = owner->board[i]; //add to hand
-    // Card *it = owner->board[i];
+    // Card *it = owner->getCardB();
     // owner->board.erase(it); //remove from board
 
 }

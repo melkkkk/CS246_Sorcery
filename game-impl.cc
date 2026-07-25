@@ -134,8 +134,11 @@ void Game::playCard(int indexC, Player *other, int i) {
         cout << "card played" << endl;
         // card played 
         Card *c = active->getCardH(indexC);
+        // if (!c) {
+        //     std::cout << "Card is null!\n";
+        //     return;
+        // }
         string name = c->getName();
-
 
 
         if (std::find(spellCards.begin(), spellCards.end(), name) != spellCards.end()) {
@@ -165,7 +168,7 @@ void Game::playCard(int indexC, Player *other, int i) {
             else if (name == "Standstill") { temp->standstill(active); }
 
             // add to slot
-            active->moveToBoard(move(active->getUniqueH(indexC)), 0);
+            active->moveToBoard(move(active->getUniqueH(indexC)), indexC, 0);
             //delete temp;
 
             // function call the tell board smth has been added
@@ -173,7 +176,7 @@ void Game::playCard(int indexC, Player *other, int i) {
         } else if (std::find(minionCards.begin(), minionCards.end(), name) != minionCards.end()) {
             Minion *temp = dynamic_cast<Minion*>(c);
             //add to board
-            active->moveToBoard(move(active->getUniqueH(indexC)));
+            active->moveToBoard(move(active->getUniqueH(indexC)), indexC);
             //delete temp;
 
             // function call the tell board smth has been added

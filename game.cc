@@ -48,7 +48,9 @@ export class Game{
     void attackM(int indexM, int i = -1);
     void use(int indexM, Player *other = nullptr, int i = -1);
     void playCard(int indexC, Player *other = nullptr, int i = -1);
+    void checkBoard(int indexC, Player *other = nullptr, int i = -1);
     void changeTurn();
+    
 
     void setDeck(int i, std::ifstream& infile);
     void shuffleDeck(int i, std::default_random_engine &rng);
