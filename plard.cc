@@ -54,8 +54,8 @@ export class Player{
     int life;
     int magic;
     vector<string> deck;
-    vector<Card *> hand;
-    vector<Card> graveyard;
+    vector<unique_ptr<Card>> hand;
+    vector<unique_ptr<Card>> graveyard;
     
     vector<Card *> board;
     // Board B;

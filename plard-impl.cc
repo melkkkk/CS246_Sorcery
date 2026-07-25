@@ -28,7 +28,7 @@ Player::Player(string name, int life, int magic): name{name}, life{life}, magic{
 void Player::addL(int i) { life += i; }
 void Player::addM(int i) { magic += i; }
 
-Card *Player::getCardH(int i) { return hand[i]; }
+// Card *Player::getCardH(int i) { return hand[i]; }
 Card *Player::getCardB(int i) { return board[i]; }
 
 // name getter and setters
@@ -60,7 +60,8 @@ void Player::drawCard() {
 
     string s = deck.at(0);
     deck.erase(deck.begin());
-    hand.push_back(new Card(s));
+    
+    // hand.push_back(new Card(s));
 
     // cout << "CARD REMOVED " << s << endl;
     // for (const auto& card : deck) {
