@@ -121,7 +121,7 @@ void Game::drawCard(Player *active) {
     } else if (std::find(spellCards.begin(), spellCards.end(), s) != spellCards.end()) {
         active->addToHand(make_unique<Spell>(s, 0));
     } else if (std::find(ritualCards.begin(), ritualCards.end(), s) != ritualCards.end()) {
-        active->addToHand(make_unique<Ritual>(s, 0, 0, 0));
+        active->addToHand(make_unique<Ritual>(s, 0));
     } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), s) != enchantmentCards.end()) {
         active->addToHand(make_unique<Enchantment>(s, 0));
     } else {
