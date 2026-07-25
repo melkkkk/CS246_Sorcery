@@ -194,9 +194,17 @@ int main(int argc, char *argv []){
             if (inputs >= 3) {
                 ss >> i >> j >> k;
                 cout << "PLAY " << i << " CARD ON PLAYER " << j << " ON THEIR " << k << " MINION" << endl;
+                
+                if (g.getName(j) == g.getname()) { g.playCard(stoi(i), g.getActive(), stoi(k)); }
+                else { g.playCard(stoi(i), g.getInactive(), stoi(k)); }
+
             } else if (inputs >= 1) {
                 ss >> i;
                 cout << "PLAY " << i << " CARD NO TARGET" << endl;
+
+                g.playCard(stoi(i));
+
+
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
         } else if (first == "use") {
             if (inputs >= 3) {

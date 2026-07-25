@@ -54,6 +54,12 @@ export class Game{
     void shuffleDeck(int i, std::default_random_engine &rng);
     void setName(int i, std::string name);
     std::string getName(int i);
+    //overloaded?
+    std::string getName();
+
+    //may be able to fix these later
+    Player *getActive();
+    Player *getInactive();
 
     ~Game();
 

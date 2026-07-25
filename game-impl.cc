@@ -71,6 +71,10 @@ std::string Game::getName(int i){
     return s;
 }
 
+std::string Game::getName(){ return active->getname(); }
+Player *Game::getActive() {return active;}
+Player *Game::getInactive() {return inactive;}
+
 //if int i is negative then attacks player instead
 //deoesnt remove if one of them dies,,,
 

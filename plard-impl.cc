@@ -21,7 +21,9 @@ int Card::getCost() {return cost; }
 //State Subject::getState() const { return state; }
 
 
-Player::Player(string name, int life, int magic): name{name}, life{life}, magic{magic} {}
+Player::Player(string name, int life, int magic): name{name}, life{life}, magic{magic} {
+    board[0] = nullptr;
+}
 
 //adding
 void Player::addL(int i) { life += i; }
