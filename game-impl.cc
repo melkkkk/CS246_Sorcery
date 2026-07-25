@@ -21,7 +21,10 @@ using namespace std;
 
 Game::~Game() {}
 
-Game::Game(Player *active, Player *inactive): active{active}, inactive{inactive} {}
+Game::Game(Player *active, Player *inactive): active{active}, inactive{inactive} {
+    p1 = std::make_unique<Player>();
+    p2 = std::make_unique<Player>();
+}
 
 //if int i is negative then attacks player instead
 //deoesnt remove if one of them dies,,,
