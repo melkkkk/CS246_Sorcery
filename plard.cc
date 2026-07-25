@@ -87,6 +87,12 @@ export class Player{
     int getSizeH();
     int getSizeB();
 
+    int getLife();
+    int getMagic();
+    vector<unique_ptr<Card>>& getHand();
+    vector<unique_ptr<Card>>& getBoard();
+    vector<unique_ptr<Card>>& getGraveyard();
+
     void playEffect(int i);
 
 };
