@@ -57,7 +57,7 @@ export class Player{
     vector<unique_ptr<Card>> hand;
     vector<unique_ptr<Card>> graveyard;
     
-    vector<Card *> board;
+    vector<unique_ptr<Card>> board;
     // Board B;
 
   public:
@@ -66,7 +66,13 @@ export class Player{
     void setName(string name);
     void setDeck(ifstream& infile);
     void shuffleDeck(default_random_engine &rng);
-    void drawCard();
+
+    // ahkafhksldh
+    void addToHand(unique_ptr<Card> card);
+    vector<string>& getDeck();
+    vector<unique_ptr<Card>>& getHand() { return hand; }
+
+    // void drawCard();
 
     void addL(int i);
     void addM(int i);

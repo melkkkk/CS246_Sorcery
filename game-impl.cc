@@ -5,6 +5,11 @@ import plard;
 
 import minion;
 
+// CAN COMMMENT OUT IF NOT READY
+import ritual;
+import enchantment;
+import spell;
+
 import <string>;
 import <vector>;
 import <fstream>;
@@ -90,4 +95,39 @@ void Game::playCard(Player *active, int indexC, Player *other, int i) {
 
     //
 
+}
+
+// draws top card from the deck, probably needs to raise error later on?
+void Game::drawCard(Player *active) {
+    if (active->getDeck().empty()){
+        cout << "Deck is empty" << endl;
+        return;
+    }
+
+    string s = active->getDeck().at(0);
+    active->getDeck().erase(active->getDeck().begin());
+    // cout << s << endl;
+
+    if (std::find(minionCards.begin(), minionCards.end(), s) != minionCards.end()) {
+        active->addToHand(make_unique<Minion>(s, 0));
+    } else if (std::find(spellCards.begin(), spellCards.end(), s) != spellCards.end()) {
+        active->addToHand(make_unique<Spell>(s, 0));
+    } else if (std::find(ritualCards.begin(), ritualCards.end(), s) != ritualCards.end()) {
+        active->addToHand(make_unique<Ritual>(s, 0, 0, 0));
+    } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), s) != enchantmentCards.end()) {
+        active->addToHand(make_unique<Enchantment>(s, 0));
+    } else {
+        cout << "Card found in deck does not match up: " << s << endl;
+    }
+    
+
+    // cout << "CARD REMOVED " << s << endl;
+    // for (const auto& card : deck) {
+    //     cout << card << endl;
+    // }
+    // cout << endl;
+    // for (auto& card : hand) {
+    //     cout << card.getName() << endl;
+    // }
+    // cout << endl;
 }

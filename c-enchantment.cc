@@ -7,8 +7,8 @@ import minion;
 using namespace std;
 
 export class Enchantment: public Card {
-    string attack = 0;
-    string defense = 0;
+    string attack = "0";
+    string defense = "0";
     string desc = "";
 
   protected:

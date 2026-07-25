@@ -10,7 +10,7 @@ using namespace std;
 //CTOR
 Enchantment::Enchantment(string name, int cost): Card{name, cost} {
     if (name == "Giant Strength") { this->attack = "+2"; this->defense = "+2"; }
-    if (name == "Engrage") { this->attack = "*2"; this->defense = "*2"; }
+    if (name == "Enrage") { this->attack = "*2"; this->defense = "*2"; }
     else if (name == "Haste") { this->desc = "Enchanted minion gains +1 action each turn"; }
     else if (name == "Magic Fatigue") { this->desc = "Enchanted minion's activated ability costs 2 more"; }
     else if (name == "Silence") { this->desc = "Whenever a minion enters play, destroy it"; }

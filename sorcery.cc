@@ -35,6 +35,9 @@ int main(int argc, char *argv []){
     Player p2;
     Player *actPlayer = &p1; // going to be using these pointers for most the time i think
     Player *nonPlayer = &p2;
+
+    //make game object to call playcard
+    Game g = Game(actPlayer, nonPlayer);
     
     // for testing mode
     bool testing = false;
@@ -73,6 +76,7 @@ int main(int argc, char *argv []){
         }
     }
 
+
     // temp fix for deck specification, can change later 
     if (!deck1) {
         ifstream infile{"default.deck"};
@@ -93,9 +97,14 @@ int main(int argc, char *argv []){
     // initialize hands of 5 cards
     int startCards = 5;
     for (int i = 0; i < startCards; ++i){
-        p1.drawCard();
-        p2.drawCard();
+        g.drawCard(actPlayer);
+        g.drawCard(nonPlayer);
     }
+
+    // for (const auto& card : actPlayer.deck) {
+    //     cout << card.getName() << endl;
+    // }
+    // cout << endl;
     
     // get names of players, change later if -init is being used
     string name;
@@ -110,9 +119,6 @@ int main(int argc, char *argv []){
     cout << "player name is " << p2.getName() << endl;
 
 
-
-    //make game object to call playcard
-    Game g = Game(actPlayer, nonPlayer);
 
     // main game loop
     // bool quit = false;
