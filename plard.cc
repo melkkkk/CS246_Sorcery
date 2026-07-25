@@ -67,12 +67,9 @@ export class Player{
     void setDeck(ifstream& infile);
     void shuffleDeck(default_random_engine &rng);
 
-    // ahkafhksldh
+    // new functions because everything is private ohhh soft private
     void addToHand(unique_ptr<Card> card);
     vector<string>& getDeck();
-    vector<unique_ptr<Card>>& getHand() { return hand; }
-
-    // void drawCard();
 
     void addL(int i);
     void addM(int i);

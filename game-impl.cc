@@ -99,15 +99,19 @@ void Game::playCard(Player *active, int indexC, Player *other, int i) {
 
 // draws top card from the deck, probably needs to raise error later on?
 void Game::drawCard(Player *active) {
+    // checking if the deck is empty
     if (active->getDeck().empty()){
         cout << "Deck is empty" << endl;
         return;
     }
 
+    // get the top card of the deck
     string s = active->getDeck().at(0);
     active->getDeck().erase(active->getDeck().begin());
+    
     // cout << s << endl;
 
+    // Based on what the name is, the correct card is created
     if (std::find(minionCards.begin(), minionCards.end(), s) != minionCards.end()) {
         active->addToHand(make_unique<Minion>(s, 0));
     } else if (std::find(spellCards.begin(), spellCards.end(), s) != spellCards.end()) {
@@ -119,15 +123,4 @@ void Game::drawCard(Player *active) {
     } else {
         cout << "Card found in deck does not match up: " << s << endl;
     }
-    
-
-    // cout << "CARD REMOVED " << s << endl;
-    // for (const auto& card : deck) {
-    //     cout << card << endl;
-    // }
-    // cout << endl;
-    // for (auto& card : hand) {
-    //     cout << card.getName() << endl;
-    // }
-    // cout << endl;
 }
