@@ -9,7 +9,8 @@ export class Minion: public Card, public Observer {
     int attack;
     int defense;
     std::string desc;
-    int actions;
+    int actions = 1;
+    int abilityCost = 0;
     // vector of enchantments
     //vector<Enchantment *> enchanted;
 
