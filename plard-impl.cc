@@ -68,6 +68,12 @@ void Player::addToHand(unique_ptr<Card> card){
     std::cout << hand[i]->getName() << " has been added to hand!" << endl;
 }
 
+//remove from hand when card is played (used up a spell)
+void Player::removeFromHand(int indexH){
+    std::cout << hand[indexH]->getName() << " has been removed from hand!" << endl;
+    hand.erase(hand.begin() + indexH);
+}
+
 void Player::moveToBoard(unique_ptr<Card> card, int indexH, int i){
     //leave space for ritua;
     if (board.size() == 0) {

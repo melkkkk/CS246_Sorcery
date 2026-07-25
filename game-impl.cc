@@ -37,7 +37,11 @@ Game::Game() {
 }
 
 void Game::changeTurn(){
+    cout << "Active: " << active->getName() << " address " << active << endl;
+    cout << "Inactive: " << inactive->getName() << " address " << inactive << endl;
     std::swap(active, inactive);
+    cout << "Active: " << active->getName() << " address " << active << endl;
+    cout << "Inactive: " << inactive->getName() << " address " << inactive << endl;
 }
 
 void Game::setDeck(int i, std::ifstream& infile){
@@ -150,6 +154,7 @@ void Game::playCard(int indexC, Player *other, int i) {
             else if (name == "Raise Dead") { temp->raiseDead(active, indexC); }
             else if (name == "Blizzard") { temp->blizzard(active, indexC, other); }
             //delete temp;
+            active->removeFromHand(indexC);
 
         } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), name) != enchantmentCards.end()) {
             Enchantment *temp = dynamic_cast<Enchantment*>(c);
@@ -159,6 +164,7 @@ void Game::playCard(int indexC, Player *other, int i) {
             else if (name == "Magic Fatigue") { temp->magicFatigue(active, other, i); }
             else if (name == "Silence") { temp->silence(active, other, i); }
             //delete temp;
+            active->removeFromHand(indexC);
 
         } else if (std::find(ritualCards.begin(), ritualCards.end(), name) != ritualCards.end()) {
             Ritual *temp = dynamic_cast<Ritual*>(c);
@@ -198,11 +204,11 @@ void Game::playCard(int indexC, Player *other, int i) {
 
 // draws top card from the deck, probably needs to raise error later on?
 void Game::drawCard(int i) {
-    if (i == 1){
-        active = p1.get();
-    } else {
-        active = p2.get();
-    }
+    // if (i == 1){
+    //     active = p1.get();
+    // } else {
+    //     active = p2.get();
+    // }
 
     // checking if the deck is empty
     if (active->getDeck().empty()){

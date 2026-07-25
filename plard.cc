@@ -71,6 +71,9 @@ export class Player{
     void addToHand(unique_ptr<Card> card);
     void moveToBoard(unique_ptr<Card> card, int indexH, int i = 1);
     void moveToGraveyard(unique_ptr<Card> card, int indexB);
+
+    void removeFromHand(int indexH);
+
     vector<string>& getDeck();
 
     void addL(int i);
