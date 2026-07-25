@@ -39,6 +39,10 @@ int main(int argc, char *argv []){
     // for testing mode
     bool testing = false;
 
+    // set deck
+    bool deck1 = false;
+    bool deck2 = false;
+
     // parsing through command line arguments
     for (int i = 1; i < argc; ++i){
         string command(argv[i]);
@@ -47,11 +51,13 @@ int main(int argc, char *argv []){
             ++i;
             ifstream infile{argv[i]};
             p1.setDeck(infile);
+            deck1 = true;
             // create deck for p1 from file
         } else if (command == "-deck2") {
             ++i;
             ifstream infile{argv[i]};
             p2.setDeck(infile);
+            deck2 = true;
             // create deck for p2 file
         } else if (command == "-init") {
             ++i;
@@ -66,6 +72,16 @@ int main(int argc, char *argv []){
             return 2;
         }
     }
+
+    // temp fix for deck specification, can change later 
+    if (!deck1) {
+        ifstream infile{"default.deck"};
+        p1.setDeck(infile);
+    } 
+    if (!deck2) {
+        ifstream infile{"default.deck"};
+        p2.setDeck(infile);
+    } 
 
     // add more initialization stuff here
     // shuffle decks
