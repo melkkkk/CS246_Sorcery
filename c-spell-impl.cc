@@ -31,19 +31,19 @@ Spell::Spell(string name, int cost): Card{name, cost} {
 //     else if (name == "Blizzard") { blizzard(played, owner); }
 // }
 
-void banish(Player *played, int indexC, Player *owner, int i) {
+void Spell::banish(Player *played, int indexC, Player *owner, int i) {
   cout << "banish called" << endl;
     // Card *it = owner->board[i];
     // owner->board.erase(it);
 }
-void unsummon(Player *played, int indexC, Player *owner, int i) {
+void Spell::unsummon(Player *played, int indexC, Player *owner, int i) {
   cout << "unsummon called" << endl;
     // owner->hand.emplace_back = owner->board[i]; //add to hand
     // Card *it = owner->board[i];
     // owner->board.erase(it); //remove from board
 
 }
-void recharge(Player *played, int indexC) {
+void Spell::recharge(Player *played, int indexC) {
   cout << "recharge called" << endl;
     // int len = played->board.size;
     // string t = "";
@@ -54,7 +54,7 @@ void recharge(Player *played, int indexC) {
     //     }
     // }
 }
-void disenchant(Player *played, int indexC, Player *owner, int i) {
+void Spell::disenchant(Player *played, int indexC, Player *owner, int i) {
   cout << "disenchant called" << endl;
     // int len = owner->board[i].enchantments.size(); //add to hand
     // if (len == 0) return;
@@ -63,7 +63,7 @@ void disenchant(Player *played, int indexC, Player *owner, int i) {
     //     owner->board[i].enchantments.erase(it);
     // }
 }
-void raiseDead(Player *played, int indexC) {
+void Spell::raiseDead(Player *played, int indexC) {
   cout << "raide dead called" << endl;
     // int len = owner->graveyard.size(); //check non empty graveyard
     // if (len == 0) return;
@@ -73,7 +73,7 @@ void raiseDead(Player *played, int indexC) {
     //     owner->graveyard.erase(it); //remove from graveyard
     // }
 }
-void blizzard(Player *played, int indexC, Player *owner){
+void Spell::blizzard(Player *played, int indexC, Player *owner){
   cout << "blizzard called" << endl;
     // int len = played->board.size;
     // string t = "";
