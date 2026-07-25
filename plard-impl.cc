@@ -22,7 +22,6 @@ int Card::getCost() {return cost; }
 
 
 Player::Player(string name, int life, int magic): name{name}, life{life}, magic{magic} {
-    board[0] = nullptr;
 }
 
 //adding
@@ -70,6 +69,10 @@ void Player::addToHand(unique_ptr<Card> card){
 }
 
 void Player::moveToBoard(unique_ptr<Card> card, int i){
+    if (board.size() == 0) {
+        board.push_back(nullptr);
+    }
+    
     if (i != 0) {
         board.push_back(move(card));
         int j = board.size() - 1;

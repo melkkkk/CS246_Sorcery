@@ -195,7 +195,7 @@ int main(int argc, char *argv []){
                 ss >> i >> j >> k;
                 cout << "PLAY " << i << " CARD ON PLAYER " << j << " ON THEIR " << k << " MINION" << endl;
                 
-                if (g.getName(j) == g.getname()) { g.playCard(stoi(i), g.getActive(), stoi(k)); }
+                if (g.getName(stoi(j)) == g.getName()) { g.playCard(stoi(i), g.getActive(), stoi(k)); }
                 else { g.playCard(stoi(i), g.getInactive(), stoi(k)); }
 
             } else if (inputs >= 1) {

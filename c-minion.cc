@@ -11,6 +11,7 @@ export class Minion: public Card, public Observer {
     std::string desc;
     int actions = 1;
     int abilityCost = 0;
+    bool hasAbility = false;
     // vector of enchantments
     //vector<Enchantment *> enchanted;
 

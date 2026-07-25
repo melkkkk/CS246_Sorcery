@@ -71,7 +71,7 @@ std::string Game::getName(int i){
     return s;
 }
 
-std::string Game::getName(){ return active->getname(); }
+std::string Game::getName(){ return active->getName(); }
 Player *Game::getActive() {return active;}
 Player *Game::getInactive() {return inactive;}
 
@@ -118,56 +118,59 @@ void Game::use(Player *active, int indexM, Player *other, int i) {
 }
 
 void Game::playCard(int indexC, Player *other, int i) {
-    cout << "card played" << endl;
-    // card played 
-    Card *c = active->getCardH(indexC);
-    string name = c->getName();
+    if ((active->getSizeH() > indexC) && (inactive->getSizeH() > i)) {
+        cout << "card played" << endl;
+        // card played 
+        Card *c = active->getCardH(indexC);
+        string name = c->getName();
 
-    if (std::find(spellCards.begin(), spellCards.end(), name) != spellCards.end()) {
-        Spell *temp = dynamic_cast<Spell*>(c);
-        if (name == "Banish") { temp->banish(active, indexC, other, i); }
-        else if (name == "Unsummon") { temp->unsummon(active, indexC, other, i); }
-        else if (name == "Recharge") { temp->recharge(active, indexC); }
-        else if (name == "Disenchant") { temp->disenchant(active, indexC, other, i); }
-        else if (name == "Raise Dead") { temp->raiseDead(active, indexC); }
-        else if (name == "Blizzard") { temp->blizzard(active, indexC, other); }
+        if (std::find(spellCards.begin(), spellCards.end(), name) != spellCards.end()) {
+            Spell *temp = dynamic_cast<Spell*>(c);
+            if (name == "Banish") { temp->banish(active, indexC, other, i); }
+            else if (name == "Unsummon") { temp->unsummon(active, indexC, other, i); }
+            else if (name == "Recharge") { temp->recharge(active, indexC); }
+            else if (name == "Disenchant") { temp->disenchant(active, indexC, other, i); }
+            else if (name == "Raise Dead") { temp->raiseDead(active, indexC); }
+            else if (name == "Blizzard") { temp->blizzard(active, indexC, other); }
 
-    } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), name) != enchantmentCards.end()) {
-        Enchantment *temp = dynamic_cast<Enchantment*>(c);
-        if (name == "Giant Strength") { temp->giantStrength(active, other, i); }
-        else if (name == "Enrage") { temp->enrage(active, other, i); }
-        else if (name == "Haste") { temp->haste(active, other, i); }
-        else if (name == "Magic Fatigue") { temp->magicFatigue(active, other, i); }
-        else if (name == "Silence") { temp->silence(active, other, i); }
+        } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), name) != enchantmentCards.end()) {
+            Enchantment *temp = dynamic_cast<Enchantment*>(c);
+            if (name == "Giant Strength") { temp->giantStrength(active, other, i); }
+            else if (name == "Enrage") { temp->enrage(active, other, i); }
+            else if (name == "Haste") { temp->haste(active, other, i); }
+            else if (name == "Magic Fatigue") { temp->magicFatigue(active, other, i); }
+            else if (name == "Silence") { temp->silence(active, other, i); }
 
-    } else if (std::find(ritualCards.begin(), ritualCards.end(), name) != ritualCards.end()) {
-        Ritual *temp = dynamic_cast<Ritual*>(c);
+        } else if (std::find(ritualCards.begin(), ritualCards.end(), name) != ritualCards.end()) {
+            Ritual *temp = dynamic_cast<Ritual*>(c);
 
-        if (name == "Dark Ritual") { temp->darkRitual(active); }
-        else if (name == "Aura of Power") { temp->auraOfPower(active); }
-        else if (name == "Standstill") { temp->standstill(active); }
+            if (name == "Dark Ritual") { temp->darkRitual(active); }
+            else if (name == "Aura of Power") { temp->auraOfPower(active); }
+            else if (name == "Standstill") { temp->standstill(active); }
 
-        // add to slot
-        active->moveToBoard(move(active->getUniqueH(indexC)), 0);
+            // add to slot
+            active->moveToBoard(move(active->getUniqueH(indexC)), 0);
 
-        // function call the tell board smth has been added
-        
-    } else if (std::find(minionCards.begin(), minionCards.end(), name) != minionCards.end()) {
-        Minion *temp = dynamic_cast<Minion*>(c);
-        //add to board
-        active->moveToBoard(move(active->getUniqueH(indexC)));
+            // function call the tell board smth has been added
+            
+        } else if (std::find(minionCards.begin(), minionCards.end(), name) != minionCards.end()) {
+            Minion *temp = dynamic_cast<Minion*>(c);
+            //add to board
+            active->moveToBoard(move(active->getUniqueH(indexC)));
 
-        // function call the tell board smth has been added
+            // function call the tell board smth has been added
 
-        // else if (name == "Air Elemental") { airElemental(active, i); }
-        // else if (name == "Earth Elemental") { earthElemental(active, i); }
-        // else if (name == "Bone Golem") { boneGolem(active, i); }
-        // else if (name == "Fire  Elemental") { fireElemental(active, i); }
-        // else if (name == "Potion Seller") { potionSeller(active, i); }
-        // else if (name == "Novice Pyromancer") { novicePyromancer(active, i); }
-        // else if (name == "Apprentice Summoner") { apprenticeSummoner(active, i); }
-        // else if (name == "Master Summoner") { masterSummoner(active, i); }
-
+            // else if (name == "Air Elemental") { airElemental(active, i); }
+            // else if (name == "Earth Elemental") { earthElemental(active, i); }
+            // else if (name == "Bone Golem") { boneGolem(active, i); }
+            // else if (name == "Fire  Elemental") { fireElemental(active, i); }
+            // else if (name == "Potion Seller") { potionSeller(active, i); }
+            // else if (name == "Novice Pyromancer") { novicePyromancer(active, i); }
+            // else if (name == "Apprentice Summoner") { apprenticeSummoner(active, i); }
+            // else if (name == "Master Summoner") { masterSummoner(active, i); }
+        }
+    } else {
+        cout << "args out of bounds" << endl;
     }
 }
 
