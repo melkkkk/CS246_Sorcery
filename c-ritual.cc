@@ -14,7 +14,7 @@ export class Ritual: public Card, public Observer {
   protected:
     //void setState(State newS);
   public:
-    Ritual(std::string name, int cost, int charges, int activation);
+    Ritual(std::string name, int cost);
     //owner is owner of card selected in input or opponent based on spell
     //void pointer for card i or ritual r
     void darkRitual(Player *played);

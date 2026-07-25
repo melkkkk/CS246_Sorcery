@@ -19,12 +19,23 @@ void Ritual::played() {
 }
 
 //CTOR
-Ritual::Ritual(string name, int cost, int charges, int activation): Card{name, cost} {
-    this->charges = charges;
-    this->activation = activation;
-    if (name == "Dark Ritual") { this->desc = "At the start of your turn, gain 1 magic"; }
-    else if (name == "Aura of Power") { this->desc = "Whenever a minion enters play under your control it gains +1/+1"; }
-    else if (name == "Standstill") { this->desc = "Whenever a minion enters play, destroy it"; }
+Ritual::Ritual(string name, int cost): Card{name, cost} {
+    cout << "ritual ctor" << endl;
+    if (name == "Dark Ritual") { 
+      desc = "At the start of your turn, gain 1 magic"; 
+      charges = 5;
+      activation = 1;
+    }
+    else if (name == "Aura of Power") { 
+      desc = "Whenever a minion enters play under your control it gains +1/+1"; 
+      charges = 4;
+      activation = 1;
+    }
+    else if (name == "Standstill") { 
+      desc = "Whenever a minion enters play, destroy it"; 
+      charges = 4;
+      activation = 2;
+    }
 }
 
 //selects which spell to use
