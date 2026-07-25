@@ -11,6 +11,7 @@ using namespace std;
 
 //CTOR
 Spell::Spell(string name, int cost): Card{name, cost} {
+    cout << "spell ctor" << endl;
     if (name == "Banish") { this->desc = "Destroy target minion or ritual"; }
     else if (name == "Unsummon") { this->desc = "Return target minion to its owner's hand"; }
     else if (name == "Recharge") { this->desc = "Your ritual gains 3 charges"; }
