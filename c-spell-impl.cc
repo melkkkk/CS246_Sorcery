@@ -9,6 +9,8 @@ import ritual;
 
 using namespace std;
 
+std::string Spell::getDesc(){return desc;}
+
 //CTOR
 Spell::Spell(string name, int cost): Card{name, cost} {
     cout << "spell ctor" << endl;

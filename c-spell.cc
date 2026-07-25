@@ -24,7 +24,7 @@ export class Spell: public Card {
     void raiseDead(Player *played, int indexC);
     void blizzard(Player *played, int indexC, Player *owner);
 
-    // std::string 
+    std::string getDesc();
 };
 
 // //CTOR
