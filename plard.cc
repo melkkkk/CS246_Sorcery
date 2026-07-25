@@ -77,6 +77,9 @@ export class Player{
 
     Card *getCardH(int i);
     Card *getCardB(int i);
+    unique_ptr<Card>& getUniqueH(int i);
+    unique_ptr<Card>& getUniqueB(int i);
+
 };
 
 // export class Board{

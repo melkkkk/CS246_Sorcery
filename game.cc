@@ -47,7 +47,7 @@ export class Game{
     Game(); 
     void attackM(Player *active, int indexM, Player *other = nullptr, int i = -1);
     void use(Player *active, int indexM, Player *inactive = nullptr, int i = -1);
-    void playCard(Player *active, int indexC, Player *inactive = nullptr, int i = -1);
+    void playCard(int indexC, Player *other = nullptr, int i = -1);
     void changeTurn();
 
     void setDeck(int i, std::ifstream& infile);

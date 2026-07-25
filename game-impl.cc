@@ -21,9 +21,54 @@ using namespace std;
 
 Game::~Game() {}
 
-Game::Game(Player *active, Player *inactive): active{active}, inactive{inactive} {
+// Game::Game(Player *active, Player *inactive): active{active}, inactive{inactive} {
+//     p1 = std::make_unique<Player>();
+//     p2 = std::make_unique<Player>();
+// }
+
+Game::Game() {
     p1 = std::make_unique<Player>();
     p2 = std::make_unique<Player>();
+    active = p1.get();
+    inactive = p2.get();
+}
+
+void Game::changeTurn(){
+    std::swap(active, inactive);
+}
+
+void Game::setDeck(int i, std::ifstream& infile){
+    if (i == 1){
+        p1->setDeck(infile);
+    } else {
+        p2->setDeck(infile);
+    }
+}
+
+void Game::shuffleDeck(int i, std::default_random_engine &rng){
+    if (i == 1){
+        p1->shuffleDeck(rng);
+    } else {
+        p2->shuffleDeck(rng);
+    }
+}
+
+void Game::setName(int i, std::string name){
+    if (i == 1){
+        p1->setName(name);
+    } else {
+        p2->setName(name);
+    }
+}
+
+std::string Game::getName(int i){
+    std::string s;
+    if (i == 1){
+        s = p1->getName();
+    } else {
+        s = p2->getName();
+    }
+    return s;
 }
 
 //if int i is negative then attacks player instead
@@ -65,14 +110,44 @@ void Game::use(Player *active, int indexM, Player *other, int i) {
 void Game::playCard(int indexC, Player *other, int i) {
     cout << "card played" << endl;
     // card played 
-    unique_ptr<Card> c = active->getCardH(indexC);
+    Card *c = active->getCardH(indexC);
+    string name = c->getName();
 
-    string name = c->getname();
-    
-    if (std::find(minionCards.begin(), minionCards.end(), name) != minionCards.end()) {
+    if (std::find(spellCards.begin(), spellCards.end(), name) != spellCards.end()) {
+        Spell *temp = dynamic_cast<Spell*>(c);
+        if (name == "Banish") { temp->banish(active, indexC, other, i); }
+        else if (name == "Unsummon") { temp->unsummon(active, indexC, other, i); }
+        else if (name == "Recharge") { temp->recharge(active, indexC); }
+        else if (name == "Disenchant") { temp->disenchant(active, indexC, other, i); }
+        else if (name == "Raise Dead") { temp->raiseDead(active, indexC); }
+        else if (name == "Blizzard") { temp->blizzard(active, indexC, other); }
+
+    } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), name) != enchantmentCards.end()) {
+        Enchantment *temp = dynamic_cast<Enchantment*>(c);
+        if (name == "Giant Strength") { temp->giantStrength(active, other, i); }
+        else if (name == "Enrage") { temp->enrage(active, other, i); }
+        else if (name == "Haste") { temp->haste(active, other, i); }
+        else if (name == "Magic Fatigue") { temp->magicFatigue(active, other, i); }
+        else if (name == "Silence") { temp->silence(active, other, i); }
+
+    } else if (std::find(ritualCards.begin(), ritualCards.end(), name) != ritualCards.end()) {
+        Ritual *temp = dynamic_cast<Ritual*>(c);
+
+        if (name == "Dark Ritual") { temp->darkRitual(active); }
+        else if (name == "Aura of Power") { temp->auraOfPower(active); }
+        else if (name == "Standstill") { temp->standstill(active); }
+
+        // add to slot
+        active->moveToBoard(move(active->getUniqueH(indexC)), 0);
+
+        // function call the tell board smth has been added
+        
+    } else if (std::find(minionCards.begin(), minionCards.end(), name) != minionCards.end()) {
         Minion *temp = dynamic_cast<Minion*>(c);
         //add to board
-        active->moveToBoard(c);
+        active->moveToBoard(move(active->getUniqueH(indexC)));
+
+        // function call the tell board smth has been added
 
         // else if (name == "Air Elemental") { airElemental(active, i); }
         // else if (name == "Earth Elemental") { earthElemental(active, i); }
@@ -83,37 +158,17 @@ void Game::playCard(int indexC, Player *other, int i) {
         // else if (name == "Apprentice Summoner") { apprenticeSummoner(active, i); }
         // else if (name == "Master Summoner") { masterSummoner(active, i); }
 
-    } else if (std::find(spellCards.begin(), spellCards.end(), s) != spellCards.end()) {
-        Spell *temp = dynamic_cast<Spell*>(c);
-        if (name == "Banish") { c->banish(active, other, i); }
-        else if (name == "Unsummon") { c->unsummon(active, other, i); }
-        else if (name == "Recharge") { c->recharge(active); }
-        else if (name == "Disenchant") { c->disenchant(active, other, i); }
-        else if (name == "Raise Dead") { c->raiseDead(active); }
-        else if (name == "Blizzard") { c->blizzard(active, other); }
-
-    } else if (std::find(ritualCards.begin(), ritualCards.end(), s) != ritualCards.end()) {
-        Ritual *temp = dynamic_cast<Ritual*>(c);
-        // add to slot
-        active->moveToBoard(c, 0);
-
-        else if (name == "Dark Ritual") { c->darkRitual(active); }
-        else if (name == "Aura of Power") { c->auraOfPower(active); }
-        else if (name == "Standstill") { c->standstill(active); }
-        
-    } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), s) != enchantmentCards.end()) {
-        Enchantment *temp = dynamic_cast<Enchantment*>(c);
-        else if (name == "Giant Strength") { c->giantStrength(active, other, i); }
-        else if (name == "Enrage") { c->enrage(active, other, i); }
-        else if (name == "Haste") { c->haste(active, other, i); }
-        else if (name == "Magic Fatigue") { c->magicFatigue(active, other, i); }
-        else if (name == "Silence") { c->silence(active, other, i); }
-
     }
 }
 
 // draws top card from the deck, probably needs to raise error later on?
-void Game::drawCard(Player *active) {
+void Game::drawCard(int i) {
+    if (i == 1){
+        active = p1.get();
+    } else {
+        active = p2.get();
+    }
+
     // checking if the deck is empty
     if (active->getDeck().empty()){
         cout << "Deck is empty" << endl;
@@ -140,3 +195,4 @@ void Game::drawCard(Player *active) {
         cout << "Card found in deck does not match up: " << s << endl;
     }
 }
+

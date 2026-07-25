@@ -27,23 +27,23 @@ Enchantment::Enchantment(string name, int cost): Card{name, cost} {
 //     else if (name == "Silence") { silence(played, owner, p); }
 // }
 
-void Enchantment::giantStrength(Player *played, Player *owner, int *p) {
+void Enchantment::giantStrength(Player *played, Player *owner, int p) {
   cout << "giantStrength called" << endl;
   // owner->hand[p].addA(2);
   // owner->hand[p].addD(2);
 }
-void Enchantment::enrage(Player *played, Player *owner, int *p) {
+void Enchantment::enrage(Player *played, Player *owner, int p) {
   cout << "enrage called" << endl;
   // owner->hand[p].multA(2);
   // owner->hand[p].multD(2);
 }
-void Enchantment::haste(Player *played, Player *owner, int *p) {
+void Enchantment::haste(Player *played, Player *owner, int p) {
   cout << "haste called" << endl;
   //owner->hand[p].addAction();
 }
-void Enchantment::magicFatigue(Player *played, Player *owner, int *p) {
+void Enchantment::magicFatigue(Player *played, Player *owner, int p) {
   cout << "magicFatigue called" << endl;}
-void Enchantment::silence(Player *played, Player *owner, int *p) {
+void Enchantment::silence(Player *played, Player *owner, int p) {
   cout << "silence called" << endl;}
 
 

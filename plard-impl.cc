@@ -30,6 +30,9 @@ void Player::addM(int i) { magic += i; }
 Card *Player::getCardH(int i) { return hand[i].get(); }
 Card *Player::getCardB(int i) { return board[i].get(); }
 
+unique_ptr<Card>& Player::getUniqueH(int i) { return hand[i]; }
+unique_ptr<Card>& Player::getUniqueB(int i) { return board[i]; }
+
 vector<string>& Player::getDeck() { return deck; }
 
 // name getter and setters
@@ -64,11 +67,11 @@ void Player::addToHand(unique_ptr<Card> card){
 void Player::moveToBoard(unique_ptr<Card> card, int i){
     if (i != 0) {
         board.push_back(move(card));
-        int i = board.size() - 1;
-        std::cout << board[i]->getName() << " has been added to board!" << endl;
+        int j = board.size() - 1;
+        std::cout << board[j]->getName() << " has been added to board!" << endl;
     } else {
         //set ritual pointer to given ritual
-        board[i] = card;
+        board[i] = move(card);
         std::cout << board[i]->getName() << " has been added to board!" << endl;
     }
 }
