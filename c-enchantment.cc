@@ -7,9 +7,9 @@ import minion;
 using namespace std;
 
 export class Enchantment: public Card {
-    string attack = "";
-    string defense = "";
-    string desc = "";
+    std::string attack = "";
+    std::string defense = "";
+    std::string desc = "";
 
   protected:
     //void setState(State newS);
@@ -22,6 +22,11 @@ export class Enchantment: public Card {
     void haste(Player *played, Player *owner, int p);
     void magicFatigue(Player *played, Player *owner, int p);
     void silence(Player *played, Player *owner, int p);
+
+    std::string getAttack();
+    std::string getDefense();
+    std::string getDesc();
+
 };
 
 // //CTOR

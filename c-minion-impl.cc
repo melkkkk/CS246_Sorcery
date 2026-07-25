@@ -10,6 +10,9 @@ using namespace std;
 int Minion::getAttack() { return attack; }
 int Minion::getDefense() { return defense; }
 int Minion::getAction() { return actions; }
+std::string Minion::getDesc() {return desc;};
+int Minion::getAbilityCost() {return abilityCost;};
+bool Minion::getHasAbility() {return hasAbility;};
 //add Attack
 //add Defense
 void Minion::addA(int i) { attack += i; }

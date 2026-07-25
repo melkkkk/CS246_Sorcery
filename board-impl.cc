@@ -15,33 +15,31 @@ import <iostream>;
 import <memory>;
 
 card_template_t Board::convertCard(std::unique_ptr<Card>& card){
-
-
-    // if (auto temp = dynamic_cast<Minion*>(card.get())) {
-    //     std::cout << "MINION" << std::endl;
-    //     if (temp->hasAbility && (temp->abilityCost < 0)){
-    //         return display_minion_triggered_ability(temp->getName(), temp->cost, temp->attack, temp->defence, temp->desc);
-    //     } else if (temp->hasAbility) {
-    //         return display_minion_activated_ability(temp->getName(), temp->cost, temp->attack, temp->defence, temp->abilityCost, temp->desc);
-    //     } else {
-    //         return display_minion_no_ability(temp->getName(), temp->cost, temp->attack, temp->defence);
-    //     }
-    // }
+    if (auto temp = dynamic_cast<Minion*>(card.get())) {
+        std::cout << "MINION" << std::endl;
+        if (temp->getHasAbility() && (temp->getAbilityCost() < 0)){
+            return display_minion_triggered_ability(temp->getName(), temp->getCost(), temp->getAttack(), temp->getDefense(), temp->getDesc());
+        } else if (temp->getHasAbility()) {
+            return display_minion_activated_ability(temp->getName(), temp->getCost(), temp->getAttack(), temp->getDefense(), temp->getAbilityCost(), temp->getDesc());
+        } else {
+            return display_minion_no_ability(temp->getName(), temp->getCost(), temp->getAttack(), temp->getDefense());
+        }
+    }
     // else if (auto temp = dynamic_cast<Spell*>(card.get())) {
     //     std::cout << "MINION" << std::endl;
-    //     return display_spell(temp->getName(), temp->cost, temp->desc);
+    //     return display_spell(temp->getName(), temp->getName(), temp->desc);
     // }
     // else if (auto temp = dynamic_cast<Ritual*>(card.get())) {
     //     std::cout << "MINION" << std::endl;
-    //     return display_ritual(temp->getName(), temp->cost, temp->activataion, temp->ritual_desc, temp->charges);
+    //     return display_ritual(temp->getName(), temp->getName(), temp->activataion, temp->ritual_desc, temp->charges);
     // }
-    // else if (auto temp = dynamic_cast<Enchantment*>(card.get())) {
-    //     std::cout << "MINION" << std::endl;
-    //     if (temp->attack == "" && temp->defense == ""){
-    //         return display_enchantment(temp->getName(), temp->cost, temp->desc);
-    //     }
-    //     return display_enchantment_attack_defence(temp->getName(), temp->cost, temp->desc, temp->attack, temp->defence);
-    // }
+    else if (auto temp = dynamic_cast<Enchantment*>(card.get())) {
+        std::cout << "MINION" << std::endl;
+        if (temp->getAttack().length() == 0 && temp->getDefense().length() == 0){
+            return display_enchantment(temp->getName(), temp->getCost(), temp->getDesc());
+        }
+        return display_enchantment_attack_defence(temp->getName(), temp->getCost(), temp->getDesc(), temp->getAttack(), temp->getDefense());
+    }
 
     // if (std::find(minionCards.begin(), minionCards.end(), card->getName()) != minionCards.end()) { 
     //     Minion *temp = dynamic_cast<Minion*>(card);

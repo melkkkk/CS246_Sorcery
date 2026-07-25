@@ -29,6 +29,10 @@ export class Ritual: public Card, public Observer {
     //removes the activation from charge
     void played();
 
+    int getCharges();
+    int getActivation();
+    std::string getDesc();
+
     //observer
     void notify(State &whoFrom, Player *active) override;
 };

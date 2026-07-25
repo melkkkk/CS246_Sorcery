@@ -23,6 +23,8 @@ export class Spell: public Card {
     void disenchant(Player *played, int indexC, Player *owner, int i);
     void raiseDead(Player *played, int indexC);
     void blizzard(Player *played, int indexC, Player *owner);
+
+    // std::string 
 };
 
 // //CTOR

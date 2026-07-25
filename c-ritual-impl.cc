@@ -18,6 +18,10 @@ void Ritual::played() {
   //this.addC(-(activation));
 }
 
+int Ritual::getCharges(){return charges;}
+int Ritual::getActivation(){ return activation;}
+std::string Ritual::getDesc(){ return desc;}
+
 //CTOR
 Ritual::Ritual(string name, int cost): Card{name, cost} {
     cout << "ritual ctor" << endl;

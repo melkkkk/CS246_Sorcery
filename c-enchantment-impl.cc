@@ -7,6 +7,10 @@ import minion;
 
 using namespace std;
 
+std::string Enchantment::getAttack() {return attack;}
+std::string Enchantment::getDefense() {return defense;}
+std::string Enchantment::getDesc() {return desc;}
+
 //CTOR
 Enchantment::Enchantment(string name, int cost): Card{name, cost} {
     cout << "enchantment ctor" << endl;
