@@ -117,15 +117,19 @@ void Board::printLogo(){
 }
 
 void Board::printBoard(Player &p1, Player &p2){
-    // auto player1 = convertPlayerRow()
+    auto player1 = convertPlayerRow(p1.getBoard(), p1.getGraveyard(), 1, p1.getName(), p1.getLife(), p1.getMagic());
+    auto cards1 = convertBoardRow(p1.getBoard());
+    auto player2 = convertPlayerRow(p2.getBoard(), p2.getGraveyard(), 2, p2.getName(), p2.getLife(), p2.getMagic());
+    auto cards2 = convertBoardRow(p2.getBoard());
 
-    // printHBorder(0);
-    // printRow(player1);
-    // printRow(cards);
-    // printLogo();
-    // printRow(cards2);
-    // printRow(player2);
-    // printHBorder(1);
+    printHBorder(0);
+    printRow(player1);
+    printRow(cards1);
+    printLogo();
+    printRow(cards2);
+    printRow(player2);
+    printHBorder(1);
+    
     // card_template_t pcard1 = display_minion_no_ability("pee", 5, 8, 8);
     // card_template_t pcard2 = display_minion_no_ability("pee1", 5, 8, 8);
     // card_template_t pcard3 = display_minion_no_ability("pee2", 5, 8, 8);
