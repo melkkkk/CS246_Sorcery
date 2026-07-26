@@ -102,6 +102,8 @@ export class Player{
     vector<unique_ptr<Card>>& getBoard();
     vector<unique_ptr<Card>>& getGraveyard();
 
+    void addMagic(int i);
+
     void playEffect(int i);
 
 };

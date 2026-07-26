@@ -150,3 +150,7 @@ void Player::removeFrom(vector<unique_ptr<Card>>& from, int index){
     std::cout << "removed" << endl;
     from.erase(from.begin() + index);
 }
+
+void Player::addMagic(int i){
+    magic += i;
+}

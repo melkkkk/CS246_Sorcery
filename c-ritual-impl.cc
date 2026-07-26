@@ -50,17 +50,27 @@ Ritual::Ritual(string name, int cost, int owner): Card{name, cost}, owner{owner}
 //     else if (name == "Standstill") { standstill(played); }
 // }
 
-void Ritual::darkRitual(Player &played) {
+void Ritual::darkRitual(Player &active) {
   cout << "darkRitual called" << endl;
   //change condition to activated at start of turn, gains value
+  if (charges > 0){
+    active.addMagic(1);
+  }
 }
-void Ritual::auraOfPower(Player &played) {
+void Ritual::auraOfPower(Player &active) {
   cout << "auraOfPower called" << endl;
   //change condition to activated for minion in play under activated players control, add to value
+  if (owner == active.getId()){
+    Minion *temp = dynamic_cast<Minion*>(active.getBoard()[active.getSizeB() - 1].get());
+    temp->addA(1);
+    temp->addD(1);
+  }
 }
-void Ritual::standstill(Player &played) {
+void Ritual::standstill(Player &active) {
   cout << "standstill called" << endl;
   //change condition to activated for minion in play, destory it
+  // Minion *temp = dynamic_cast<Minion*>(active.getBoard()[active.getSizeB() - 1].get());
+  active.removeFrom(active.getBoard(), active.getSizeB() - 1);
 }
 
 void Ritual::notify(EventType event, Player &active) {

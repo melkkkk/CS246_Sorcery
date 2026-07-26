@@ -63,7 +63,6 @@ export class Minion: public Card, public Observer {
     int getAttack();
     int getDefense();
     int getAction();
-    int getOwner();
 
     std::string getDesc();
     int getAbilityCost();

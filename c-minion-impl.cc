@@ -18,7 +18,7 @@ int Minion::getAction() { return actions; }
 std::string Minion::getDesc() {return desc;};
 int Minion::getAbilityCost() {return abilityCost;};
 bool Minion::getHasAbility() {return hasAbility;};
-int Minion::getOwner(){ return owner; }
+// int Minion::getOwner(){ return owner; }
 
 
 int Minion::getAttackO() { return ogAttack; }
@@ -106,7 +106,7 @@ void Minion::boneGolem(Player &active) {
 void Minion::fireElemental(Player &active) {
   //needs notify implementation
   cout << "fire elemental called" << endl;
-  if (active.getId() != this->getOwner()){
+  if (active.getId() != owner){
     Minion *temp = dynamic_cast<Minion*>(active.getBoard()[active.getSizeB() - 1].get());
     temp->addD(-1);
   }
@@ -115,7 +115,7 @@ void Minion::potionSeller(Player &active) {
   //needs notify implementation
   cout << "potion seller called" << endl;
 
-  if (active.getId() == this->getOwner()){
+  if (active.getId() == owner){
     for (int i = 1; i < active.getSizeB() - 1; ++i) {
       Minion *temp = dynamic_cast<Minion*>(active.getBoard()[i].get());
       temp->addD(1);
