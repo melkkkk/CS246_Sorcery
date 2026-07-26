@@ -20,7 +20,7 @@ export class Board{
  public:
   // will convert all cards into card_template_t so they can be printed properly
   card_template_t convertCard(std::unique_ptr<Card>& card);
-  std::vector<card_template_t> convertBoardRow(std::vector<std::unique_ptr<Card>>& board, bool hand);
+  std::vector<card_template_t> convertBoardRow(std::vector<std::unique_ptr<Card>>& board);
   std::vector<card_template_t> convertPlayerRow(std::vector<std::unique_ptr<Card>>& board, 
         std::vector<std::unique_ptr<Card>>& graveyard, int playerNum, std::string name,int life,int mana);
   // 0 is upper border, 1 is lower border
