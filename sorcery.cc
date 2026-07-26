@@ -223,14 +223,20 @@ int main(int argc, char *argv []){
                 ss >> i >> j >> k;
                 cout << "PLAY " << i << " CARD ON PLAYER " << j << " ON THEIR " << k << " MINION" << endl;
                 
-                if (stoi(j) == g.getID()) { g.playCard(stoi(i), g.getActive(), stoi(k)); }
-                else { g.playCard(stoi(i), g.getInactive(), stoi(k)); }
+                if (testing) {
+                    if (stoi(j) == g.getID()) { g.playCard(stoi(i), true, g.getActive(), stoi(k)); }
+                    else { g.playCard(stoi(i), true, g.getInactive(), stoi(k)); }
+                } else {
+                    if (stoi(j) == g.getID()) { g.playCard(stoi(i), false, g.getActive(), stoi(k)); }
+                    else { g.playCard(stoi(i), false, g.getInactive(), stoi(k)); }
+                }
 
             } else if (inputs >= 1) {
                 ss >> i;
                 cout << "PLAY " << i << " CARD NO TARGET" << endl;
 
-                g.playCard(stoi(i));
+                if (testing) g.playCard(stoi(i), true); 
+                else g.playCard(stoi(i), false);
 
 
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
@@ -239,14 +245,20 @@ int main(int argc, char *argv []){
                 ss >> i >> j >> k;
                 cout << "USE " << i << " ACTIVATED ABILITY ON PLAYER " << j << " ON THEIR " << k << " MINION" << endl;
 
-                if (stoi(j) == g.getID()) { g.use(stoi(i), g.getActive(), stoi(k)); }
-                else { g.use(stoi(i), g.getInactive(), stoi(k)); }
+                if (testing) {
+                    if (stoi(j) == g.getID()) { g.use(stoi(i), true, g.getActive(), stoi(k)); }
+                    else { g.use(stoi(i), true, g.getInactive(), stoi(k)); }
+                } else {
+                    if (stoi(j) == g.getID()) { g.use(stoi(i), false, g.getActive(), stoi(k)); }
+                    else { g.use(stoi(i), false, g.getInactive(), stoi(k)); }
+                }
 
             } else if (inputs >= 1) {
                 ss >> i;
                 cout << "PLAY " << i << " ACTIVATED ABILITY NO TARGET" << endl;
-
-                g.use(stoi(i));
+                
+                if (testing) g.use(stoi(i), true); 
+                else g.use(stoi(i), false);
 
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
         } else if (first == "inspect") {

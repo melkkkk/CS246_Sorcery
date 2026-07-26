@@ -26,6 +26,7 @@ Player::Player(int id, string name, int life, int magic): id{id}, name{name}, li
 
 int Player::getLife(){return life;}
 int Player::getMagic(){return magic;}
+void Player::setMagic(int i){magic = i;}
 vector<unique_ptr<Card>>& Player::getHand(){return hand;}
 vector<unique_ptr<Card>>& Player::getBoard(){return board;}
 vector<unique_ptr<Card>>& Player::getGraveyard(){return graveyard;}

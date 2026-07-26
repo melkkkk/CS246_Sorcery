@@ -136,11 +136,14 @@ void Game::attackM(int indexM, int i) {
 
 // Use minion's special ability, optionally targeting target-card owned by target-player 
 //minion only
-void Game::use(int indexM, Player *other, int i) {
+void Game::use(int indexM, bool testing, Player *other, int i) {
     if ((active->getSizeB() > indexM) && (inactive->getSizeB() > i)) {
         cout << "called use" << endl;
         Minion *temp = dynamic_cast<Minion*>(active->getCardB(indexM));
         string name = temp->getName();
+
+        //if not enough magic and not in testing mode, do nothing
+        if ((active->getMagic() < temp->getAbilityCost()) && (!testing)) return;
 
         if (temp->getAction() > 0) {
             temp->addAction(-1);
@@ -149,20 +152,27 @@ void Game::use(int indexM, Player *other, int i) {
             // if (name == "Bone Golem") { temp->boneGolem(); }
             // else if (name == "Fire  Elemental") { temp->fireElemental(); }
             // else if (name == "Potion Seller") { temp->potionSeller(); }
-            if (name == "Novice Pyromancer") { temp->novicePyromancer(other, i); }
-            else if (name == "Apprentice Summoner") { temp->apprenticeSummoner(active); }
+            if (name == "Apprentice Summoner") { temp->apprenticeSummoner(active); }
             else if (name == "Master Summoner") { temp->masterSummoner(active); }
+            else if (!other) return; //needs other
+            else if (name == "Novice Pyromancer") { temp->novicePyromancer(other, i); }
+
+            active->addM(temp->getAbilityCost() * -1); // remove the magic required to play card
+            if ((testing) && (active->getMagic() < 0)) active->setMagic(0);
+
         } else cout << "no actions left" << endl;
         //delete temp;
     } else cout << "args out of bounds" << endl;
 }
 
-void Game::playCard(int indexC, Player *other, int i) {
+void Game::playCard(int indexC, bool testing, Player *other, int i) {
     if ((active->getSizeH() > indexC) && (inactive->getSizeH() > i)) {
 
         Card *c = active->getCardH(indexC);
         
-        if (active->getMagic() < c->getCost()) return;
+        //if not enough magic and not in testing mode, do nothing
+        if ((active->getMagic() < c->getCost()) && (!testing)) return;
+
         
         string name = c->getName();
 
@@ -179,6 +189,9 @@ void Game::playCard(int indexC, Player *other, int i) {
             else if (name == "Blizzard") { temp->blizzard(active, indexC, other); }
 
             active->addM(c->getCost() * -1); // remove the magic required to play card
+            //if in testing mode, only need to set magic to 0
+            if ((testing) && (active->getMagic() < 0)) active->setMagic(0);
+
             active->removeFrom(active->getHand(), indexC);
 
         } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), name) != enchantmentCards.end()) {
@@ -196,6 +209,8 @@ void Game::playCard(int indexC, Player *other, int i) {
             else if (name == "Silence") { temp->silence(active, other, i); }
 
             active->addM(c->getCost() * -1); // remove the magic required to play card
+            //if in testing mode, only need to set magic to 0
+            if ((testing) && (active->getMagic() < 0)) active->setMagic(0);
             active->moveToFrom(m->getEnchantments(), active->getHand(), move(active->getUniqueH(indexC)), indexC);
             
 
@@ -207,6 +222,8 @@ void Game::playCard(int indexC, Player *other, int i) {
             // else if (name == "Standstill") { temp->standstill(active); }
 
             active->addM(c->getCost() * -1); // remove the magic required to play card
+            //if in testing mode, only need to set magic to 0
+            if ((testing) && (active->getMagic() < 0)) active->setMagic(0);
 
             active->moveToFrom(active->getBoard(), active->getHand(), move(active->getUniqueH(indexC)), indexC, 0);
             //active->removeFromHand(indexC);
@@ -218,6 +235,9 @@ void Game::playCard(int indexC, Player *other, int i) {
             //Minion *temp = dynamic_cast<Minion*>(c);
 
             active->addM(c->getCost() * -1); // remove the magic required to play card
+            //if in testing mode, only need to set magic to 0
+            if ((testing) && (active->getMagic() < 0)) active->setMagic(0);
+            
             active->moveToFrom(active->getBoard(), active->getHand(), move(active->getUniqueH(indexC)), indexC);
             
 

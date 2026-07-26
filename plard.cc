@@ -67,6 +67,7 @@ export class Player{
     void setName(string name);
     void setDeck(ifstream& infile);
     void shuffleDeck(default_random_engine &rng);
+    void setMagic(int i);
 
     // new functions because everything is private ohhh soft private
     void addToHand(unique_ptr<Card> card);
