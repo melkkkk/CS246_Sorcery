@@ -8,11 +8,14 @@ import minion;
 import ritual;
 import enchantment;
 import spell;
+import state;
 
 import <vector>;
 import <string>;
 import <iostream>;
 import <memory>;
+
+// PRINTING FUNCTIONS
 
 // helper function that takes a Card and creates a corresponding card_template_t based on the type of card
 card_template_t convertCard(std::unique_ptr<Card>& card){
@@ -44,7 +47,7 @@ card_template_t convertCard(std::unique_ptr<Card>& card){
     } else {return CARD_TEMPLATE_BORDER; }
 }
 
-// takes the board of Cards and creates a vector of card_template_t
+// helper that takes the board of Cards and creates a vector of card_template_t
 std::vector<card_template_t> convertBoardRow(std::vector<std::unique_ptr<Card>>& board, bool hand){
     std::vector<card_template_t> result;
     size_t lower = 1;
@@ -66,7 +69,7 @@ std::vector<card_template_t> convertBoardRow(std::vector<std::unique_ptr<Card>>&
     return result;
 }
 
-// takes the board of Cards, graveyard, and Player info to create a vector of card_template_t
+// helper that takes the board of Cards, graveyard, and Player info to create a vector of card_template_t
 std::vector<card_template_t> convertPlayerRow(std::vector<std::unique_ptr<Card>>& board, 
                                                         std::vector<std::unique_ptr<Card>>& graveyard, 
                                                             int playerNum, std::string name,int life,int mana){
@@ -90,7 +93,7 @@ std::vector<card_template_t> convertPlayerRow(std::vector<std::unique_ptr<Card>>
     return result;
 }
 
-// prints horizontal border (0 is upper, 1 is lower)
+// helper that prints horizontal border (0 is upper, 1 is lower)
 void printHBorder(int upOrLow){
     if (upOrLow == 0){std::cout << EXTERNAL_BORDER_CHAR_TOP_LEFT;}
     else{std::cout << EXTERNAL_BORDER_CHAR_BOTTOM_LEFT;}
@@ -99,7 +102,7 @@ void printHBorder(int upOrLow){
     else{std::cout << EXTERNAL_BORDER_CHAR_BOTTOM_RIGHT << std::endl;}
 }
 
-// prints a row of cards with the side border
+// helper that prints a row of cards with the side border
 void printRow(std::vector<card_template_t>& cards){
     for (size_t row = 0; row < cards[0].size(); row++) {
         std::cout << EXTERNAL_BORDER_CHAR_UP_DOWN;
@@ -110,7 +113,7 @@ void printRow(std::vector<card_template_t>& cards){
     }
 }
 
-// prints middle of the board
+// helper that prints middle of the board
 void printLogo(){
     for (const auto& row : CENTRE_GRAPHIC) {
         std::cout << row << std::endl;
@@ -166,3 +169,9 @@ void Board::printBoard(Player &p1, Player &p2){
     printRow(player2);
     printHBorder(1);
 }
+
+
+// OBSERVER PATTERN FUNCTIONS
+
+Subject::~Subject(){}
+Board::~Board(){}
