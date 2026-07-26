@@ -148,9 +148,13 @@ void Game::use(int indexM, Player *other, int i) {
 
 void Game::playCard(int indexC, Player *other, int i) {
     if ((active->getSizeH() > indexC) && (inactive->getSizeH() > i)) {
-        cout << "card played" << endl;
-        // card played 
+        
         Card *c = active->getCardH(indexC);
+        
+        if (active->getMagic() < c->getCost()) return;
+        
+        active->addM(c->getCost() * -1);
+        cout << "card played" << endl;
         // if (!c) {
         //     std::cout << "Card is null!\n";
         //     return;

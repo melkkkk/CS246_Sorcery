@@ -164,9 +164,17 @@ int main(int argc, char *argv []){
             //     cout << "PLAYER 2 TURN END" << endl;
             //     cout << "PLAYER 1 TURN START" << endl;
             // }
+
+            //notify end of turn state
+
             cout << "CHANGE TURN< WE CAN ADD A GETT AND SETTER IF NEED TO PRINT LATER" << endl;
             // swap(actPlayer, nonPlayer);
             g.changeTurn();
+            
+            g.getActive()->addM(1);
+            g.drawCard();
+
+            //notify start of turn state
             
         } else if (first == "quit"){
             cout << "END GAME" << endl;
