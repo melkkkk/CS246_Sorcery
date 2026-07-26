@@ -79,6 +79,7 @@ std::string Game::getName(){ return active->getName(); }
 Player *Game::getActive() {return active;}
 Player *Game::getInactive() {return inactive;}
 
+//apply vec of enchantments to specific minion
 void Game::applyEnchantments(Minion *m) {
   m->reset();
   int len = m->getSizeE();
@@ -95,13 +96,15 @@ void Game::applyEnchantments(Minion *m) {
   }
 }
 
-// void Game::applyAll() {
-//   int len = active->getSizeB();
-//   for (int i = 1; i < len; i++) {
-//     temp = dynamic_cast<Enchantment*>(m->getCardE(i));
-//     this->applyEnchantments(Minion *m);
-//   }
-// }
+//apply vec of enchantments to all minions of active player
+void Game::applyAll() {
+  int len = active->getSizeB();
+  Minion *temp = nullptr;
+  for (int i = 1; i < len; i++) {
+    temp = dynamic_cast<Minion*>(active->getCardB(i));
+    this->applyEnchantments(temp);
+  }
+}
 
 //if int i is negative then attacks player instead
 //deoesnt remove if one of them dies,,,

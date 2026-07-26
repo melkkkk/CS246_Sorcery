@@ -170,9 +170,10 @@ int main(int argc, char *argv []){
             cout << "CHANGE TURN< WE CAN ADD A GETT AND SETTER IF NEED TO PRINT LATER" << endl;
             // swap(actPlayer, nonPlayer);
             g.changeTurn();
-            
+
             g.getActive()->addM(1);
             g.drawCard();
+            g.applyAll();
 
             //notify start of turn state
             

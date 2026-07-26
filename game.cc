@@ -49,6 +49,7 @@ export class Game{
     void changeTurn();
     int getID();
     void applyEnchantments(Minion *m);
+    void applyAll();
 
     void setDeck(int i, std::ifstream& infile);
     void shuffleDeck(int i, std::default_random_engine &rng);
