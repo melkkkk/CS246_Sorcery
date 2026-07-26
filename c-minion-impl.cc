@@ -27,8 +27,7 @@ void Minion::setHasAbility(bool b) { hasAbility = b; }
 void Minion::multA(int i) { attack *= i; }
 void Minion::multD(int i) { defense *= i; }
 
-Minion::Minion(string name, int cost):
-  Card{name, cost} {
+Minion::Minion(string name, int cost, int owner): Card{name, cost}, owner{owner} {
     //set defense and actions if applicable
 
     cout << "minion ctor" << endl;

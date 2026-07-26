@@ -52,19 +52,18 @@ export class Observer {
 
 
 export class Player{
-    string name;
-    int life;
-    int magic;
-    vector<string> deck;
-    vector<unique_ptr<Card>> hand;
-    vector<unique_ptr<Card>> graveyard;
-    
-    vector<unique_ptr<Card>> board;
-    // Board B;
+  int id;
+  string name;
+  int life;
+  int magic;
+  
+  vector<string> deck;
+  vector<unique_ptr<Card>> hand;
+  vector<unique_ptr<Card>> graveyard;
+  vector<unique_ptr<Card>> board;
 
   public:
-    Player(string name = "", int life = 20, int magic = 3);
-    string getName();
+    Player(int id, string name = "", int life = 20, int magic = 3);
     void setName(string name);
     void setDeck(ifstream& infile);
     void shuffleDeck(default_random_engine &rng);
@@ -95,6 +94,8 @@ export class Player{
     int getSizeB();
     int getSize(vector<unique_ptr<Card>>& vec);
 
+    int getId();
+    string getName();
     int getLife();
     int getMagic();
     vector<unique_ptr<Card>>& getHand();

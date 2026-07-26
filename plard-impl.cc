@@ -21,7 +21,7 @@ int Card::getCost() {return cost; }
 //State Subject::getState() const { return state; }
 
 
-Player::Player(string name, int life, int magic): name{name}, life{life}, magic{magic} {
+Player::Player(int id, string name, int life, int magic): id{id}, name{name}, life{life}, magic{magic} {
 }
 
 int Player::getLife(){return life;}
@@ -47,6 +47,8 @@ int Player::getSizeB() { return board.size(); }
 int Player::getSize(vector<unique_ptr<Card>>& vec) { return vec.size(); }
 
 vector<string>& Player::getDeck() { return deck; }
+
+int Player::getId() {return id;}
 
 // name getter and setters
 string Player::getName() {return name;}

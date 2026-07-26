@@ -26,14 +26,9 @@ Game::~Game() {
     // delete inactive;
 }
 
-// Game::Game(Player *active, Player *inactive): active{active}, inactive{inactive} {
-//     p1 = std::make_unique<Player>();
-//     p2 = std::make_unique<Player>();
-// }
-
 Game::Game() {
-    p1 = std::make_unique<Player>();
-    p2 = std::make_unique<Player>();
+    p1 = std::make_unique<Player>(1);
+    p2 = std::make_unique<Player>(2);
     active = p1.get();
     inactive = p2.get();
 }
@@ -233,11 +228,11 @@ void Game::drawCard(int i) {
 
     // Based on what the name is, the correct card is created
     if (std::find(minionCards.begin(), minionCards.end(), s) != minionCards.end()) {
-        active->addToHand(make_unique<Minion>(s, 0));
+        active->addToHand(make_unique<Minion>(s, 0, active->getId()));
     } else if (std::find(spellCards.begin(), spellCards.end(), s) != spellCards.end()) {
         active->addToHand(make_unique<Spell>(s, 0));
     } else if (std::find(ritualCards.begin(), ritualCards.end(), s) != ritualCards.end()) {
-        active->addToHand(make_unique<Ritual>(s, 0));
+        active->addToHand(make_unique<Ritual>(s, 0, active->getId()));
     } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), s) != enchantmentCards.end()) {
         active->addToHand(make_unique<Enchantment>(s, 0));
     } else {

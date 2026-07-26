@@ -6,6 +6,7 @@ import plard;
 
 
 export class Minion: public Card, public Observer {
+    int owner;
     int attack;
     int defense;
     std::string desc;
@@ -20,7 +21,7 @@ export class Minion: public Card, public Observer {
   protected:
     //void setState(State newS);
   public:
-    Minion(std::string name, int cost);
+    Minion(std::string name, int cost, int owner);
     //owner is owner of card selected in input or opponent based on spell
     //void pointer for card i or ritual r
     

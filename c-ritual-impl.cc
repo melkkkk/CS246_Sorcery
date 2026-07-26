@@ -23,7 +23,7 @@ int Ritual::getActivation(){ return activation;}
 std::string Ritual::getDesc(){ return desc;}
 
 //CTOR
-Ritual::Ritual(string name, int cost): Card{name, cost} {
+Ritual::Ritual(string name, int cost, int owner): Card{name, cost}, owner{owner} {
     cout << "ritual ctor" << endl;
     if (name == "Dark Ritual") { 
       desc = "At the start of your turn, gain 1 magic"; 
