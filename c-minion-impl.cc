@@ -112,7 +112,7 @@ void Minion::masterSummoner(Player *played) {
 //export enum class StateType { StartOfTurn, EndOfTurn, MinionPlayed, Other };
 //export enum class CardType { Ritual, Spell, Enchantment, Minion };
 
-void Minion::notify(State &whoFrom, Player *active) {
+void Minion::notify(EventType event, Player &active) {
   cout << "notified minion" << endl;
   // if (whoFrom.sType == StateType::StartOfTurn) {
   //   //check enchantment haste (+1 each start of turn)

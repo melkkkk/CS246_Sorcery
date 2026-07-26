@@ -86,7 +86,7 @@ export class Minion: public Card, public Observer {
     void setAbilityCost(int i);
 
     //observer overrides
-    void notify(State &whoFrom, Player *active) override;
+    void notify(EventType event, Player &active) override;
     
     
 
