@@ -15,32 +15,37 @@ import <iostream>;
 import <memory>;
 
 // helper function that takes a Card and creates a corresponding card_template_t based on the type of card
-card_template_t Board::convertCard(std::unique_ptr<Card>& card){
+card_template_t convertCard(std::unique_ptr<Card>& card){
     if (auto temp = dynamic_cast<Minion*>(card.get())) {
         // checking what type of minion it is
         if (temp->getHasAbility() && (temp->getAbilityCost() < 0)){
-            return display_minion_triggered_ability(temp->getName(), temp->getCost(), temp->getAttack(), temp->getDefense(), temp->getDesc());
+            return display_minion_triggered_ability(temp->getName(), 
+                    temp->getCost(), temp->getAttack(), temp->getDefense(), temp->getDesc());
         } else if (temp->getHasAbility()) {
-            return display_minion_activated_ability(temp->getName(), temp->getCost(), temp->getAttack(), temp->getDefense(), temp->getAbilityCost(), temp->getDesc());
+            return display_minion_activated_ability(temp->getName(), temp->getCost(), 
+                    temp->getAttack(), temp->getDefense(), temp->getAbilityCost(), temp->getDesc());
         } else {
-            return display_minion_no_ability(temp->getName(), temp->getCost(), temp->getAttack(), temp->getDefense());
+            return display_minion_no_ability(temp->getName(), temp->getCost(), 
+                                                temp->getAttack(), temp->getDefense());
         }
     } else if (auto temp = dynamic_cast<Spell*>(card.get())) {
         return display_spell(temp->getName(), temp->getCost(), temp->getDesc());
     } else if (auto temp = dynamic_cast<Ritual*>(card.get())) {
-        return display_ritual(temp->getName(), temp->getCost(), temp->getActivation(), temp->getDesc(), temp->getCharges());
+        return display_ritual(temp->getName(), temp->getCost(), temp->getActivation(), 
+                                                        temp->getDesc(), temp->getCharges());
     } else if (auto temp = dynamic_cast<Enchantment*>(card.get())) {
         // checking what type of enchantment it is
         if (temp->getAttack().length() == 0 && temp->getDefense().length() == 0){
             return display_enchantment(temp->getName(), temp->getCost(), temp->getDesc());
         } else {
-        return display_enchantment_attack_defence(temp->getName(), temp->getCost(), temp->getDesc(), temp->getAttack(), temp->getDefense());
+        return display_enchantment_attack_defence(temp->getName(), temp->getCost(), 
+                                temp->getDesc(), temp->getAttack(), temp->getDefense());
         }
     } else {return CARD_TEMPLATE_BORDER; }
 }
 
 // takes the board of Cards and creates a vector of card_template_t
-std::vector<card_template_t> Board::convertBoardRow(std::vector<std::unique_ptr<Card>>& board, bool hand){
+std::vector<card_template_t> convertBoardRow(std::vector<std::unique_ptr<Card>>& board, bool hand){
     std::vector<card_template_t> result;
     size_t lower = 1;
     size_t upper = 5; 
@@ -62,7 +67,7 @@ std::vector<card_template_t> Board::convertBoardRow(std::vector<std::unique_ptr<
 }
 
 // takes the board of Cards, graveyard, and Player info to create a vector of card_template_t
-std::vector<card_template_t> Board::convertPlayerRow(std::vector<std::unique_ptr<Card>>& board, 
+std::vector<card_template_t> convertPlayerRow(std::vector<std::unique_ptr<Card>>& board, 
                                                         std::vector<std::unique_ptr<Card>>& graveyard, 
                                                             int playerNum, std::string name,int life,int mana){
     std::vector<card_template_t> result;
@@ -86,7 +91,7 @@ std::vector<card_template_t> Board::convertPlayerRow(std::vector<std::unique_ptr
 }
 
 // prints horizontal border (0 is upper, 1 is lower)
-void Board::printHBorder(int upOrLow){
+void printHBorder(int upOrLow){
     if (upOrLow == 0){std::cout << EXTERNAL_BORDER_CHAR_TOP_LEFT;}
     else{std::cout << EXTERNAL_BORDER_CHAR_BOTTOM_LEFT;}
     for (size_t row = 0; row < 165; row++) {std::cout << EXTERNAL_BORDER_CHAR_LEFT_RIGHT;}
@@ -95,7 +100,7 @@ void Board::printHBorder(int upOrLow){
 }
 
 // prints a row of cards with the side border
-void Board::printRow(std::vector<card_template_t>& cards){
+void printRow(std::vector<card_template_t>& cards){
     for (size_t row = 0; row < cards[0].size(); row++) {
         std::cout << EXTERNAL_BORDER_CHAR_UP_DOWN;
         for (const auto& card : cards) {
@@ -106,7 +111,7 @@ void Board::printRow(std::vector<card_template_t>& cards){
 }
 
 // prints middle of the board
-void Board::printLogo(){
+void printLogo(){
     for (const auto& row : CENTRE_GRAPHIC) {
         std::cout << row << std::endl;
     }
