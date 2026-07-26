@@ -42,9 +42,9 @@ export class Game{
   public:
     // Game(Player *active, Player *inactive); //add board to this eventually
     Game(); 
-    void attackM(int indexM, int i = -1);
-    void use(int indexM, Player *other = nullptr, int i = -1);
-    void playCard(int indexC, Player *other = nullptr, int i = -1);
+    void attackM(int indexM, bool testing = false, int i = -1);
+    void use(int indexM, bool testing = false, Player *other = nullptr, int i = -1);
+    void playCard(int indexC, bool testing = false, Player *other = nullptr, int i = -1);
     void checkBoard(int indexC, Player *other = nullptr, int i = -1);
     void changeTurn();
     int getID();
