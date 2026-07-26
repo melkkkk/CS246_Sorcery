@@ -18,6 +18,7 @@ int Minion::getAction() { return actions; }
 std::string Minion::getDesc() {return desc;};
 int Minion::getAbilityCost() {return abilityCost;};
 bool Minion::getHasAbility() {return hasAbility;};
+int Minion::getOwner(){ return owner; }
 
 
 int Minion::getAttackO() { return ogAttack; }
@@ -99,15 +100,29 @@ Minion::Minion(string name, int cost, int owner): Card{name, cost}, owner{owner}
 void Minion::boneGolem(Player &active) {
   //needs notify implementation
   cout << "bone golem called" << endl;
+  this->addD(1);
+  this->addA(1);
 }
 void Minion::fireElemental(Player &active) {
   //needs notify implementation
   cout << "fire elemental called" << endl;
+  if (active.getId() != this->getOwner()){
+    Minion *temp = dynamic_cast<Minion*>(active.getBoard()[active.getSizeB() - 1].get());
+    temp->addD(-1);
+  }
 }
 void Minion::potionSeller(Player &active) {
   //needs notify implementation
   cout << "potion seller called" << endl;
+
+  if (active.getId() == this->getOwner()){
+    for (int i = 1; i < active.getSizeB() - 1; ++i) {
+      Minion *temp = dynamic_cast<Minion*>(active.getBoard()[i].get());
+      temp->addD(1);
+    }
+  }
 }
+
 void Minion::novicePyromancer(Player *owner, int target) {
   cout << "novice pyromancer called" << endl;}
 void Minion::apprenticeSummoner(Player *played) {
