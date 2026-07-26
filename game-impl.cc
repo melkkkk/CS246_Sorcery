@@ -229,7 +229,7 @@ void Game::playCard(int indexC, Player *other, int i) {
 }
 
 // draws top card from the deck, probably needs to raise error later on?
-void Game::drawCard(int i) {
+void Game::drawCard() {
     // if (i == 1){
     //     active = p1.get();
     // } else {

@@ -62,7 +62,7 @@ export class Game{
     Player *getInactive();
 
     // draws top card from the deck, probably needs to raise error later on?
-    void drawCard(int i);
+    void drawCard();
 
     void printBoard();
     void printHand();

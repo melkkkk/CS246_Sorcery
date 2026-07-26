@@ -128,9 +128,9 @@ int main(int argc, char *argv []){
     for (int i = 0; i < startCards; ++i){
         // g.drawCard(actPlayer);
         // g.drawCard(nonPlayer);
-        g.drawCard(1);
+        g.drawCard();
         g.changeTurn();
-        g.drawCard(2);
+        g.drawCard();
         g.changeTurn();
     }
 
@@ -167,11 +167,16 @@ int main(int argc, char *argv []){
             cout << "CHANGE TURN< WE CAN ADD A GETT AND SETTER IF NEED TO PRINT LATER" << endl;
             // swap(actPlayer, nonPlayer);
             g.changeTurn();
+            
         } else if (first == "quit"){
             cout << "END GAME" << endl;
             break;
         } else if (first == "draw"){
             if (testing){
+
+                //card drawn
+                g.drawCard();
+
                 cout << "PLAYER DRAwS CARD! ONLY AVALIABLE IN TEST MODE" << endl;
             } else {
                 cout << "DRAW COMMAND ONLY AVAILABLE IN TESTING MODE" << endl;
@@ -180,6 +185,9 @@ int main(int argc, char *argv []){
             if (inputs >= 1) {
                 ss >> i;
                 if (testing){
+
+                    g.getActive->removeFrom(g.getActive->getHand(), i);
+
                     cout << "PLAYER DISCARDS " << i << " CARD IN HAND! ONLY AVALIABLE IN TEST MODE" << endl;
                 } else {
                     cout << "DISCARD COMMAND ONLY AVAILABLE IN TESTING MODE" << endl;
