@@ -15,14 +15,14 @@ export module state;
 */
 
 //other is for any card played that either doesnt trigger anything
-export enum class EventType { StartOfTurn, EndOfTurn, MinionPlayed, MinionLeft, Other };
-export enum class CardType { Ritual, Spell, Enchantment, Minion };
-export enum class RitualType { Nothing, Standstill, AuraOfPower };
+export enum class EventType { StartOfTurn, EndOfTurn, MinionPlayed, MinionDied, Other };
+// export enum class CardType { Ritual, Spell, Enchantment, Minion };
+// export enum class RitualType { Nothing, Standstill, AuraOfPower };
 //export enum class Direction { NW, N, NE, W, E, SW, S, SE };
 
 export struct State {
     EventType eType;  // See above
-    CardType cType;   // What colour was the new piece? (NOT what is my colour)
-    //Direction direction;  // In which direction from me is the new piece?
-    RitualType rType;
+    // CardType cType;   // What colour was the new piece? (NOT what is my colour)
+    // //Direction direction;  // In which direction from me is the new piece?
+    // RitualType rType;
 };
