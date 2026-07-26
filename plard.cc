@@ -41,7 +41,7 @@ export class Card {
 export class Observer {
   public:
     // Pass the Subject that called the notify method.
-    virtual void notify(State &whoFrom, Player *active) = 0; 
+    virtual void notify(EventType event, Player &active) = 0; 
     virtual ~Observer() = default;
 };
 

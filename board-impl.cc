@@ -44,7 +44,7 @@ card_template_t convertCard(std::unique_ptr<Card>& card){
         return display_enchantment_attack_defence(temp->getName(), temp->getCost(), 
                                 temp->getDesc(), temp->getAttack(), temp->getDefense());
         }
-    } else {return CARD_TEMPLATE_BORDER; }
+    } else {return CARD_TEMPLATE_BORDER;}
 }
 
 // helper that takes the board of Cards and creates a vector of card_template_t
@@ -173,5 +173,21 @@ void Board::printBoard(Player &p1, Player &p2){
 
 // OBSERVER PATTERN FUNCTIONS
 
-Subject::~Subject(){}
 Board::~Board(){}
+
+void Subject::setState(EventType e) {eventState = e;}
+EventType Subject::getState() {return eventState;}
+
+void Subject::notifyObservers(Player &active, Player &inactive){
+    for (auto& card : active.getBoard()) {
+        if (auto* observer = dynamic_cast<Observer*>(card.get())) {
+            observer->notify(eventState, active);
+        }
+    }
+
+    for (auto& card : inactive.getBoard()) {
+        if (auto* observer = dynamic_cast<Observer*>(card.get())) {
+            observer->notify(eventState, active);
+        }
+    }
+}

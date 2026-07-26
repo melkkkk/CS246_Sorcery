@@ -50,21 +50,32 @@ Ritual::Ritual(string name, int cost, int owner): Card{name, cost}, owner{owner}
 //     else if (name == "Standstill") { standstill(played); }
 // }
 
-void Ritual::darkRitual(Player *played) {
+void Ritual::darkRitual(Player &played) {
   cout << "darkRitual called" << endl;
   //change condition to activated at start of turn, gains value
 }
-void Ritual::auraOfPower(Player *played) {
+void Ritual::auraOfPower(Player &played) {
   cout << "auraOfPower called" << endl;
   //change condition to activated for minion in play under activated players control, add to value
 }
-void Ritual::standstill(Player *played) {
+void Ritual::standstill(Player &played) {
   cout << "standstill called" << endl;
   //change condition to activated for minion in play, destory it
 }
 
- void Ritual::notify(State &whoFrom, Player *active) {
+void Ritual::notify(EventType event, Player &active) {
   cout << "notified ritual" << endl;
+  if (event == EventType::StartOfTurn){
+    if (this->getName() == "Dark Ritual"){
+      darkRitual(active);
+    }
+  } else if (event == EventType::MinionPlayed) {
+    if (this->getName() == "Aura of Power"){
+      auraOfPower(active);
+    } else if (this->getName() == "Standstill"){
+      standstill(active);
+    }
+  }
 //   if (whoFrom.sType == StateType::StartOfTurn) {
 //     //check if dark ritual then add 1 to magic
 //     if (this.getname() == "Dark Ritual") {
