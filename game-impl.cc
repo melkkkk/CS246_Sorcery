@@ -95,6 +95,14 @@ void Game::applyEnchantments(Minion *m) {
   }
 }
 
+// void Game::applyAll() {
+//   int len = active->getSizeB();
+//   for (int i = 1; i < len; i++) {
+//     temp = dynamic_cast<Enchantment*>(m->getCardE(i));
+//     this->applyEnchantments(Minion *m);
+//   }
+// }
+
 //if int i is negative then attacks player instead
 //deoesnt remove if one of them dies,,,
 
@@ -148,7 +156,7 @@ void Game::use(int indexM, Player *other, int i) {
 
 void Game::playCard(int indexC, Player *other, int i) {
     if ((active->getSizeH() > indexC) && (inactive->getSizeH() > i)) {
-        
+
         Card *c = active->getCardH(indexC);
         
         if (active->getMagic() < c->getCost()) return;
