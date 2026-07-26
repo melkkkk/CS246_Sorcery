@@ -286,7 +286,7 @@ void Game::printHand(){
     b.printHand(*active);
 }
 
-void Game::notifyBoard(EventTpye e, Player &active){
+void Game::notifyBoard(EventType e){
     b.setState(e);
     b.notifyObservers(*active, *inactive);
 }
