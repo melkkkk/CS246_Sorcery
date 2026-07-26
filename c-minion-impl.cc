@@ -96,15 +96,15 @@ Minion::Minion(string name, int cost, int owner): Card{name, cost}, owner{owner}
 
 //void Minion::airElemental(Player *played, int *target) {}
 //void Minion::earthElemental(Player *played, int *target) {}
-void Minion::boneGolem() {
+void Minion::boneGolem(Player &active) {
   //needs notify implementation
   cout << "bone golem called" << endl;
 }
-void Minion::fireElemental() {
+void Minion::fireElemental(Player &active) {
   //needs notify implementation
   cout << "fire elemental called" << endl;
 }
-void Minion::potionSeller() {
+void Minion::potionSeller(Player &active) {
   //needs notify implementation
   cout << "potion seller called" << endl;
 }
@@ -121,6 +121,13 @@ void Minion::masterSummoner(Player *played) {
 
 void Minion::notify(EventType event, Player &active) {
   cout << "notified minion" << endl;
+  if (event == EventType::EndOfTurn){
+    if (this->getName() == "Potion Seller") {potionSeller(active);}
+  } else if (event == EventType::MinionPlayed) {
+    if (this->getName() == "Fire Elemental") {fireElemental(active);}
+  } else if (event == EventType::MinionDied) {
+    if (this->getName() == "Bone Golem") {boneGolem(active);}
+  }
   // if (whoFrom.sType == StateType::StartOfTurn) {
   //   //check enchantment haste (+1 each start of turn)
   // }

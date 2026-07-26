@@ -39,9 +39,9 @@ export class Minion: public Card, public Observer {
 
     //void airElemental(Player *played, int *target);
     //void earthElemental(Player *played, int *target);
-    void boneGolem();
-    void fireElemental();
-    void potionSeller();
+    void boneGolem(Player &active);
+    void fireElemental(Player &active);
+    void potionSeller(Player &active);
     void novicePyromancer(Player *owner, int target);
     void apprenticeSummoner(Player *played);
     void masterSummoner(Player *played);
