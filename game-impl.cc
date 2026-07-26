@@ -164,7 +164,7 @@ void Game::playCard(int indexC, Player *other, int i) {
         
         if (active->getMagic() < c->getCost()) return;
         
-        active->addM(c->getCost() * -1);
+        active->addM(c->getCost() * -1); // need to add some more stuff to this do not edit i think it does not work properly yet
         cout << "card played" << endl;
         // if (!c) {
         //     std::cout << "Card is null!\n";
