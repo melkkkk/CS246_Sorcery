@@ -135,10 +135,10 @@ void Game::use(int indexM, Player *other, int i) {
             temp->addAction(-1);
             // else if (name == "Air Elemental") { airElemental(active, i); }
             // else if (name == "Earth Elemental") { earthElemental(active, i); }
-            if (name == "Bone Golem") { temp->boneGolem(); }
-            else if (name == "Fire  Elemental") { temp->fireElemental(); }
-            else if (name == "Potion Seller") { temp->potionSeller(); }
-            else if (name == "Novice Pyromancer") { temp->novicePyromancer(other, i); }
+            // if (name == "Bone Golem") { temp->boneGolem(); }
+            // else if (name == "Fire  Elemental") { temp->fireElemental(); }
+            // else if (name == "Potion Seller") { temp->potionSeller(); }
+            if (name == "Novice Pyromancer") { temp->novicePyromancer(other, i); }
             else if (name == "Apprentice Summoner") { temp->apprenticeSummoner(active); }
             else if (name == "Master Summoner") { temp->masterSummoner(active); }
         } else cout << "no actions left" << endl;
