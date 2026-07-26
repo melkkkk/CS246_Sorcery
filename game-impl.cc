@@ -170,11 +170,11 @@ void Game::playCard(int indexC, Player *other, int i) {
             active->removeFrom(active->getHand(), indexC);
 
         } else if (std::find(ritualCards.begin(), ritualCards.end(), name) != ritualCards.end()) {
-            Ritual *temp = dynamic_cast<Ritual*>(c);
+            // Ritual *temp = dynamic_cast<Ritual*>(c);
 
-            if (name == "Dark Ritual") { temp->darkRitual(active); }
-            else if (name == "Aura of Power") { temp->auraOfPower(active); }
-            else if (name == "Standstill") { temp->standstill(active); }
+            // if (name == "Dark Ritual") { temp->darkRitual(active); }
+            // else if (name == "Aura of Power") { temp->auraOfPower(active); }
+            // else if (name == "Standstill") { temp->standstill(active); }
 
             // add to slot
             //active->moveToBoard(move(active->getUniqueH(indexC)), indexC, 0);
