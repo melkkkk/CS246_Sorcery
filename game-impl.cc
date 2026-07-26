@@ -220,6 +220,7 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
             if ((testing) && (active->getMagic() < 0)) active->setMagic(0);
             //cout << "if statement" << endl;
             //cout << m->getEnchantments() << endl;
+
             active->moveToFrom(m->getEnchantments(), active->getHand(), move(active->getUniqueH(indexC)), indexC);
             cout << "moved to minion" << endl;
             
