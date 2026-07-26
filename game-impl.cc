@@ -286,5 +286,10 @@ void Game::printHand(){
     b.printHand(*active);
 }
 
+void Game::notifyBoard(EventTpye e, Player &active){
+    b.setState(e);
+    b.notifyObservers(*active, *inactive);
+}
+
 // complete implementation once vector of enchantments is sorted out
 // void Game::inspectMinion(int index);
