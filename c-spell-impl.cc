@@ -51,7 +51,7 @@ void Spell::unsummon(Player *played, int indexC, Player *owner, int i) {
 
 void Spell::recharge(Player *played, int indexC) {
   cout << "recharge called" << endl;
-  if (played->getSizeB() > 1) {
+  if ((played->getSizeB() > 0) && (played->getCardB(0))) {
     Ritual *temp = dynamic_cast<Ritual*>(played->getCardB(0));
     if (temp) temp->addC(3);
     else cout << "null temp" << endl;
@@ -63,7 +63,8 @@ void Spell::disenchant(Player *played, int indexC, Player *owner, int i) {
   cout << "disenchant called" << endl;
   if ((owner) && (owner->getSizeB() > i)) {
     Minion *temp = dynamic_cast<Minion*>(owner->getCardB(i));
-    temp->removeE(); // need to make this
+    int in = temp->getSizeE() - 1; //remove most recently added value
+    temp->removeE(in);
   } else cout << "bad index" << endl;
 }
 

@@ -172,6 +172,10 @@ void Game::playCard(int indexC, Player *other, int i) {
 
         } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), name) != enchantmentCards.end()) {
             Enchantment *temp = dynamic_cast<Enchantment*>(c);
+
+            Card *othercard = other->getCardH(i);
+            Minion *m = dynamic_cast<Minion*>(othercard);
+            
             if (name == "Giant Strength") { temp->giantStrength(active, other, i); }
             else if (name == "Enrage") { temp->enrage(active, other, i); }
             else if (name == "Haste") { temp->haste(active, other, i); }
@@ -180,8 +184,8 @@ void Game::playCard(int indexC, Player *other, int i) {
             //delete temp;
             //active->removeFromHand(indexC);
             //vector<unique_ptr<Card>> enchanted;
-            //active->moveToFrom(active->getEnchantments(), active->getHand(), move(active->getUniqueH(indexC)), indexC, 0);
-            active->removeFrom(active->getHand(), indexC);
+            active->moveToFrom(m->getEnchantments(), active->getHand(), move(active->getUniqueH(indexC)), indexC);
+            //active->removeFrom(active->getHand(), indexC);
 
         } else if (std::find(ritualCards.begin(), ritualCards.end(), name) != ritualCards.end()) {
             // Ritual *temp = dynamic_cast<Ritual*>(c);

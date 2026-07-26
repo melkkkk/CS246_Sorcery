@@ -56,6 +56,13 @@ unique_ptr<Card>& Minion::getUniqueE(int i) { return enchanted[i]; }
 
 int Minion::getSizeE() { return enchanted.size(); }
 
+void Minion::removeE(int i) {
+  if (this->getSizeE() > i) {
+    std::cout << "removed" << endl;
+    enchanted.erase(enchanted.begin() + i);
+  }
+}
+
 //multiply Attack
 //multiply Defense
 void Minion::multA(int i) { attack *= i; }
