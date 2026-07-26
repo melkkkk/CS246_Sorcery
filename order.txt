@@ -1,4 +1,6 @@
 state.cc
+ascii_graphics.cc
+ascii_graphics-impl.cc
 plard.cc
 plard-impl.cc
 c-minion.cc
@@ -9,6 +11,8 @@ c-ritual.cc
 c-ritual-impl.cc
 c-spell.cc
 c-spell-impl.cc
+board.cc
+board-impl.cc
 game.cc
 game-impl.cc
 sorcery.cc

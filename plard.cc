@@ -22,8 +22,10 @@ export class Card {
     //void setState(State newS);
   public:
     Card(std::string name, int cost = 0);
+
     std::string getName();
     int getCost();
+    
     virtual ~Card();
     // player that played card i from their deck
     // owner is the selected players card

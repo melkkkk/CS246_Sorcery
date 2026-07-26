@@ -4,6 +4,7 @@ import minion;
 import enchantment;
 import ritual;
 import game;
+import board;
 
 import <iostream>;
 import <fstream>;
@@ -238,8 +239,10 @@ int main(int argc, char *argv []){
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
         } else if (first == "hand") {
             cout << "SHOWS PLAYER'S HAND" << endl;
+            g.printHand();
         } else if (first == "board") {
             cout << "SHOWS BOARD" << endl;
+            g.printBoard();
         } else {
             cout << command << " IS UNRECOGNIZED. PLEASE TRY AGAIN :>" << endl;
         }
