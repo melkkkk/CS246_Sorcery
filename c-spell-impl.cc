@@ -62,8 +62,8 @@ void Spell::recharge(Player *played, int indexC) {
 void Spell::disenchant(Player *played, int indexC, Player *owner, int i) {
   cout << "disenchant called" << endl;
   if ((owner) && (owner->getSizeB() > i)) {
-    //Minion *temp = dynamic_cast<Minion*>(owner->getCardB(i));
-    //temp->removeE(); // need to make this
+    Minion *temp = dynamic_cast<Minion*>(owner->getCardB(i));
+    temp->removeE(); // need to make this
   } else cout << "bad index" << endl;
 }
 

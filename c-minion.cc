@@ -76,6 +76,7 @@ export class Minion: public Card, public Observer {
 
     int getSizeE();
     Card *getCardE(int i);
+    void removeE();
 
     std::unique_ptr<Card>& getUniqueE(int i);
 
