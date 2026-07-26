@@ -186,7 +186,7 @@ int main(int argc, char *argv []){
                 ss >> i;
                 if (testing){
 
-                    g.getActive->removeFrom(g.getActive->getHand(), i);
+                    g.getActive()->removeFrom(g.getActive()->getHand(), stoi(i));
 
                     cout << "PLAYER DISCARDS " << i << " CARD IN HAND! ONLY AVALIABLE IN TEST MODE" << endl;
                 } else {
