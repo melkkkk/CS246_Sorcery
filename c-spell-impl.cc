@@ -45,7 +45,7 @@ void Spell::unsummon(Player *played, int indexC, Player *owner, int i) {
   cout << "unsummon called" << endl;
   // check not null, i is in board, hand not already full
   if ((owner) && (owner->getSizeB() > i) && (owner->getSizeH() < 5)) {
-    owner->moveToFrom(owner->getHand(), owner->getBoard(), move(owner->getUniqueH(i)), i);
+    owner->moveToFrom(owner->getHand(), owner->getBoard(), move(owner->getUniqueB(i)), i);
   } else cout << "bad index" << endl;
 }
 
