@@ -66,10 +66,17 @@ card_template_t Board::convertCard(std::unique_ptr<Card>& card){
 }
 
 // takes the board of Cards and creates a vector of card_template_t
-std::vector<card_template_t> Board::convertBoardRow(std::vector<std::unique_ptr<Card>>& board){
+std::vector<card_template_t> Board::convertBoardRow(std::vector<std::unique_ptr<Card>>& board, bool hand){
     std::vector<card_template_t> result;
+    size_t lower = 1;
+    size_t upper = 5; 
 
-    for (size_t i = 1; i <= 5; ++i) {
+    if (hand){
+        lower = 0;
+        upper = 4;
+    } 
+
+    for (size_t i = lower; i <= upper; ++i) {
         if (i < board.size() && board[i]) {
             result.push_back(convertCard(board[i]));
         } else {
@@ -89,7 +96,7 @@ std::vector<card_template_t> Board::convertPlayerRow(std::vector<std::unique_ptr
     // checking for ritual
     if (!board.empty() && board[0]){
         result.push_back(convertCard(board[0]));
-    } else {result.push_back(CARD_TEMPLATE_EMPTY);}
+    } else {result.push_back(CARD_TEMPLATE_BORDER);}
 
     // empty spots and player info
     result.push_back(CARD_TEMPLATE_EMPTY);
@@ -97,9 +104,9 @@ std::vector<card_template_t> Board::convertPlayerRow(std::vector<std::unique_ptr
     result.push_back(CARD_TEMPLATE_EMPTY);
 
     // checking for graveyard topdeck
-    if (!board.empty() && board.back()) {
-        result.push_back(convertCard(board.back()));
-    } else { result.push_back(CARD_TEMPLATE_EMPTY); }
+    if (!graveyard.empty() && graveyard.back()) {
+        result.push_back(convertCard(graveyard.back()));
+    } else { result.push_back(CARD_TEMPLATE_BORDER); }
 
     return result;
 }
@@ -108,9 +115,7 @@ std::vector<card_template_t> Board::convertPlayerRow(std::vector<std::unique_ptr
 void Board::printHBorder(int upOrLow){
     if (upOrLow == 0){std::cout << EXTERNAL_BORDER_CHAR_TOP_LEFT;}
     else{std::cout << EXTERNAL_BORDER_CHAR_BOTTOM_LEFT;}
-    for (size_t row = 0; row < 165; row++) {
-        std::cout << EXTERNAL_BORDER_CHAR_LEFT_RIGHT;
-    }
+    for (size_t row = 0; row < 165; row++) {std::cout << EXTERNAL_BORDER_CHAR_LEFT_RIGHT;}
     if (upOrLow == 0){std::cout << EXTERNAL_BORDER_CHAR_TOP_RIGHT << std::endl;}
     else{std::cout << EXTERNAL_BORDER_CHAR_BOTTOM_RIGHT << std::endl;}
 }
@@ -135,8 +140,13 @@ void Board::printLogo(){
 
 // prints hand of Cards from Player
 void Board::printHand(Player &active){
-    auto cards = convertBoardRow(active.getBoard());
-    printRow(cards);
+    auto cards = convertBoardRow(active.getHand(), true);
+    for (size_t row = 0; row < cards[0].size(); row++) {
+        for (const auto& card : cards) {
+            std::cout << card[row];
+        }
+        std::cout << std::endl;
+    }
 }
 
 // prints minion and enchantments
@@ -165,9 +175,9 @@ void Board::inspectMinion(Player &active, int i){
 // prints the entire board; player one is always at the top
 void Board::printBoard(Player &p1, Player &p2){
     auto player1 = convertPlayerRow(p1.getBoard(), p1.getGraveyard(), 1, p1.getName(), p1.getLife(), p1.getMagic());
-    auto cards1 = convertBoardRow(p1.getBoard());
+    auto cards1 = convertBoardRow(p1.getBoard(), false);
     auto player2 = convertPlayerRow(p2.getBoard(), p2.getGraveyard(), 2, p2.getName(), p2.getLife(), p2.getMagic());
-    auto cards2 = convertBoardRow(p2.getBoard());
+    auto cards2 = convertBoardRow(p2.getBoard(), false);
 
     printHBorder(0);
     printRow(player1);
