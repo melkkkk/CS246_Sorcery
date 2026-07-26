@@ -47,7 +47,8 @@ export class Game{
     void playCard(int indexC, Player *other = nullptr, int i = -1);
     void checkBoard(int indexC, Player *other = nullptr, int i = -1);
     void changeTurn();
-    
+    int getID();
+    void applyEnchantments(Minion *m);
 
     void setDeck(int i, std::ifstream& infile);
     void shuffleDeck(int i, std::default_random_engine &rng);

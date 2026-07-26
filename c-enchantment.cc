@@ -23,6 +23,12 @@ export class Enchantment: public Card {
     void magicFatigue(Player *played, Player *owner, int p);
     void silence(Player *played, Player *owner, int p);
 
+    void giantStrength(Minion *temp);
+    void enrage(Minion *temp);
+    void haste(Minion *temp);
+    void magicFatigue(Minion *temp);
+    void silence(Minion *temp);
+
     std::string getAttack();
     std::string getDefense();
     std::string getDesc();

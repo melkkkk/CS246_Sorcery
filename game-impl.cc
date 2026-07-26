@@ -61,6 +61,8 @@ void Game::setName(int i, std::string name){
     }
 }
 
+int Game::getID() { return active->getId();}
+
 std::string Game::getName(int i){
     std::string s;
     if (i == 1){
@@ -71,11 +73,27 @@ std::string Game::getName(int i){
     return s;
 }
 
-//do not change this, need this for smth in sorcery
+//do not need anymore cuz changed game logic
 std::string Game::getName(){ return active->getName(); }
 
 Player *Game::getActive() {return active;}
 Player *Game::getInactive() {return inactive;}
+
+void Game::applyEnchantments(Minion *m) {
+  m->reset();
+  int len = m->getSizeE();
+  Enchantment *temp = nullptr;
+  string name = "";
+  for (int i = 0; i < len; i++) {
+    temp = dynamic_cast<Enchantment*>(m->getCardE(i));
+    name = temp->getName();
+    if (name == "Giant Strength") { temp->giantStrength(m); }
+    else if (name == "Enrage") { temp->enrage(m); }
+    else if (name == "Haste") { temp->haste(m); }
+    else if (name == "Magic Fatigue") { temp->magicFatigue(m); }
+    else if (name == "Silence") { temp->silence(m); }
+  }
+}
 
 //if int i is negative then attacks player instead
 //deoesnt remove if one of them dies,,,
@@ -161,6 +179,7 @@ void Game::playCard(int indexC, Player *other, int i) {
             else if (name == "Silence") { temp->silence(active, other, i); }
             //delete temp;
             //active->removeFromHand(indexC);
+            //vector<unique_ptr<Card>> enchanted;
             //active->moveToFrom(active->getEnchantments(), active->getHand(), move(active->getUniqueH(indexC)), indexC, 0);
             active->removeFrom(active->getHand(), indexC);
 

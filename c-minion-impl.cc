@@ -1,11 +1,16 @@
 module minion;
-import <vector>;
 import <string>;
+import <vector>;
+import <fstream>;
 import <iostream>;
+import <chrono>;   
+import <random>;
 import state;
 import plard;
 
 using namespace std;
+
+vector<unique_ptr<Card>>& Minion::getEnchantments(){return enchanted;}
 
 int Minion::getAttack() { return attack; }
 int Minion::getDefense() { return defense; }
@@ -13,6 +18,15 @@ int Minion::getAction() { return actions; }
 std::string Minion::getDesc() {return desc;};
 int Minion::getAbilityCost() {return abilityCost;};
 bool Minion::getHasAbility() {return hasAbility;};
+
+
+int Minion::getAttackO() { return ogAttack; }
+int Minion::getDefenseO() { return ogDefense; }
+int Minion::getActionO() { return ogActions; }
+int Minion::getAbilityCostO() {return ogAbilityCost;};
+bool Minion::getHasAbilityO() {return ogHasAbility;};
+
+
 //add Attack
 //add Defense
 void Minion::addA(int i) { attack += i; }
@@ -21,6 +35,26 @@ void Minion::addAction(int i) { actions += i; }
 void Minion::addAbilityCost(int i) { abilityCost += i; }
 
 void Minion::setHasAbility(bool b) { hasAbility = b; }
+void Minion::setAttack(int i) { attack = i; }
+void Minion::setDefense(int i) { defense = i; }
+void Minion::setAction(int i) { actions = i; }
+void Minion::setAbilityCost(int i) { abilityCost = i;};
+
+void Minion::reset() {
+  this->setAttack(this->getAttackO());
+  this->setDefense(this->getDefenseO());
+  this->setAction(this->getActionO());
+  this->setAbilityCost(this->getAbilityCostO());
+  this->setHasAbility(this->getHasAbilityO());
+  // for (int i = 0; i < enchanted.size(); i++) {
+  //   Enchantment *temp = dynamic_cast<Enchantment*>(c);
+  // }
+}
+
+Card *Minion::getCardE(int i) { return enchanted[i].get(); }
+unique_ptr<Card>& Minion::getUniqueE(int i) { return enchanted[i]; }
+
+int Minion::getSizeE() { return enchanted.size(); }
 
 //multiply Attack
 //multiply Defense
@@ -31,6 +65,7 @@ Minion::Minion(string name, int cost, int owner): Card{name, cost}, owner{owner}
     //set defense and actions if applicable
 
     cout << "minion ctor" << endl;
+    
 
     // if (name == "Dark Ritual") { 
     //   desc = "At the start of your turn, gain 1 magic"; 

@@ -1,6 +1,10 @@
 export module minion;
-import <vector>;
 import <string>;
+import <vector>;
+import <fstream>;
+import <iostream>;
+import <chrono>;   
+import <random>;
 import state;
 import plard;
 
@@ -12,9 +16,16 @@ export class Minion: public Card, public Observer {
     std::string desc;
     int actions = 1;
     int abilityCost = -1;
-    bool hasAbility = false;
     
-    //vector<unique_ptr<Card>> enchanted;
+    bool hasAbility = false;
+
+    int ogAttack;
+    int ogDefense;
+    int ogAbilityCost = -1;
+    int ogActions = 1;
+    int ogHasAbility = false;
+    
+    std::vector<std::unique_ptr<Card>> enchanted;
     // vector of enchantments
     //vector<Enchantment *> enchanted;
 
@@ -24,7 +35,7 @@ export class Minion: public Card, public Observer {
     Minion(std::string name, int cost, int owner);
     //owner is owner of card selected in input or opponent based on spell
     //void pointer for card i or ritual r
-    
+    std::vector<std::unique_ptr<Card>>& getEnchantments();
 
     //void airElemental(Player *played, int *target);
     //void earthElemental(Player *played, int *target);
@@ -35,6 +46,8 @@ export class Minion: public Card, public Observer {
     void apprenticeSummoner(Player *played);
     void masterSummoner(Player *played);
 
+//call before applying enchantments
+    void reset();
 
     //add Attack
     //add Defense
@@ -55,7 +68,22 @@ export class Minion: public Card, public Observer {
     int getAbilityCost();
     bool getHasAbility();
 
+    int getAttackO();
+    int getDefenseO();
+    int getActionO();
+    int getAbilityCostO();
+    bool getHasAbilityO();
+
+    int getSizeE();
+    Card *getCardE(int i);
+
+    std::unique_ptr<Card>& getUniqueE(int i);
+
     void setHasAbility(bool b);
+    void setAttack(int i);
+    void setDefense(int i);
+    void setAction(int i = 1);
+    void setAbilityCost(int i);
 
     //observer overrides
     void notify(State &whoFrom, Player *active) override;
