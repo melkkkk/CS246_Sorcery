@@ -83,8 +83,8 @@ void Player::removeFromHand(int indexH){
 
 //remove from board (for spell banish but can be used for other things also)
 void Player::removeFromBoard(int indexB){
-    std::cout << board[indexH]->getName() << " has been removed from board!" << endl;
-    board.erase(board.begin() + indexH);
+    std::cout << board[indexB]->getName() << " has been removed from board!" << endl;
+    board.erase(board.begin() + indexB);
 }
 
 void Player::moveToBoard(unique_ptr<Card> card, int indexH, int i){

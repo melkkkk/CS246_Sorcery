@@ -42,9 +42,9 @@ void Spell::banish(Player *played, int indexC, Player *owner, int i) {
 
 void Spell::unsummon(Player *played, int indexC, Player *owner, int i) {
   cout << "unsummon called" << endl;
-    // owner->hand.emplace_back = owner->board[i]; //add to hand
-    // Card *it = owner->getCardB();
-    // owner->board.erase(it); //remove from board
+  if ((owner) && (owner->getSizeB() > i)) {
+  owner->removeFromBoard(i);
+  } else cout << "bad index" << endl;
 }
 
 void Spell::recharge(Player *played, int indexC) {
