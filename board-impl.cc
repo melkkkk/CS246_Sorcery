@@ -138,17 +138,22 @@ void Board::inspectMinion(Player &active, int i){
         std::cout << c << std::endl;
     }
 
-    auto enchantments = convertCard((active.getBoard()[i]).getEnchantments());
+    std::vector<card_template_t> enchantments;
+    auto temp = dynamic_cast<Minion*>(active.getBoard()[i].get());
+    for (int i = 0; i <= temp->getEnchantmentsSize(); ++i) {
+        enchantments.push_back(convertCard(temp->getEnchantments()[i]));
+    }
+
     int groupSize = 5;
 
-    for (size_t start = 0; start < cards.size(); start += groupSize) {
+    for (size_t start = 0; start < enchantments.size(); start += groupSize) {
         size_t end = start + groupSize;
-        if (cards.size() < end) {end = cards.size()};
+        if (enchantments.size() < end) {end = enchantments.size();}
 
         // Print each row of the current group
-        for (size_t row = 0; row < cards[0].size(); ++row) {
+        for (size_t row = 0; row < enchantments[0].size(); ++row) {
             for (size_t i = start; i < end; ++i) {
-                std::cout << cards[i][row];
+                std::cout << enchantments[i][row];
             }
             std::cout << std::endl;
         }

@@ -320,4 +320,6 @@ void Game::notifyBoard(EventType e){
 }
 
 // complete implementation once vector of enchantments is sorted out
-// void Game::inspectMinion(int index);
+void Game::inspectMinion(int index){
+    b.inspectMinion(*active, index);
+}

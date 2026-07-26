@@ -36,7 +36,8 @@ export class Minion: public Card, public Observer {
     Minion(string name, int cost, int owner);
     //owner is owner of card selected in input or opponent based on spell
     //void pointer for card i or ritual r
-    vector<unique_ptr<Card>>& getEnchantments();
+    std::vector<std::unique_ptr<Card>>& getEnchantments();
+    int getEnchantmentsSize();
 
     //void airElemental(Player *played, int *target);
     //void earthElemental(Player *played, int *target);
@@ -47,7 +48,7 @@ export class Minion: public Card, public Observer {
     void apprenticeSummoner(Player *played);
     void masterSummoner(Player *played);
 
-//call before applying enchantments
+    //call before applying enchantments
     void reset();
 
     //add Attack

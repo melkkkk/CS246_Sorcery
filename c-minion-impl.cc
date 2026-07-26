@@ -155,6 +155,8 @@ void Minion::notify(EventType event, Player &active) {
   // }
 }
 
+int Minion::getEnchantmentsSize(){return enchanted.size();}
+
 
 
 // |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
