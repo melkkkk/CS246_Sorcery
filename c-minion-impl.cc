@@ -17,7 +17,7 @@ bool Minion::getHasAbility() {return hasAbility;};
 //add Defense
 void Minion::addA(int i) { attack += i; }
 void Minion::addD(int i) { defense += i; }
-void Minion::addAction(int i) { actions += i; cout << actions << endl; }
+void Minion::addAction(int i) { actions += i; }
 void Minion::addAbilityCost(int i) { abilityCost += i; }
 
 void Minion::setHasAbility(bool b) { hasAbility = b; }
