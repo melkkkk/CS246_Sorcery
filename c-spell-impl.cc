@@ -36,7 +36,8 @@ Spell::Spell(string name, int cost): Card{name, cost} {
 void Spell::banish(Player *played, int indexC, Player *owner, int i) {
   cout << "banish called" << endl;
   if ((owner) && (owner->getSizeB() > i)) {
-    owner->removeFromBoard(i);
+    //owner->removeFromBoard(i);
+    owner->removeFrom(owner->getBoard(), i);
   } else cout << "bad index" << endl;
 }
 
@@ -44,8 +45,7 @@ void Spell::unsummon(Player *played, int indexC, Player *owner, int i) {
   cout << "unsummon called" << endl;
   // check not null, i is in board, hand not already full
   if ((owner) && (owner->getSizeB() > i) && (owner->getSizeH() < 5)) {
-    //owner->addToHand(move(owner->getUniqueB(i)));
-    //owner->removeFromBoard(i);
+    owner->moveToFrom(owner->getHand(), owner->getBoard(), move(owner->getUniqueH(i)), i);
   } else cout << "bad index" << endl;
 }
 
@@ -69,11 +69,10 @@ void Spell::disenchant(Player *played, int indexC, Player *owner, int i) {
 
 void Spell::raiseDead(Player *played, int indexC) {
   cout << "raise dead called" << endl;
-  // check not null, i is in board, hand not already full
-  // if ((owner) && (owner->getSizeB() > i) && (owner->getSizeH() < 5)) {
-  //   owner->addToBoard(owner->getUniqueB(i));
-  //   owner->removeFromBoard(i);
-  // } else cout << "bad index" << endl;
+  //check not null, i is in board, hand not already full
+  if ((played->getSizeB() < 5) && (played->getSize(played->getGraveyard()) > 0)){
+    played->moveToFrom(played->getBoard(), played->getGraveyard(), move(played->getUnique(played->getGraveyard(), 0)), 0);
+  } else cout << "bad index" << endl;
 }
 
 void Spell::blizzard(Player *played, int indexC, Player *owner){

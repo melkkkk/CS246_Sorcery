@@ -71,11 +71,14 @@ export class Player{
 
     // new functions because everything is private ohhh soft private
     void addToHand(unique_ptr<Card> card);
-    void moveToBoard(unique_ptr<Card> card, int indexH, int i = 1);
-    void moveToGraveyard(unique_ptr<Card> card, int indexB);
+    //void moveToBoard(unique_ptr<Card> card, int indexH, int i = 1);
+    //void moveToGraveyard(unique_ptr<Card> card, int indexB);
 
-    void removeFromHand(int indexH);
-    void removeFromBoard(int indexB);
+    //void removeFromHand(int indexH);
+    //void removeFromBoard(int indexB);
+
+    void moveToFrom(vector<unique_ptr<Card>>& to, vector<unique_ptr<Card>>& from, unique_ptr<Card> card, int index, int i = 1);
+    void removeFrom(vector<unique_ptr<Card>>& from, int index);
 
     vector<string>& getDeck();
 
@@ -86,9 +89,11 @@ export class Player{
     Card *getCardB(int i);
     unique_ptr<Card>& getUniqueH(int i);
     unique_ptr<Card>& getUniqueB(int i);
+    unique_ptr<Card>& getUnique(vector<unique_ptr<Card>>& vec, int i);
 
     int getSizeH();
     int getSizeB();
+    int getSize(vector<unique_ptr<Card>>& vec);
 
     int getLife();
     int getMagic();

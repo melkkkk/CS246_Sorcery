@@ -76,7 +76,9 @@ std::string Game::getName(int i){
     return s;
 }
 
+//do not change this, need this for smth in sorcery
 std::string Game::getName(){ return active->getName(); }
+
 Player *Game::getActive() {return active;}
 Player *Game::getInactive() {return inactive;}
 
@@ -152,7 +154,8 @@ void Game::playCard(int indexC, Player *other, int i) {
             else if (name == "Raise Dead") { temp->raiseDead(active, indexC); }
             else if (name == "Blizzard") { temp->blizzard(active, indexC, other); }
             //delete temp;
-            active->removeFromHand(indexC);
+            //active->removeFromHand(indexC);
+            active->removeFrom(active->getHand(), indexC);
 
         } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), name) != enchantmentCards.end()) {
             Enchantment *temp = dynamic_cast<Enchantment*>(c);
@@ -162,7 +165,9 @@ void Game::playCard(int indexC, Player *other, int i) {
             else if (name == "Magic Fatigue") { temp->magicFatigue(active, other, i); }
             else if (name == "Silence") { temp->silence(active, other, i); }
             //delete temp;
-            active->removeFromHand(indexC);
+            //active->removeFromHand(indexC);
+            //active->moveToFrom(active->getEnchantments(), active->getHand(), move(active->getUniqueH(indexC)), indexC, 0);
+            active->removeFrom(active->getHand(), indexC);
 
         } else if (std::find(ritualCards.begin(), ritualCards.end(), name) != ritualCards.end()) {
             Ritual *temp = dynamic_cast<Ritual*>(c);
@@ -172,18 +177,21 @@ void Game::playCard(int indexC, Player *other, int i) {
             else if (name == "Standstill") { temp->standstill(active); }
 
             // add to slot
-            active->moveToBoard(move(active->getUniqueH(indexC)), indexC, 0);
+            //active->moveToBoard(move(active->getUniqueH(indexC)), indexC, 0);
+            active->moveToFrom(active->getBoard(), active->getHand(), move(active->getUniqueH(indexC)), indexC, 0);
             //active->removeFromHand(indexC);
             //delete temp;
 
             // function call the tell board smth has been added
             
         } else if (std::find(minionCards.begin(), minionCards.end(), name) != minionCards.end()) {
-            Minion *temp = dynamic_cast<Minion*>(c);
+            //Minion *temp = dynamic_cast<Minion*>(c);
+
+
             //add to board
-            active->moveToBoard(move(active->getUniqueH(indexC)), indexC);
-            //active->removeFromHand(indexC);
-            //delete temp;
+            //active->moveToBoard(move(active->getUniqueH(indexC)), indexC);
+            active->moveToFrom(active->getBoard(), active->getHand(), move(active->getUniqueH(indexC)), indexC);
+            
 
             // function call the tell board smth has been added
 

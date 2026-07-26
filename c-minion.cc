@@ -12,6 +12,8 @@ export class Minion: public Card, public Observer {
     int actions = 1;
     int abilityCost = -1;
     bool hasAbility = false;
+    
+    //vector<unique_ptr<Card>> enchanted;
     // vector of enchantments
     //vector<Enchantment *> enchanted;
 
