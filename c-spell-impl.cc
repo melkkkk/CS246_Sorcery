@@ -35,10 +35,10 @@ Spell::Spell(string name, int cost): Card{name, cost} {
 
 void Spell::banish(Player *played, int indexC, Player *owner, int i) {
   cout << "banish called" << endl;
-  if ((owner) && (owner->getSizeH() > p)) {
-  Minion *temp = dynamic_cast<Minion*>(owner->getCardH(p));
-  temp->addA(2);
-  temp->addD(2);
+  if ((owner) && (owner->getSizeH() > i)) {
+  // Minion *temp = dynamic_cast<Minion*>(owner->getCardH(i));
+  // temp->addA(2);
+  // temp->addD(2);
   } else cout << "bad index" << endl;
     // Card *it = owner->board[i];
     // owner->board.erase(it);
