@@ -138,20 +138,21 @@ void Board::inspectMinion(Player &active, int i){
         std::cout << c << std::endl;
     }
 
-    // auto enchantments = convertCard((active.getBoard()[i]).getEnchantments());
-    // int groupSize = 5;
+    auto enchantments = convertCard((active.getBoard()[i]).getEnchantments());
+    int groupSize = 5;
 
-    // for (size_t start = 0; start < cards.size(); start += groupSize) {
-    //     size_t end = std::min(start + groupSize, cards.size());
+    for (size_t start = 0; start < cards.size(); start += groupSize) {
+        size_t end = start + groupSize;
+        if (cards.size() < end) {end = cards.size()};
 
-    //     // Print each row of the current group
-    //     for (size_t row = 0; row < cards[0].size(); ++row) {
-    //         for (size_t i = start; i < end; ++i) {
-    //             std::cout << cards[i][row];
-    //         }
-    //         std::cout << std::endl;
-    //     }
-    // }
+        // Print each row of the current group
+        for (size_t row = 0; row < cards[0].size(); ++row) {
+            for (size_t i = start; i < end; ++i) {
+                std::cout << cards[i][row];
+            }
+            std::cout << std::endl;
+        }
+    }
 }
 
 // prints the entire board; player one is always at the top
