@@ -29,6 +29,7 @@ export class Board{
   void printLogo();
   void printBoard(Player &p1, Player &p2);
   void printHand(Player &active);
+  void inspectMinion(Player &active, int i);
   // void printCard(card_template_t card);
   // notifyWhenTriggered();
 };

@@ -14,8 +14,10 @@ import <string>;
 import <iostream>;
 import <memory>;
 
+// helper function that takes a Card and creates a corresponding card_template_t based on the type of card
 card_template_t Board::convertCard(std::unique_ptr<Card>& card){
     if (auto temp = dynamic_cast<Minion*>(card.get())) {
+        // checking what type of minion it is
         if (temp->getHasAbility() && (temp->getAbilityCost() < 0)){
             return display_minion_triggered_ability(temp->getName(), temp->getCost(), temp->getAttack(), temp->getDefense(), temp->getDesc());
         } else if (temp->getHasAbility()) {
@@ -28,11 +30,15 @@ card_template_t Board::convertCard(std::unique_ptr<Card>& card){
     } else if (auto temp = dynamic_cast<Ritual*>(card.get())) {
         return display_ritual(temp->getName(), temp->getCost(), temp->getActivation(), temp->getDesc(), temp->getCharges());
     } else if (auto temp = dynamic_cast<Enchantment*>(card.get())) {
+        // checking what type of enchantment it is
         if (temp->getAttack().length() == 0 && temp->getDefense().length() == 0){
             return display_enchantment(temp->getName(), temp->getCost(), temp->getDesc());
-        }
+        } else {
         return display_enchantment_attack_defence(temp->getName(), temp->getCost(), temp->getDesc(), temp->getAttack(), temp->getDefense());
+        }
     } else {return CARD_TEMPLATE_BORDER; }
+
+    // previous attempt, delete later
 
     // if (std::find(minionCards.begin(), minionCards.end(), card->getName()) != minionCards.end()) { 
     //     Minion *temp = dynamic_cast<Minion*>(card);
@@ -59,30 +65,38 @@ card_template_t Board::convertCard(std::unique_ptr<Card>& card){
     // return display_minion_no_ability("NOTHING", 0, 0, 0);
 }
 
+// takes the board of Cards and creates a vector of card_template_t
 std::vector<card_template_t> Board::convertBoardRow(std::vector<std::unique_ptr<Card>>& board){
     std::vector<card_template_t> result;
-    // result.reserve(board.size());
 
     for (size_t i = 1; i <= 5; ++i) {
         if (i < board.size() && board[i]) {
             result.push_back(convertCard(board[i]));
         } else {
+            // if there is an empty space on the board
             result.push_back(CARD_TEMPLATE_BORDER);
         }
     }
-
     return result;
 }
 
-std::vector<card_template_t> Board::convertPlayerRow(std::vector<std::unique_ptr<Card>>& board, std::vector<std::unique_ptr<Card>>& graveyard, int playerNum,
-                                                            std::string name,int life,int mana){
+// takes the board of Cards, graveyard, and Player info to create a vector of card_template_t
+std::vector<card_template_t> Board::convertPlayerRow(std::vector<std::unique_ptr<Card>>& board, 
+                                                        std::vector<std::unique_ptr<Card>>& graveyard, 
+                                                            int playerNum, std::string name,int life,int mana){
     std::vector<card_template_t> result;
-    if (board[0]){
+
+    // checking for ritual
+    if (!board.empty() && board[0]){
         result.push_back(convertCard(board[0]));
     } else {result.push_back(CARD_TEMPLATE_EMPTY);}
+
+    // empty spots and player info
     result.push_back(CARD_TEMPLATE_EMPTY);
     result.push_back(display_player_card(playerNum, name, life, mana));
     result.push_back(CARD_TEMPLATE_EMPTY);
+
+    // checking for graveyard topdeck
     if (!board.empty() && board.back()) {
         result.push_back(convertCard(board.back()));
     } else { result.push_back(CARD_TEMPLATE_EMPTY); }
@@ -90,6 +104,7 @@ std::vector<card_template_t> Board::convertPlayerRow(std::vector<std::unique_ptr
     return result;
 }
 
+// prints horizontal border (0 is upper, 1 is lower)
 void Board::printHBorder(int upOrLow){
     if (upOrLow == 0){std::cout << EXTERNAL_BORDER_CHAR_TOP_LEFT;}
     else{std::cout << EXTERNAL_BORDER_CHAR_BOTTOM_LEFT;}
@@ -100,6 +115,7 @@ void Board::printHBorder(int upOrLow){
     else{std::cout << EXTERNAL_BORDER_CHAR_BOTTOM_RIGHT << std::endl;}
 }
 
+// prints a row of cards with the side border
 void Board::printRow(std::vector<card_template_t>& cards){
     for (size_t row = 0; row < cards[0].size(); row++) {
         std::cout << EXTERNAL_BORDER_CHAR_UP_DOWN;
@@ -110,12 +126,43 @@ void Board::printRow(std::vector<card_template_t>& cards){
     }
 }
 
+// prints middle of the board
 void Board::printLogo(){
     for (const auto& row : CENTRE_GRAPHIC) {
-        std::cout << row << '\n';
+        std::cout << row << std::endl;
     }
 }
 
+// prints hand of Cards from Player
+void Board::printHand(Player &active){
+    auto cards = convertBoardRow(active.getBoard());
+    printRow(cards);
+}
+
+// prints minion and enchantments
+void Board::inspectMinion(Player &active, int i){
+    auto minion = convertCard(active.getBoard()[i]);
+    for (const auto& c : minion) {
+        std::cout << c << std::endl;
+    }
+
+    // auto enchantments = convertCard((active.getBoard()[i]).getEnchantments());
+    // int groupSize = 5;
+
+    // for (size_t start = 0; start < cards.size(); start += groupSize) {
+    //     size_t end = std::min(start + groupSize, cards.size());
+
+    //     // Print each row of the current group
+    //     for (size_t row = 0; row < cards[0].size(); ++row) {
+    //         for (size_t i = start; i < end; ++i) {
+    //             std::cout << cards[i][row];
+    //         }
+    //         std::cout << std::endl;
+    //     }
+    // }
+}
+
+// prints the entire board; player one is always at the top
 void Board::printBoard(Player &p1, Player &p2){
     auto player1 = convertPlayerRow(p1.getBoard(), p1.getGraveyard(), 1, p1.getName(), p1.getLife(), p1.getMagic());
     auto cards1 = convertBoardRow(p1.getBoard());
@@ -141,7 +188,17 @@ void Board::printBoard(Player &p1, Player &p2){
     // card_template_t p2card4 = display_minion_no_ability("poo3", 5, 8, 8);
     // card_template_t p2card5 = display_minion_no_ability("poo4", 5, 8, 8);
 
-    // card_template_t size = CARD_TEMPLATE_BORDER;
+    // card_template_t p11 = display_ritual("P1 Dark Ritual", 0, 1, "At the start of your turn, gain 1 magic", 5);
+    // card_template_t p12 = CARD_TEMPLATE_EMPTY;
+    // card_template_t p13 = display_player_card(1, "pee", 0, 0);
+    // card_template_t p14 = CARD_TEMPLATE_EMPTY;
+    // card_template_t p15 = display_minion_no_ability("Graveyard Minion", 0, 6, 7);
+
+    // card_template_t p21 = display_ritual("P2 Dark Ritual", 0, 1, "At the start of your turn, gain 1 magic", 5);
+    // card_template_t p22 = CARD_TEMPLATE_EMPTY;
+    // card_template_t p23 = display_player_card(2, "poo", 0, 0);
+    // card_template_t p24 = CARD_TEMPLATE_EMPTY;
+    // card_template_t p25 = display_minion_no_ability("Graveyard Minion", 0, 6, 7);
 
     // std::vector<card_template_t> cards = {
     //     pcard1,
@@ -158,18 +215,6 @@ void Board::printBoard(Player &p1, Player &p2){
     //     p2card4,
     //     p2card5
     // };
-
-    // card_template_t p11 = display_ritual("P1 Dark Ritual", 0, 1, "At the start of your turn, gain 1 magic", 5);
-    // card_template_t p12 = CARD_TEMPLATE_EMPTY;
-    // card_template_t p13 = display_player_card(1, "pee", 0, 0);
-    // card_template_t p14 = CARD_TEMPLATE_EMPTY;
-    // card_template_t p15 = display_minion_no_ability("Graveyard Minion", 0, 6, 7);
-
-    // card_template_t p21 = display_ritual("P2 Dark Ritual", 0, 1, "At the start of your turn, gain 1 magic", 5);
-    // card_template_t p22 = CARD_TEMPLATE_EMPTY;
-    // card_template_t p23 = display_player_card(2, "poo", 0, 0);
-    // card_template_t p24 = CARD_TEMPLATE_EMPTY;
-    // card_template_t p25 = display_minion_no_ability("Graveyard Minion", 0, 6, 7);
 
     // std::vector<card_template_t> player1 = {
     //     p11,

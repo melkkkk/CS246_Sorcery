@@ -3,13 +3,10 @@ export module game;
 import state;
 import plard;
 import minion;
-
-// CAN COMMMENT OUT IF NOT READY
 import ritual;
 import enchantment;
 import spell;
-
-//import board;
+import board;
 
 import <string>;
 import <vector>;
@@ -31,7 +28,7 @@ export class Game{
     Player *inactive;
 
     //will add these on later
-    //Board &b;
+    Board b;
     // vector<Card> board;
     // Board B;
 
@@ -63,10 +60,14 @@ export class Game{
     Player *getActive();
     Player *getInactive();
 
-    ~Game();
-
     // draws top card from the deck, probably needs to raise error later on?
     void drawCard(int i);
+
+    void printBoard();
+    void printHand();
+    void inspectMinion(int index);
+
+    ~Game();
 };
 
 // Use minion's special ability, optionally targeting target-card owned by target-player 

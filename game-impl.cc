@@ -10,6 +10,8 @@ import ritual;
 import enchantment;
 import spell;
 
+import board;
+
 import <string>;
 import <vector>;
 import <fstream>;
@@ -233,3 +235,13 @@ void Game::drawCard(int i) {
     }
 }
 
+void Game::printBoard(){
+    b.printBoard(*p1, *p2);
+}
+
+void Game::printHand(){
+    b.printHand(*active);
+}
+
+// complete implementation once vector of enchantments is sorted out
+// void Game::inspectMinion(int index);
