@@ -75,6 +75,7 @@ export class Player{
     void moveToGraveyard(unique_ptr<Card> card, int indexB);
 
     void removeFromHand(int indexH);
+    void removeFromBoard(int indexB);
 
     vector<string>& getDeck();
 

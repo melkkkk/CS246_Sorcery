@@ -80,6 +80,13 @@ void Player::removeFromHand(int indexH){
     hand.erase(hand.begin() + indexH);
 }
 
+
+//remove from board (for spell banish but can be used for other things also)
+void Player::removeFromBoard(int indexB){
+    std::cout << board[indexH]->getName() << " has been removed from board!" << endl;
+    board.erase(board.begin() + indexH);
+}
+
 void Player::moveToBoard(unique_ptr<Card> card, int indexH, int i){
     //leave space for ritua;
     if (board.size() == 0) {
