@@ -1,0 +1,13 @@
+one
+two
+play 0
+end
+play 1
+end
+play 1
+use 1
+end
+play 0
+end
+play 1
+quit

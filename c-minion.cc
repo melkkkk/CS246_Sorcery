@@ -8,12 +8,13 @@ import <random>;
 import state;
 import plard;
 
+using namespace std;
 
 export class Minion: public Card, public Observer {
     int owner;
     int attack;
     int defense;
-    std::string desc;
+    string desc;
     int actions = 1;
     int abilityCost = -1;
     
@@ -25,17 +26,17 @@ export class Minion: public Card, public Observer {
     int ogActions = 1;
     int ogHasAbility = false;
     
-    std::vector<std::unique_ptr<Card>> enchanted;
+    vector<unique_ptr<Card>> enchanted;
     // vector of enchantments
     //vector<Enchantment *> enchanted;
 
   protected:
     //void setState(State newS);
   public:
-    Minion(std::string name, int cost, int owner);
+    Minion(string name, int cost, int owner);
     //owner is owner of card selected in input or opponent based on spell
     //void pointer for card i or ritual r
-    std::vector<std::unique_ptr<Card>>& getEnchantments();
+    vector<unique_ptr<Card>>& getEnchantments();
 
     //void airElemental(Player *played, int *target);
     //void earthElemental(Player *played, int *target);
@@ -64,7 +65,7 @@ export class Minion: public Card, public Observer {
     int getDefense();
     int getAction();
 
-    std::string getDesc();
+    string getDesc();
     int getAbilityCost();
     bool getHasAbility();
 
@@ -78,7 +79,7 @@ export class Minion: public Card, public Observer {
     Card *getCardE(int i);
     void removeE(int i);
 
-    std::unique_ptr<Card>& getUniqueE(int i);
+    unique_ptr<Card>& getUniqueE(int i);
 
     void setHasAbility(bool b);
     void setAttack(int i);

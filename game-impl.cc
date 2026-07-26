@@ -166,14 +166,13 @@ void Game::use(int indexM, bool testing, Player *other, int i) {
 }
 
 void Game::playCard(int indexC, bool testing, Player *other, int i) {
-    if ((active->getSizeH() > indexC) && (inactive->getSizeH() > i)) {
+    if (active->getSizeH() > indexC) { //  && (other->getSizeH() > i)
 
         Card *c = active->getCardH(indexC);
         
         //if not enough magic and not in testing mode, do nothing
         if ((active->getMagic() < c->getCost()) && (!testing)) return;
-
-        
+        int lostM = 0; //magic required to play card
         string name = c->getName();
 
 
@@ -182,23 +181,28 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
             
             if (name == "Recharge") { temp->recharge(active, indexC); }
             else if (name == "Raise Dead") { temp->raiseDead(active, indexC); }
-            else if (!other) return; // all other spells need other
+            else if (!other || !(other->getSizeH() > i)) {
+                cout << "bad args" << endl; 
+                return;
+            }
             else if (name == "Banish") { temp->banish(active, indexC, other, i); }
             else if (name == "Unsummon") { temp->unsummon(active, indexC, other, i); }
             else if (name == "Disenchant") { temp->disenchant(active, indexC, other, i); }
             else if (name == "Blizzard") { temp->blizzard(active, indexC, other); }
 
-            active->addM(c->getCost() * -1); // remove the magic required to play card
+            lostM = c->getCost() * -1;
+            active->addM(lostM); // remove the magic required to play card 
             //if in testing mode, only need to set magic to 0
             if ((testing) && (active->getMagic() < 0)) active->setMagic(0);
 
             active->removeFrom(active->getHand(), indexC);
 
         } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), name) != enchantmentCards.end()) {
+            if (!other || !(other->getSizeH() > i)) {
+                cout << "bad args" << endl; 
+                return;
+            }// all enchantments need other
             Enchantment *temp = dynamic_cast<Enchantment*>(c);
-
-            if (!other) return; // all enchantments need other
-
             Card *othercard = other->getCardH(i); // card that the enchantment is played on
             Minion *m = dynamic_cast<Minion*>(othercard); // dynamic cast the card to minion
 
@@ -207,11 +211,17 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
             else if (name == "Haste") { temp->haste(active, other, i); }
             else if (name == "Magic Fatigue") { temp->magicFatigue(active, other, i); }
             else if (name == "Silence") { temp->silence(active, other, i); }
-
-            active->addM(c->getCost() * -1); // remove the magic required to play card
+            //cout << "done calling" << endl;
+            lostM = c->getCost() * -1;
+            //cout << "lost magic: " << lostM << endl;
+            active->addM(lostM); // remove the magic required to play card
+            //cout << "magic removed" << endl;
             //if in testing mode, only need to set magic to 0
             if ((testing) && (active->getMagic() < 0)) active->setMagic(0);
+            //cout << "if statement" << endl;
+            //cout << m->getEnchantments() << endl;
             active->moveToFrom(m->getEnchantments(), active->getHand(), move(active->getUniqueH(indexC)), indexC);
+            cout << "moved to minion" << endl;
             
 
         } else if (std::find(ritualCards.begin(), ritualCards.end(), name) != ritualCards.end()) {
@@ -221,7 +231,8 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
             // else if (name == "Aura of Power") { temp->auraOfPower(active); }
             // else if (name == "Standstill") { temp->standstill(active); }
 
-            active->addM(c->getCost() * -1); // remove the magic required to play card
+            lostM = c->getCost() * -1;
+            active->addM(lostM); // remove the magic required to play card
             //if in testing mode, only need to set magic to 0
             if ((testing) && (active->getMagic() < 0)) active->setMagic(0);
 
@@ -234,10 +245,11 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
         } else if (std::find(minionCards.begin(), minionCards.end(), name) != minionCards.end()) {
             //Minion *temp = dynamic_cast<Minion*>(c);
 
-            active->addM(c->getCost() * -1); // remove the magic required to play card
+            lostM = c->getCost() * -1;
+            active->addM(lostM); // remove the magic required to play card
             //if in testing mode, only need to set magic to 0
             if ((testing) && (active->getMagic() < 0)) active->setMagic(0);
-            
+
             active->moveToFrom(active->getBoard(), active->getHand(), move(active->getUniqueH(indexC)), indexC);
             
 

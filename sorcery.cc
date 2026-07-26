@@ -44,6 +44,10 @@ int main(int argc, char *argv []){
     // for testing mode
     bool testing = false;
 
+    // for init file
+    bool init = false;
+    ifstream ifs{"default.init"}; //this is empty
+
     // set deck
     bool deck1 = false;
     bool deck2 = false;
@@ -68,7 +72,8 @@ int main(int argc, char *argv []){
             // create deck for p2 file
         } else if (command == "-init") {
             ++i;
-            ifstream infile{argv[i]};
+            ifstream ifs{argv[i]};
+            init = true;
             // read in commands from  file
         } else if (command == "-testing") {
             testing = true;
@@ -103,24 +108,26 @@ int main(int argc, char *argv []){
     }
 
     
-
-    // get names of players, change later if -init is being used
+    
+    // get names of players
     string name;
     cout << "Input Player 1:" << endl;
-    getline(cin, name);
+    if (!init) {getline(cin, name);}
+    else {getline(ifs, name);}
     // p1.setName(name);
     g.setName(1, name);
+
     // cout << "player name is " << p1.getName() << endl;
     cout << "player name is " << g.getName(1) << endl;
     
     cout << "Input Player 2:" << endl;
-    getline(cin, name);
+    if (!init) {getline(cin, name);}
+    else {getline(ifs, name);}
     // p2.setName(name);
     g.setName(2, name);
+
     // cout << "player name is " << p2.getName() << endl;
     cout << "player name is " << g.getName(2) << endl;
-
-
 
 
 // initialize hands of 5 cards
@@ -135,12 +142,11 @@ int main(int argc, char *argv []){
     }
 
 
-
-
     // main game loop
     // bool quit = false;
     string command;
-    while (getline(cin, command) && command != "\n"){
+
+    while ((!init && getline(cin, command) && command != "\n") || (getline(ifs, command) && command != "\n")){
         stringstream ss{command};
         int inputs = count_inputs(command);
         string first, i, j, k;

@@ -32,11 +32,11 @@ Enchantment::Enchantment(string name, int cost): Card{name, cost} {
 // }
 
 void Enchantment::giantStrength(Player *played, Player *owner, int p) {
-  cout << "giantStrength called" << endl;
   if ((owner) && (owner->getSizeB() > p)) {
   Minion *temp = dynamic_cast<Minion*>(owner->getCardB(p));
   this->giantStrength(temp);
   } else cout << "bad index" << endl;
+  cout << "giantStrength called" << endl;
 }
 
 void Enchantment::giantStrength(Minion *temp) {
@@ -45,11 +45,11 @@ void Enchantment::giantStrength(Minion *temp) {
 }
 
 void Enchantment::enrage(Player *played, Player *owner, int p) {
-  cout << "enrage called" << endl;
   if ((owner) && (owner->getSizeB() > p)) {
   Minion *temp = dynamic_cast<Minion*>(owner->getCardB(p));
   this->enrage(temp);
   } else cout << "bad index" << endl;
+  cout << "enrage called" << endl;
 }
 
 void Enchantment::enrage(Minion *temp) {
@@ -58,11 +58,11 @@ void Enchantment::enrage(Minion *temp) {
 }
 
 void Enchantment::haste(Player *played, Player *owner, int p) {
-  cout << "haste called" << endl;
   if ((owner) && (owner->getSizeB() > p)) {
     Minion *temp = dynamic_cast<Minion*>(owner->getCardB(p));
     this->haste(temp);
   } else cout << "bad index" << endl;
+  cout << "haste called" << endl;
 }
 
 void Enchantment::haste(Minion *temp) {
@@ -70,11 +70,11 @@ void Enchantment::haste(Minion *temp) {
 }
 
 void Enchantment::magicFatigue(Player *played, Player *owner, int p) {
-  cout << "magicFatigue called" << endl;
   if ((owner) && (owner->getSizeB() > p)) {
   Minion *temp = dynamic_cast<Minion*>(owner->getCardB(p));
   this->magicFatigue(temp);
   } else cout << "bad index" << endl;
+  cout << "magicFatigue called" << endl;
 }
 
 void Enchantment::magicFatigue(Minion *temp) {
@@ -82,11 +82,11 @@ void Enchantment::magicFatigue(Minion *temp) {
 }
 
 void Enchantment::silence(Player *played, Player *owner, int p) {
-  cout << "silence called" << endl;
   if ((owner) && (owner->getSizeB() > p)) {
   Minion *temp = dynamic_cast<Minion*>(owner->getCardB(p));
   this->silence(temp);
   } else cout << "bad index" << endl;
+  cout << "silence called" << endl;
 }
 
 void Enchantment::silence(Minion *temp) {

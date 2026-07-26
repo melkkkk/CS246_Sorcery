@@ -124,9 +124,10 @@ void Player::moveToFrom(vector<unique_ptr<Card>>& to, vector<unique_ptr<Card>>& 
     
     //leave space for ritual
     if (board.size() == 0) board.push_back(nullptr);
+    cout << "reached move" << endl;
 
     //board specific
-    if (to == board) {
+    if (&to == &board) {
         if (i != 0) {
             board.push_back(move(card));
             int j = board.size() - 1;
@@ -138,8 +139,9 @@ void Player::moveToFrom(vector<unique_ptr<Card>>& to, vector<unique_ptr<Card>>& 
         }
     } //all other locations
     else {
+        cout << "reached else" << endl;
         to.push_back(move(card));
-        std::cout << card->getName() << " has been added to " << endl;
+        std::cout << "moved" << endl;
     }
     
     //deletes from original place
