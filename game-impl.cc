@@ -199,7 +199,7 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
 
         } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), name) != enchantmentCards.end()) {
             if (!other || !(other->getSizeH() > i)) {
-                cout << "bad args" << endl; 
+                cout << "bad args play card" << endl; 
                 return;
             }// all enchantments need other
             Enchantment *temp = dynamic_cast<Enchantment*>(c);
@@ -220,6 +220,10 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
             if ((testing) && (active->getMagic() < 0)) active->setMagic(0);
             //cout << "if statement" << endl;
             //cout << m->getEnchantments() << endl;
+            if (!m) {
+                cout << "othercard is not a Minion" << endl;
+                return;
+            }
 
             active->moveToFrom(m->getEnchantments(), active->getHand(), move(active->getUniqueH(indexC)), indexC);
             cout << "moved to minion" << endl;
