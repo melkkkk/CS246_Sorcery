@@ -35,21 +35,18 @@ Spell::Spell(string name, int cost): Card{name, cost} {
 
 void Spell::banish(Player *played, int indexC, Player *owner, int i) {
   cout << "banish called" << endl;
-  if ((owner) && (owner->getSizeH() > i)) {
-  // Minion *temp = dynamic_cast<Minion*>(owner->getCardH(i));
-  // temp->addA(2);
-  // temp->addD(2);
+  if ((owner) && (owner->getSizeB() > i)) {
+  owner->removeFromBoard(i);
   } else cout << "bad index" << endl;
-    // Card *it = owner->board[i];
-    // owner->board.erase(it);
 }
+
 void Spell::unsummon(Player *played, int indexC, Player *owner, int i) {
   cout << "unsummon called" << endl;
     // owner->hand.emplace_back = owner->board[i]; //add to hand
     // Card *it = owner->getCardB();
     // owner->board.erase(it); //remove from board
-
 }
+
 void Spell::recharge(Player *played, int indexC) {
   cout << "recharge called" << endl;
     // int len = played->board.size;
