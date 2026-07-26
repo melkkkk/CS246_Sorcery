@@ -97,7 +97,7 @@ void Player::moveToBoard(unique_ptr<Card> card, int indexH, int i){
         board.push_back(move(card));
         int j = board.size() - 1;
         std::cout << board[j]->getName() << " has been added to board!" << endl;
-    } else {
+    } else if (i == 0) {
         //set ritual pointer to given ritual
         board[i] = move(card);
         std::cout << board[i]->getName() << " has been added to board!" << endl;

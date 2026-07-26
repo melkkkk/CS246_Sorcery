@@ -36,7 +36,7 @@ Spell::Spell(string name, int cost): Card{name, cost} {
 void Spell::banish(Player *played, int indexC, Player *owner, int i) {
   cout << "banish called" << endl;
   if ((owner) && (owner->getSizeB() > i)) {
-  owner->removeFromBoard(i);
+    owner->removeFromBoard(i);
   } else cout << "bad index" << endl;
 }
 
@@ -44,48 +44,47 @@ void Spell::unsummon(Player *played, int indexC, Player *owner, int i) {
   cout << "unsummon called" << endl;
   // check not null, i is in board, hand not already full
   if ((owner) && (owner->getSizeB() > i) && (owner->getSizeH() < 5)) {
-  owner->addToHand(owner->getUniqueB(i));
-  owner->removeFromBoard(i);
+    //owner->addToHand(move(owner->getUniqueB(i)));
+    //owner->removeFromBoard(i);
   } else cout << "bad index" << endl;
 }
 
 void Spell::recharge(Player *played, int indexC) {
   cout << "recharge called" << endl;
-  if ((owner) && (owner->getSizeB() > 1)) {
-  Ritual *temp = dynamic_cast<Ritual*>(owner->getCardB(0));
-  if (temp) temp->addC(3);
-  else cout << "null temp" << endl;
+  if (played->getSizeB() > 1) {
+    Ritual *temp = dynamic_cast<Ritual*>(played->getCardB(0));
+    if (temp) temp->addC(3);
+    else cout << "null temp" << endl;
   } else cout << "bad index" << endl;
 }
 
+//
 void Spell::disenchant(Player *played, int indexC, Player *owner, int i) {
   cout << "disenchant called" << endl;
-  if ((owner) && (owner->getSizeB() > p)) {
-  Minion *temp = dynamic_cast<Minion*>(owner->getCardB(p));
-  temp->setHasAbility(false);
+  if ((owner) && (owner->getSizeB() > i)) {
+    //Minion *temp = dynamic_cast<Minion*>(owner->getCardB(i));
+    //temp->removeE(); // need to make this
   } else cout << "bad index" << endl;
 }
 
 void Spell::raiseDead(Player *played, int indexC) {
-  cout << "raide dead called" << endl;
-    // int len = owner->graveyard.size(); //check non empty graveyard
-    // if (len == 0) return;
-    // else { 
-    //     owner->hand.emplace_back(owner->graveyard.begin()); //add to hand
-    //     auto it = owner->graveyard.begin();
-    //     owner->graveyard.erase(it); //remove from graveyard
-    // }
+  cout << "raise dead called" << endl;
+  // check not null, i is in board, hand not already full
+  // if ((owner) && (owner->getSizeB() > i) && (owner->getSizeH() < 5)) {
+  //   owner->addToBoard(owner->getUniqueB(i));
+  //   owner->removeFromBoard(i);
+  // } else cout << "bad index" << endl;
 }
+
 void Spell::blizzard(Player *played, int indexC, Player *owner){
   cout << "blizzard called" << endl;
-    // int len = played->board.size;
-    // string t = "";
-    // for (int i = 0; i < len; i++) {
-    //     t = owner->board[i].getType();
-    //     if (t == "minion") {
-    //         owner->board[i].addD(-2);
-    //     }
-    // }
+  if (owner) {
+    int len = owner->getSizeB();
+    for (int i = 1; i < len; i++) {
+      Minion *temp = dynamic_cast<Minion*>(owner->getCardB(i));
+      temp->addD(-2);
+    }
+  } else cout << "bad index" << endl;
 }
 
 

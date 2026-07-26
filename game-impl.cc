@@ -173,6 +173,7 @@ void Game::playCard(int indexC, Player *other, int i) {
 
             // add to slot
             active->moveToBoard(move(active->getUniqueH(indexC)), indexC, 0);
+            //active->removeFromHand(indexC);
             //delete temp;
 
             // function call the tell board smth has been added
@@ -181,6 +182,7 @@ void Game::playCard(int indexC, Player *other, int i) {
             Minion *temp = dynamic_cast<Minion*>(c);
             //add to board
             active->moveToBoard(move(active->getUniqueH(indexC)), indexC);
+            //active->removeFromHand(indexC);
             //delete temp;
 
             // function call the tell board smth has been added
