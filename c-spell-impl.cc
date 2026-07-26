@@ -42,31 +42,30 @@ void Spell::banish(Player *played, int indexC, Player *owner, int i) {
 
 void Spell::unsummon(Player *played, int indexC, Player *owner, int i) {
   cout << "unsummon called" << endl;
-  if ((owner) && (owner->getSizeB() > i)) {
+  // check not null, i is in board, hand not already full
+  if ((owner) && (owner->getSizeB() > i) && (owner->getSizeH() < 5)) {
+  owner->addToHand(owner->getUniqueB(i));
   owner->removeFromBoard(i);
   } else cout << "bad index" << endl;
 }
 
 void Spell::recharge(Player *played, int indexC) {
   cout << "recharge called" << endl;
-    // int len = played->board.size;
-    // string t = "";
-    // for (int i = 0; i < len; i++) {
-    //     t = played->board[i].getType();
-    //     if (t == "ritual") {
-    //         played->board[i].addC(3);
-    //     }
-    // }
+  if ((owner) && (owner->getSizeB() > 1)) {
+  Ritual *temp = dynamic_cast<Ritual*>(owner->getCardB(0));
+  if (temp) temp->addC(3);
+  else cout << "null temp" << endl;
+  } else cout << "bad index" << endl;
 }
+
 void Spell::disenchant(Player *played, int indexC, Player *owner, int i) {
   cout << "disenchant called" << endl;
-    // int len = owner->board[i].enchantments.size(); //add to hand
-    // if (len == 0) return;
-    // else { 
-    //     auto it = owner->board[i].enchantments.begin();
-    //     owner->board[i].enchantments.erase(it);
-    // }
+  if ((owner) && (owner->getSizeB() > p)) {
+  Minion *temp = dynamic_cast<Minion*>(owner->getCardB(p));
+  temp->setHasAbility(false);
+  } else cout << "bad index" << endl;
 }
+
 void Spell::raiseDead(Player *played, int indexC) {
   cout << "raide dead called" << endl;
     // int len = owner->graveyard.size(); //check non empty graveyard
