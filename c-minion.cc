@@ -9,7 +9,7 @@ export class Minion: public Card, public Observer {
     int attack;
     int defense;
     std::string desc;
-    int actions = 100;
+    int actions = 1;
     int abilityCost = -1;
     bool hasAbility = false;
     // vector of enchantments
@@ -38,6 +38,7 @@ export class Minion: public Card, public Observer {
     void addA(int i = 1);
     void addD(int i = 1);
     void addAction(int i = 1);
+    void addAbilityCost(int i = 1);
     //multiply Attack
     //multiply Defense
     void multA(int i = 1);
@@ -50,6 +51,8 @@ export class Minion: public Card, public Observer {
     std::string getDesc();
     int getAbilityCost();
     bool getHasAbility();
+
+    void setHasAbility(bool b);
 
     //observer overrides
     void notify(State &whoFrom, Player *active) override;

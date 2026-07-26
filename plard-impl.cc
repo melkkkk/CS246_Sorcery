@@ -24,12 +24,6 @@ int Card::getCost() {return cost; }
 Player::Player(string name, int life, int magic): name{name}, life{life}, magic{magic} {
 }
 
-int Player::getLife(){return life;}
-int Player::getMagic(){return magic;}
-vector<unique_ptr<Card>>& Player::getHand(){return hand;}
-vector<unique_ptr<Card>>& Player::getBoard(){return board;}
-vector<unique_ptr<Card>>& Player::getGraveyard(){return graveyard;}
-
 //adding
 void Player::addL(int i) { life += i; }
 void Player::addM(int i) { magic += i; }

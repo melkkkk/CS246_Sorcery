@@ -33,22 +33,45 @@ Enchantment::Enchantment(string name, int cost): Card{name, cost} {
 
 void Enchantment::giantStrength(Player *played, Player *owner, int p) {
   cout << "giantStrength called" << endl;
-  // owner->hand[p].addA(2);
-  // owner->hand[p].addD(2);
+  if ((owner) && (owner->getSizeB() > p)) {
+  Minion *temp = dynamic_cast<Minion*>(owner->getCardB(p));
+  temp->addA(2);
+  temp->addD(2);
+  } else cout << "bad index" << endl;
 }
+
 void Enchantment::enrage(Player *played, Player *owner, int p) {
   cout << "enrage called" << endl;
-  // owner->hand[p].multA(2);
-  // owner->hand[p].multD(2);
+  if ((owner) && (owner->getSizeB() > p)) {
+  Minion *temp = dynamic_cast<Minion*>(owner->getCardB(p));
+  temp->multA(2);
+  temp->multD(2);
+  } else cout << "bad index" << endl;
 }
+
 void Enchantment::haste(Player *played, Player *owner, int p) {
   cout << "haste called" << endl;
-  //owner->hand[p].addAction();
+  if ((owner) && (owner->getSizeB() > p)) {
+    Minion *temp = dynamic_cast<Minion*>(owner->getCardB(p));
+    temp->addAction(1);
+  } else cout << "bad index" << endl;
 }
+
 void Enchantment::magicFatigue(Player *played, Player *owner, int p) {
-  cout << "magicFatigue called" << endl;}
+  cout << "magicFatigue called" << endl;
+  if ((owner) && (owner->getSizeB() > p)) {
+  Minion *temp = dynamic_cast<Minion*>(owner->getCardB(p));
+  temp->addAbilityCost(2);
+  } else cout << "bad index" << endl;
+}
+
 void Enchantment::silence(Player *played, Player *owner, int p) {
-  cout << "silence called" << endl;}
+  cout << "silence called" << endl;
+  if ((owner) && (owner->getSizeB() > p)) {
+  Minion *temp = dynamic_cast<Minion*>(owner->getCardB(p));
+  temp->setHasAbility(false);
+  } else cout << "bad index" << endl;
+}
 
 
 // |-------------------------------||-------------------------------||-------------------------------|
