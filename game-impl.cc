@@ -164,43 +164,40 @@ void Game::playCard(int indexC, Player *other, int i) {
         
         if (active->getMagic() < c->getCost()) return;
         
-        active->addM(c->getCost() * -1); // need to add some more stuff to this do not edit i think it does not work properly yet
-        cout << "card played" << endl;
-        // if (!c) {
-        //     std::cout << "Card is null!\n";
-        //     return;
-        // }
         string name = c->getName();
 
 
         if (std::find(spellCards.begin(), spellCards.end(), name) != spellCards.end()) {
             Spell *temp = dynamic_cast<Spell*>(c);
-            if (name == "Banish") { temp->banish(active, indexC, other, i); }
-            else if (name == "Unsummon") { temp->unsummon(active, indexC, other, i); }
-            else if (name == "Recharge") { temp->recharge(active, indexC); }
-            else if (name == "Disenchant") { temp->disenchant(active, indexC, other, i); }
+            
+            if (name == "Recharge") { temp->recharge(active, indexC); }
             else if (name == "Raise Dead") { temp->raiseDead(active, indexC); }
+            else if (!other) return; // all other spells need other
+            else if (name == "Banish") { temp->banish(active, indexC, other, i); }
+            else if (name == "Unsummon") { temp->unsummon(active, indexC, other, i); }
+            else if (name == "Disenchant") { temp->disenchant(active, indexC, other, i); }
             else if (name == "Blizzard") { temp->blizzard(active, indexC, other); }
-            //delete temp;
-            //active->removeFromHand(indexC);
+
+            active->addM(c->getCost() * -1); // remove the magic required to play card
             active->removeFrom(active->getHand(), indexC);
 
         } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), name) != enchantmentCards.end()) {
             Enchantment *temp = dynamic_cast<Enchantment*>(c);
 
-            Card *othercard = other->getCardH(i);
-            Minion *m = dynamic_cast<Minion*>(othercard);
-            
+            if (!other) return; // all enchantments need other
+
+            Card *othercard = other->getCardH(i); // card that the enchantment is played on
+            Minion *m = dynamic_cast<Minion*>(othercard); // dynamic cast the card to minion
+
             if (name == "Giant Strength") { temp->giantStrength(active, other, i); }
             else if (name == "Enrage") { temp->enrage(active, other, i); }
             else if (name == "Haste") { temp->haste(active, other, i); }
             else if (name == "Magic Fatigue") { temp->magicFatigue(active, other, i); }
             else if (name == "Silence") { temp->silence(active, other, i); }
-            //delete temp;
-            //active->removeFromHand(indexC);
-            //vector<unique_ptr<Card>> enchanted;
+
+            active->addM(c->getCost() * -1); // remove the magic required to play card
             active->moveToFrom(m->getEnchantments(), active->getHand(), move(active->getUniqueH(indexC)), indexC);
-            //active->removeFrom(active->getHand(), indexC);
+            
 
         } else if (std::find(ritualCards.begin(), ritualCards.end(), name) != ritualCards.end()) {
             // Ritual *temp = dynamic_cast<Ritual*>(c);
@@ -209,8 +206,8 @@ void Game::playCard(int indexC, Player *other, int i) {
             // else if (name == "Aura of Power") { temp->auraOfPower(active); }
             // else if (name == "Standstill") { temp->standstill(active); }
 
-            // add to slot
-            //active->moveToBoard(move(active->getUniqueH(indexC)), indexC, 0);
+            active->addM(c->getCost() * -1); // remove the magic required to play card
+
             active->moveToFrom(active->getBoard(), active->getHand(), move(active->getUniqueH(indexC)), indexC, 0);
             //active->removeFromHand(indexC);
             //delete temp;
@@ -220,9 +217,7 @@ void Game::playCard(int indexC, Player *other, int i) {
         } else if (std::find(minionCards.begin(), minionCards.end(), name) != minionCards.end()) {
             //Minion *temp = dynamic_cast<Minion*>(c);
 
-
-            //add to board
-            //active->moveToBoard(move(active->getUniqueH(indexC)), indexC);
+            active->addM(c->getCost() * -1); // remove the magic required to play card
             active->moveToFrom(active->getBoard(), active->getHand(), move(active->getUniqueH(indexC)), indexC);
             
 
