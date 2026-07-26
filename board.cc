@@ -15,6 +15,7 @@ import <string>;
 import <iostream>;
 import <memory>;
 
+
 export class Subject{
   std::vector<Card*> observers;
  public:
@@ -25,7 +26,7 @@ export class Subject{
 };
 
 export class Board: public Subject{
-
+  
   
  public:
   void printBoard(Player &p1, Player &p2);

@@ -21,7 +21,7 @@ export enum class RitualType { Nothing, Standstill, AuraOfPower };
 //export enum class Direction { NW, N, NE, W, E, SW, S, SE };
 
 export struct State {
-    EventType sType;  // See above
+    EventType eType;  // See above
     CardType cType;   // What colour was the new piece? (NOT what is my colour)
     //Direction direction;  // In which direction from me is the new piece?
     RitualType rType;
