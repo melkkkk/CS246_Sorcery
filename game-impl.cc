@@ -353,7 +353,7 @@ bool validStandstill(Player* p){
 }
 
 bool Game::notifyBoard(EventType e, int index){
-    if (e == EventType::MinionPlayed && dynamic_cast<Minion*>(active->getHand()[index].get()) == nullptr){
+    if (e == EventType::MinionPlayed && active->getSizeH() > index  && dynamic_cast<Minion*>(active->getHand()[index].get()) == nullptr){
         std::cout << "This is not a minion played " << std:: endl;
         return true;
     } else if (e == EventType::MinionPlayed) {
