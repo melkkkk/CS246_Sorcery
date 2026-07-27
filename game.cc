@@ -72,7 +72,7 @@ export class Game{
     void inspectMinion(int index);
 
     bool notifyBoard(EventType e, int index = 0);
-    void removeDeadMinions(Player &p);
+    void removeDeadMinions();
 
     ~Game();
 };

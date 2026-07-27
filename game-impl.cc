@@ -380,11 +380,16 @@ void Game::inspectMinion(int index){
     b.inspectMinion(*active, index);
 }
 
-void Game::removeDeadMinions(Player &p){
+void removeDeadMinionsP(Player &p){
     for (int i = 1; i < p.getSizeB(); i++){
         auto* temp = dynamic_cast<Minion*>(p.getBoard()[i].get());
         if (temp->getDefense() <= 0){
             p.moveToFrom(p.getGraveyard(), p.getBoard(), std::move(p.getBoard()[i]), i);
         }
     }
+}
+
+void Game::removeDeadMinions(){
+    removeDeadMinionsP(*active);
+    removeDeadMinionsP(*inactive);
 }

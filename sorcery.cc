@@ -250,6 +250,7 @@ int main(int argc, char *argv []){
                     else { g.playCard(stoi(i), false, g.getInactive(), stoi(k)); }
                 }
 
+                g.removeDeadMinions();
                 g.notifyBoard(EventType::MinionDied);
 
             } else if (inputs >= 1) {
@@ -263,6 +264,7 @@ int main(int argc, char *argv []){
                     else { g.playCard(stoi(i), false);}
                 }
                 
+                g.removeDeadMinions();
                 g.notifyBoard(EventType::MinionDied);
 
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
@@ -272,22 +274,24 @@ int main(int argc, char *argv []){
                 cout << "USE " << i << " ACTIVATED ABILITY ON PLAYER " << j << " ON THEIR " << k << " MINION" << endl;
 
                 if (testing) {
-                    if (stoi(j) == g.getID()) { g.use(stoi(i), true, g.getActive(), stoi(k)); }
-                    else { g.use(stoi(i), true, g.getInactive(), stoi(k)); }
+                    if (stoi(j) == g.getID()) { g.use(stoi(i) - 1, true, g.getActive(), stoi(k)); }
+                    else { g.use(stoi(i) - 1, true, g.getInactive(), stoi(k)); }
                 } else {
-                    if (stoi(j) == g.getID()) { g.use(stoi(i), false, g.getActive(), stoi(k)); }
-                    else { g.use(stoi(i), false, g.getInactive(), stoi(k)); }
+                    if (stoi(j) == g.getID()) { g.use(stoi(i) - 1, false, g.getActive(), stoi(k)); }
+                    else { g.use(stoi(i) - 1, false, g.getInactive(), stoi(k)); }
                 }
 
+                g.removeDeadMinions();
                 g.notifyBoard(EventType::MinionDied);
 
             } else if (inputs >= 1) {
                 ss >> i;
                 cout << "PLAY " << i << " ACTIVATED ABILITY NO TARGET" << endl;
                 
-                if (testing) g.use(stoi(i), true); 
-                else g.use(stoi(i), false);
-                
+                if (testing) g.use(stoi(i) - 1, true); 
+                else g.use(stoi(i) - 1, false);
+
+                g.removeDeadMinions();
                 g.notifyBoard(EventType::MinionDied);
 
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
