@@ -226,6 +226,8 @@ int main(int argc, char *argv []){
 
                 g.attackM(stoi(i), stoi(j));
 
+                g.notifyBoard(EventType::MinionDied);
+
             } else if (inputs >= 1) {
                 ss >> i;
                 cout << "MINION " << i << " ATTACKS PLAYER" << endl;
@@ -248,6 +250,8 @@ int main(int argc, char *argv []){
                     else { g.playCard(stoi(i), false, g.getInactive(), stoi(k)); }
                 }
 
+                g.notifyBoard(EventType::MinionDied);
+
             } else if (inputs >= 1) {
                 ss >> i;
                 cout << "PLAY " << i << " CARD NO TARGET" << endl;
@@ -256,6 +260,8 @@ int main(int argc, char *argv []){
                     if (testing) g.playCard(stoi(i), true); 
                     else g.playCard(stoi(i), false);
                 }
+
+                g.notifyBoard(EventType::MinionDied);
 
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
         } else if (first == "use") {
@@ -271,12 +277,16 @@ int main(int argc, char *argv []){
                     else { g.use(stoi(i), false, g.getInactive(), stoi(k)); }
                 }
 
+                g.notifyBoard(EventType::MinionDied);
+
             } else if (inputs >= 1) {
                 ss >> i;
                 cout << "PLAY " << i << " ACTIVATED ABILITY NO TARGET" << endl;
                 
                 if (testing) g.use(stoi(i), true); 
                 else g.use(stoi(i), false);
+
+                g.notifyBoard(EventType::MinionDied);
 
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
         } else if (first == "inspect") {

@@ -32,6 +32,8 @@ export class Game{
     // vector<Card> board;
     // Board B;
 
+    int pastMinionDeath = 0;
+
     // MAY CHANGE LOCATION LATER
     inline static std::vector<std::string> spellCards = {"Banish", "Unsummon", "Recharge", "Disenchant", "Raise Dead", "Blizzard"};
     inline static std::vector<std::string> ritualCards = {"Dark Ritual", "Aura of Power", "Standstill"};

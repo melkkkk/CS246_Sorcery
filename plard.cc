@@ -101,6 +101,7 @@ export class Player{
     string getName();
     int getLife();
     int getMagic();
+    int getMinionDeaths();
     vector<unique_ptr<Card>>& getHand();
     vector<unique_ptr<Card>>& getBoard();
     vector<unique_ptr<Card>>& getGraveyard();

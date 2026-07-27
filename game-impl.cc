@@ -347,6 +347,16 @@ bool Game::notifyBoard(EventType e, int index){
     if (e == EventType::MinionPlayed && dynamic_cast<Minion*>(active->getHand()[index].get()) == nullptr){
         std::cout << "This is not a minion played " << std:: endl;
         return true;
+    } else if (e == EventType::MinionDied) {
+        int deaths = active->getMinionDeaths();
+        if (pastMinionDeath != deaths){
+            b.setState(e);
+            for (int i = pastMinionDeath; i < deaths; ++i){
+                b.notifyObservers(*active, *inactive, index, false);
+            }
+        }
+        pastMinionDeath = deaths;
+        return true;
     }
     bool bothStandstill = validStandstill(active) && validStandstill(inactive);
     b.setState(e);

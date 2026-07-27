@@ -175,3 +175,7 @@ void Player::removeFrom(vector<unique_ptr<Card>>& from, int index){
 void Player::addMagic(int i){
     magic += i;
 }
+
+int Player::getMinionDeaths(){
+    return minionDeaths;
+}
