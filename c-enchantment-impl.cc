@@ -22,7 +22,7 @@ Enchantment::Enchantment(string name, int cost): Card{name, cost} {
 }
 
 //tuple ctor
-Enchantment::Enchantment(string name, vector<tuple<string, int, string>> vec) : Card{name} {
+Enchantment::Enchantment(string name, vector<tuple<string, int, string, string, string>> vec) : Card{name} {
   cout << "Enchantment ctor" << endl;
   int i = 0;
   if (name == "Giant Strength") { i = 0; }
@@ -31,7 +31,7 @@ Enchantment::Enchantment(string name, vector<tuple<string, int, string>> vec) : 
   else if (name == "Magic Fatigue") { i = 3; }
   else if (name == "Silence") { i = 4; }
 
-  tuple<string, int, string> temp = (vec[i]);
+  tuple<string, int, string, string, string> temp = (vec[i]);
   this->setName(get<0>(temp));
   this->setCost(get<1>(temp));
   this->desc = (get<2>(temp));

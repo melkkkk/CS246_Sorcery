@@ -17,7 +17,7 @@ export class Enchantment: public Card {
     //void setState(State newS);
   public:
     Enchantment(string name, int cost);
-    Enchantment(string name, vector<tuple<string, int, string>> vec); 
+    Enchantment(string name, vector<tuple<string, int, string, string, string>> vec); 
     //owner is owner of card selected in input or opponent based on spell
     //void pointer for card i or ritual r
     void giantStrength(Player *played, Player *owner, int p);
