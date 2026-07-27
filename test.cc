@@ -108,14 +108,14 @@ export std::vector<std::tuple<std::string, int, int, std::string, int, int>> rit
 
 // all minion card data
 ///card name, card cost, minion id set to 0 TUPLE CTOR WILL ACCEPT INT ARG TO SET CORRECT ID, minion ogAttack, minion ogDefense, minion ogAbilityCost, minion ogactions, minion oghasability
-export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> airelementalM{"Air Elemental", 0, 0, "", 1, 1, -1, 0, false};
-export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> earthelementalM{"Earth Elemental", 3, 0, "", 4, 4, -1, 0, false};
-export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> bonegolemM{"Bone Golem", 2, 0, "Gain +1/+1 whenever a minion leaves play.", 1, 3, -1, 0, true};
-export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> fireelementalM{"Fire Elemental", 2, 0, "Whenever an opponent's minion enters play, deal 1 damage to it.", 2, 2,-1, 0, true};
-export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> potionsellerM{"Potion Seller", 2, 0, "At the end of your turn, all your minions gain +0/+1.", 1, 3, -1, 0, true};
-export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> novicepyromancerM{"Novice Pyromancer", 1, 0, "Deal 1 damage to target minion", 0, 1, 1, 0, true};
-export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> apprenticesummonerM{"Apprentice Summoner", 1, 0, "Summon a 1/1 air elemental", 1, 1, 1, 0, true};
-export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> mastersummonerM{"Master Summoner", 3, 0, "Summon up to three 1/1 air elementals", 2, 3, 2, 0, true};
+export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> airelementalM{"Air Elemental", 0, 0, "", 1, 1, -1, 1, false};
+export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> earthelementalM{"Earth Elemental", 3, 0, "", 4, 4, -1, 1, false};
+export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> bonegolemM{"Bone Golem", 2, 0, "Gain +1/+1 whenever a minion leaves play.", 1, 3, -1, 1, true};
+export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> fireelementalM{"Fire Elemental", 2, 0, "Whenever an opponent's minion enters play, deal 1 damage to it.", 2, 2,-1, 1, true};
+export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> potionsellerM{"Potion Seller", 2, 0, "At the end of your turn, all your minions gain +0/+1.", 1, 3, -1, 1, true};
+export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> novicepyromancerM{"Novice Pyromancer", 1, 0, "Deal 1 damage to target minion", 0, 1, 1, 1, true};
+export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> apprenticesummonerM{"Apprentice Summoner", 1, 0, "Summon a 1/1 air elemental", 1, 1, 1, 1, true};
+export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> mastersummonerM{"Master Summoner", 3, 0, "Summon up to three 1/1 air elementals", 2, 3, 2, 1, true};
 
 export std::vector<std::tuple<std::string, int, int, std::string, int, int, int, int, bool>> minionData = {airelementalM, earthelementalM, bonegolemM, fireelementalM, potionsellerM, novicepyromancerM, apprenticesummonerM, mastersummonerM};
 

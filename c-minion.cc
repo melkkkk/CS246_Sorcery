@@ -24,7 +24,7 @@ export class Minion: public Card, public Observer {
 
     int attack;
     int defense;
-    int actions = 1;
+    int actions = 0;
     int abilityCost = -1;
     bool hasAbility = false;
     

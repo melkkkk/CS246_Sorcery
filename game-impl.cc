@@ -114,20 +114,25 @@ void Game::applyAll() {
 
 //default args aready declared for last 2
 void Game::attackM(int indexM, int i) {
-    if ((active->getSizeB() > indexM) && (indexM > 0) && (inactive->getSizeB() > i) && (i > 0)) {
+    if ((active->getSizeB() > indexM) && (indexM > 0) && ((i == -1) || ((inactive->getSizeB() > i) && (i > 0)))) {
         cout << "called attack" << endl;
         Minion *temp = dynamic_cast<Minion*>(active->getCardB(indexM));
+        cout << temp << endl;
+        cout << temp->getName() << endl;
         if (temp->getAction() > 0) {
             temp->addAction(-1);
             if (i < 0) {
                 cout << "attacked player" << endl;
-                int damage = temp->getAttack() * -1;
+                int damage = temp->getAttack();
+                damage *= -1;
                 inactive->addL(damage);
             } else {
                 cout << "attacked minion: " << i << endl;
                 Minion *tempOther = dynamic_cast<Minion*>(inactive->getCardB(i));
-                int damageTo = temp->getAttack() * -1;
-                int damageFrom = tempOther->getAttack() * -1;
+                int damageTo = temp->getAttack();
+                damageTo *= -1;
+                int damageFrom = tempOther->getAttack();
+                damageFrom *= -1;
                 tempOther->addD(damageTo);
                 temp->addD(damageFrom);
             } 
@@ -139,7 +144,7 @@ void Game::attackM(int indexM, int i) {
 // Use minion's special ability, optionally targeting target-card owned by target-player 
 //minion only
 void Game::use(int indexM, bool testing, Player *other, int i) {
-    if ((active->getSizeB() > indexM) && (indexM > 0) && (inactive->getSizeB() > i) && (i > 0)) {
+    if ((active->getSizeB() > indexM) && (indexM > 0) && ((i == -1) || ((inactive->getSizeB() > i) && (i > 0)))) {
         cout << "called use" << endl;
         Minion *temp = dynamic_cast<Minion*>(active->getCardB(indexM));
         string name = temp->getName();
