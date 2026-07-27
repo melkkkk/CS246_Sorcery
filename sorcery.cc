@@ -191,7 +191,7 @@ int main(int argc, char *argv []){
             if (testing){
 
                 //card drawn
-                g.drawCard();
+                if (g.getActive()->getSizeH() < 5) g.drawCard();
 
                 cout << "PLAYER DRAwS CARD! ONLY AVALIABLE IN TEST MODE" << endl;
             } else {
@@ -202,7 +202,7 @@ int main(int argc, char *argv []){
                 ss >> i;
                 if (testing){
 
-                    g.getActive()->removeFrom(g.getActive()->getHand(), stoi(i));
+                    if (g.getActive()->getSizeH() > stoi(i)) g.getActive()->removeFrom(g.getActive()->getHand(), stoi(i));
 
                     cout << "PLAYER DISCARDS " << i << " CARD IN HAND! ONLY AVALIABLE IN TEST MODE" << endl;
                 } else {
