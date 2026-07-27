@@ -8,9 +8,9 @@ import minion;
 
 export class Ritual: public Card, public Observer {
     int owner;
+    std::string desc;
     int charges;
     int activation;
-    std::string desc;
 
   protected:
     //void setState(State newS);

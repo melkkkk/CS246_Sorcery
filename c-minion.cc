@@ -12,19 +12,19 @@ using namespace std;
 
 export class Minion: public Card, public Observer {
     int owner;
-    int attack;
-    int defense;
     string desc;
-    int actions = 1;
-    int abilityCost = -1;
-    
-    bool hasAbility = false;
 
     int ogAttack;
     int ogDefense;
     int ogAbilityCost = -1;
     int ogActions = 1;
-    int ogHasAbility = false;
+    bool ogHasAbility = false;
+
+    int attack;
+    int defense;
+    int actions = 1;
+    int abilityCost = -1;
+    bool hasAbility = false;
     
     vector<unique_ptr<Card>> enchanted;
     // vector of enchantments

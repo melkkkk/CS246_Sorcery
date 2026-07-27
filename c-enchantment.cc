@@ -7,9 +7,9 @@ import minion;
 using namespace std;
 
 export class Enchantment: public Card {
+  std::string desc = "";
   std::string attack = "";
   std::string defense = "";
-  std::string desc = "";
 
   protected:
     //void setState(State newS);

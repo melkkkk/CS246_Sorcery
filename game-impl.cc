@@ -81,7 +81,7 @@ Player *Game::getActive() {return active;}
 Player *Game::getInactive() {return inactive;}
 
 //apply vec of enchantments to specific minion
-void Game::applyEnchantments(Minion *m) {
+void Game::applyEnchantments(Minion *m) { //add ability thing here
   m->reset();
   int len = m->getSizeE();
   Enchantment *temp = nullptr;
