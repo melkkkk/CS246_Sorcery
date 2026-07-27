@@ -176,13 +176,20 @@ int main(int argc, char *argv []){
 
             cout << "CHANGE TURN< WE CAN ADD A GETT AND SETTER IF NEED TO PRINT LATER" << endl;
             // swap(actPlayer, nonPlayer);
+
+            g.applyAll(); // applies all changes of current turn to active player before notify
+
             g.notifyBoard(EventType::EndOfTurn);
+
             g.changeTurn();
+
+            g.applyAll();  // applies all changes of just past turn before notify
+
             g.notifyBoard(EventType::StartOfTurn);
 
             g.getActive()->addM(1);
+            
             if (g.getActive()->getSizeH() < 5) g.drawCard();
-            g.applyAll();
 
             //notify start of turn state
             
