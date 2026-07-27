@@ -132,7 +132,7 @@ void Minion::novicePyromancer(Player *activeP, Player *targetP, int target) {
     tempOther->addD(-1);
 
     actions -= 1;
-    active->addM(abilityCost * -1);
+    activeP->addM(abilityCost * -1);
     if (actions <= 0) { hasAbility = !hasAbility; }
   } else {
     std::cerr << "Not enough items to use this ability" << std::endl;
