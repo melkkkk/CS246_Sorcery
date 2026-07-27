@@ -384,7 +384,7 @@ void Game::removeDeadMinions(Player &p){
     for (int i = 1; i < p.getSizeB(); i++){
         auto* temp = dynamic_cast<Minion*>(p.getBoard()[i].get());
         if (temp->getDefense() <= 0){
-            moveToFrom(p.getGraveyard(), p.getBoard(), move(p.getBoard()[i].get()), i);
+            p.moveToFrom(p.getGraveyard(), p.getBoard(), std::move(p.getBoard()[i]), i);
         }
     }
 }
