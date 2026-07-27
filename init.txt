@@ -1,6 +1,7 @@
 one
 two
 play 0
+play 1 2 1
 end
 play 1
 end
