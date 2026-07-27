@@ -54,13 +54,13 @@ export std::vector<std::tuple<std::string, int, std::string>> spellData = {banis
 
 // all enchantment card data
 ///card name, card cost, enchantment desc, enchantment attack, enchantment defense
-std::tuple<std::string, int, std::string, std::string, std::string> giantstrengthE{"Giant Strength", 1, "", "+2", "+2"};
-std::tuple<std::string, int, std::string, std::string, std::string> enrageE{"Enrage", 2, "", "*2", "*2"};
-std::tuple<std::string, int, std::string, std::string, std::string> hasteE{"Haste", 1, "Enchanted minion gains +1 action each turn", "", ""};
-std::tuple<std::string, int, std::string, std::string, std::string> magicfatigueE{"Magic Fatigue", 0, "Enchanted minion's activated ability costs 2 more", "", ""};
-std::tuple<std::string, int, std::string, std::string, std::string> silenceE{"Silence", 1, "Enchanted minion cannot use abilities", "", ""};
+export std::tuple<std::string, int, std::string, std::string, std::string> giantstrengthE{"Giant Strength", 1, "", "+2", "+2"};
+export std::tuple<std::string, int, std::string, std::string, std::string> enrageE{"Enrage", 2, "", "*2", "*2"};
+export std::tuple<std::string, int, std::string, std::string, std::string> hasteE{"Haste", 1, "Enchanted minion gains +1 action each turn", "", ""};
+export std::tuple<std::string, int, std::string, std::string, std::string> magicfatigueE{"Magic Fatigue", 0, "Enchanted minion's activated ability costs 2 more", "", ""};
+export std::tuple<std::string, int, std::string, std::string, std::string> silenceE{"Silence", 1, "Enchanted minion cannot use abilities", "", ""};
 
-std::vector<std::tuple<std::string, int, std::string, std::string, std::string>> enchantmentData = {giantstrengthE, enrageE, hasteE, magicfatigueE, silenceE};
+export std::vector<std::tuple<std::string, int, std::string, std::string, std::string>> enchantmentData = {giantstrengthE, enrageE, hasteE, magicfatigueE, silenceE};
 
 // |-------------------------------||-------------------------------||-------------------------------|
 // | Giant Strength          |   1 || Enrage                  |   2 || Haste                   |   1 |
@@ -88,11 +88,11 @@ std::vector<std::tuple<std::string, int, std::string, std::string, std::string>>
 
 // all ritual card data
 ///card name, card cost, ritual id set to 0 TUPLE CTOR WILL ACCEPT INT ARG TO SET CORRECT ID, ritual desc, ritual charges, ritual activation
-std::tuple<std::string, int, int, std::string, int, int> darkritualR{"Dark Ritual", 0, 0, "At the start of your turn, gain 1 magic", 5, 1};
-std::tuple<std::string, int, int, std::string, int, int> auraofpowerR{"Aura of Power", 1, 0, "Whenever a minion enters play under your control it gains +1/+1", 4, 1};
-std::tuple<std::string, int, int, std::string, int, int> standstillR{"Standstill", 3, 0, "Whenever a minion enters play, destroy it", 4, 2};
+export std::tuple<std::string, int, int, std::string, int, int> darkritualR{"Dark Ritual", 0, 0, "At the start of your turn, gain 1 magic", 5, 1};
+export std::tuple<std::string, int, int, std::string, int, int> auraofpowerR{"Aura of Power", 1, 0, "Whenever a minion enters play under your control it gains +1/+1", 4, 1};
+export std::tuple<std::string, int, int, std::string, int, int> standstillR{"Standstill", 3, 0, "Whenever a minion enters play, destroy it", 4, 2};
 
-std::vector<std::tuple<std::string, int, int, std::string, int, int>> ritualData = {darkritualR, auraofpowerR, standstillR};
+export std::vector<std::tuple<std::string, int, int, std::string, int, int>> ritualData = {darkritualR, auraofpowerR, standstillR};
 
 // |-------------------------------||-------------------------------||-------------------------------|
 // | Dark Ritual             |   0 || Aura of Power           |   1 || Standstill              |   3 |
@@ -108,16 +108,16 @@ std::vector<std::tuple<std::string, int, int, std::string, int, int>> ritualData
 
 // all minion card data
 ///card name, card cost, minion id set to 0 TUPLE CTOR WILL ACCEPT INT ARG TO SET CORRECT ID, minion ogAttack, minion ogDefense, minion ogAbilityCost, minion ogactions, minion oghasability
-std::tuple<std::string, int, int, std::string, int, int, int, int, bool> airelementalM{"Air Elemental", 0, 0, "", 1, 1, -1, 0, false};
-std::tuple<std::string, int, int, std::string, int, int, int, int, bool> earthelementalM{"Earth Elemental", 3, 0, "", 4, 4, -1, 0, false};
-std::tuple<std::string, int, int, std::string, int, int, int, int, bool> bonegolemM{"Bone Golem", 2, 0, "Gain +1/+1 whenever a minion leaves play.", 1, 3, -1, 0, true};
-std::tuple<std::string, int, int, std::string, int, int, int, int, bool> fireelementalM{"Fire Elemental", 2, 0, "Whenever an opponent's minion enters play, deal 1 damage to it.", 2, 2,-1, 0, true};
-std::tuple<std::string, int, int, std::string, int, int, int, int, bool> potionsellerM{"Potion Seller", 2, 0, "At the end of your turn, all your minions gain +0/+1.", 1, 3, -1, 0, true};
-std::tuple<std::string, int, int, std::string, int, int, int, int, bool> novicepyromancerM{"Novice Pyromancer", 1, 0, "Deal 1 damage to target minion", 0, 1, 1, 0, true};
-std::tuple<std::string, int, int, std::string, int, int, int, int, bool> apprenticesummonerM{"Apprentice Summoner", 1, 0, "Summon a 1/1 air elemental", 1, 1, 1, 0, true};
-std::tuple<std::string, int, int, std::string, int, int, int, int, bool> mastersummonerM{"Master Summoner", 3, 0, "Summon up to three 1/1 air elementals", 2, 3, 2, 0, true};
+export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> airelementalM{"Air Elemental", 0, 0, "", 1, 1, -1, 0, false};
+export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> earthelementalM{"Earth Elemental", 3, 0, "", 4, 4, -1, 0, false};
+export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> bonegolemM{"Bone Golem", 2, 0, "Gain +1/+1 whenever a minion leaves play.", 1, 3, -1, 0, true};
+export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> fireelementalM{"Fire Elemental", 2, 0, "Whenever an opponent's minion enters play, deal 1 damage to it.", 2, 2,-1, 0, true};
+export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> potionsellerM{"Potion Seller", 2, 0, "At the end of your turn, all your minions gain +0/+1.", 1, 3, -1, 0, true};
+export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> novicepyromancerM{"Novice Pyromancer", 1, 0, "Deal 1 damage to target minion", 0, 1, 1, 0, true};
+export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> apprenticesummonerM{"Apprentice Summoner", 1, 0, "Summon a 1/1 air elemental", 1, 1, 1, 0, true};
+export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> mastersummonerM{"Master Summoner", 3, 0, "Summon up to three 1/1 air elementals", 2, 3, 2, 0, true};
 
-std::vector<std::tuple<std::string, int, int, std::string, int, int, int, int, bool>> minionData = {airelementalM, earthelementalM, bonegolemM, fireelementalM, potionsellerM, novicepyromancerM, apprenticesummonerM, mastersummonerM};
+export std::vector<std::tuple<std::string, int, int, std::string, int, int, int, int, bool>> minionData = {airelementalM, earthelementalM, bonegolemM, fireelementalM, potionsellerM, novicepyromancerM, apprenticesummonerM, mastersummonerM};
 
 // |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
 // | Air Elemental           |   0 || Earth Elemental         |   3 || Bone Golem              |   2 || Fire Elemental          |   2 |
