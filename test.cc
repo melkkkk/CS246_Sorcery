@@ -20,14 +20,14 @@ import <tuple>;
 
 // all spell card data
 ///card name, card cost, spell desc
-std::tuple<std::string, int, std::string> banishS{"Banish", 2,"Destroy target minion or ritual"};
-std::tuple<std::string, int, std::string> unsummonS{"Unsummon", 1, "Return target minion to its owner's hand"};
-std::tuple<std::string, int, std::string> rechargeS{"Recharge", 1, "Your ritual gains 3 charges"};
-std::tuple<std::string, int, std::string> disenchantS{"Disenchant", 1, "Destroy the top enchantment"};
-std::tuple<std::string, int, std::string> raisedeadS{"Raise Dead", 1, "Resurrect the top minion in your graveyard and set its defence to 1"};
-std::tuple<std::string, int, std::string> blizzardS{"Blizzard", 3, "Deal 2 damage to all minions"};
+export std::tuple<std::string, int, std::string> banishS{"Banish", 2,"Destroy target minion or ritual"};
+export std::tuple<std::string, int, std::string> unsummonS{"Unsummon", 1, "Return target minion to its owner's hand"};
+export std::tuple<std::string, int, std::string> rechargeS{"Recharge", 1, "Your ritual gains 3 charges"};
+export std::tuple<std::string, int, std::string> disenchantS{"Disenchant", 1, "Destroy the top enchantment"};
+export std::tuple<std::string, int, std::string> raisedeadS{"Raise Dead", 1, "Resurrect the top minion in your graveyard and set its defence to 1"};
+export std::tuple<std::string, int, std::string> blizzardS{"Blizzard", 3, "Deal 2 damage to all minions"};
 
-std::vector<std::tuple<std::string, int, std::string>> spellData = {banishS, unsummonS, rechargeS, disenchantS, raisedeadS, blizzardS};
+export std::vector<std::tuple<std::string, int, std::string>> spellData = {banishS, unsummonS, rechargeS, disenchantS, raisedeadS, blizzardS};
 
 // |-------------------------------||-------------------------------||-------------------------------|
 // | Banish                  |   2 || Unsummon                |   1 || Recharge                |   1 |

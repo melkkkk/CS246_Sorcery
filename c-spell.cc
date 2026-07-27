@@ -15,7 +15,7 @@ export class Spell: public Card {
   protected:
     //void setState(State newS);
   public:
-    Spell(string name, int cost);
+    //Spell(string name, int cost);
     Spell(string name, vector<tuple<string, int, string>> vec); 
 
     //owner is owner of card selected in input or opponent based on spell

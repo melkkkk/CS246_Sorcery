@@ -14,15 +14,15 @@ using namespace std;
 std::string Spell::getDesc(){return desc;}
 
 //CTOR
-Spell::Spell(string name, int cost): Card{name, cost} {
-    cout << "spell ctor" << endl;
-    if (name == "Banish") { this->desc = "Destroy target minion or ritual"; }
-    else if (name == "Unsummon") { this->desc = "Return target minion to its owner's hand"; }
-    else if (name == "Recharge") { this->desc = "Your ritual gains 3 charges"; }
-    else if (name == "Disenchant") { this->desc = "Destroy the top enchantment"; }
-    else if (name == "Raise Dead") { this->desc = "Resurrect the top minion in your graveyard and set its defence to 1"; }
-    else if (name == "Blizzard") { this->desc = "Deal 2 damage to all minions"; }
-}
+// Spell::Spell(string name, int cost): Card{name, cost} {
+//     cout << "spell ctor" << endl;
+//     if (name == "Banish") { this->desc = "Destroy target minion or ritual"; }
+//     else if (name == "Unsummon") { this->desc = "Return target minion to its owner's hand"; }
+//     else if (name == "Recharge") { this->desc = "Your ritual gains 3 charges"; }
+//     else if (name == "Disenchant") { this->desc = "Destroy the top enchantment"; }
+//     else if (name == "Raise Dead") { this->desc = "Resurrect the top minion in your graveyard and set its defence to 1"; }
+//     else if (name == "Blizzard") { this->desc = "Deal 2 damage to all minions"; }
+// }
 
 //tuple ctor
 Spell::Spell(string name, vector<tuple<string, int, string>> vec) : Card{name} {
