@@ -196,6 +196,8 @@ int main(int argc, char *argv []){
         } else if (first == "quit"){
             cout << "END GAME" << endl;
             break;
+        } else if (first == "who"){
+            cout << "IT IS PLAYER " << g.getID() << "'S TURN" << endl;
         } else if (first == "draw"){
             if (testing){
 
