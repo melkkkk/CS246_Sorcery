@@ -72,7 +72,8 @@ int main(int argc, char *argv []){
             // create deck for p2 file
         } else if (command == "-init") {
             ++i;
-            ifstream ifs{argv[i]};
+            ifs.close();
+            ifs.open(argv[i]);
             init = true;
             // read in commands from  file
         } else if (command == "-testing") {
