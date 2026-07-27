@@ -15,6 +15,8 @@ Card::~Card() {}
 Card::Card(string name, int cost): name{name}, cost{cost} {}
 std::string Card::getName() {return name;}
 int Card::getCost() {return cost; }
+void Card::setName(string s) {name = s;}
+void Card::setCost(int i) {cost = i;}
 //void Subject::attach(Observer *o) { observers.emplace_back(o); }
 //void Subject::notifyObservers() { for (auto &ob : observers) ob->notify(*this); }
 //void Subject::setState(State newS) { state = newS; }

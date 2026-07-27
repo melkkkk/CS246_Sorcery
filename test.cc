@@ -2,10 +2,10 @@ export module carddata;
 
 import state;
 import plard;
-import minion;
-import ritual;
-import enchantment;
-import spell;
+// import minion;
+// import ritual;
+// import enchantment;
+// import spell;
 
 import <string>;
 import <vector>;
@@ -117,7 +117,7 @@ std::tuple<std::string, int, int, std::string, int, int, int, int, bool> novicep
 std::tuple<std::string, int, int, std::string, int, int, int, int, bool> apprenticesummonerM{"Apprentice Summoner", 1, 0, "Summon a 1/1 air elemental", 1, 1, 1, 0, true};
 std::tuple<std::string, int, int, std::string, int, int, int, int, bool> mastersummonerM{"Master Summoner", 3, 0, "Summon up to three 1/1 air elementals", 2, 3, 2, 0, true};
 
-std::vector<std::tuple<std::string, int, int, std::string, int, int, int, int, bool>> ritualData = {airelementalM, earthelementalM, bonegolemM, fireelementalM, potionsellerM, novicepyromancerM, apprenticesummonerM, mastersummonerM};
+std::vector<std::tuple<std::string, int, int, std::string, int, int, int, int, bool>> minionData = {airelementalM, earthelementalM, bonegolemM, fireelementalM, potionsellerM, novicepyromancerM, apprenticesummonerM, mastersummonerM};
 
 // |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
 // | Air Elemental           |   0 || Earth Elemental         |   3 || Bone Golem              |   2 || Fire Elemental          |   2 |

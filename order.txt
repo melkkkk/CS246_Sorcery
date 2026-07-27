@@ -3,6 +3,7 @@ ascii_graphics.cc
 ascii_graphics-impl.cc
 plard.cc
 plard-impl.cc
+test.cc
 c-minion.cc
 c-minion-impl.cc
 c-enchantment.cc

@@ -20,6 +20,8 @@ export class Card {
     //State state;
   protected:
     //void setState(State newS);
+    void setName(std::string s);
+    void setCost(int i);
   public:
     Card(std::string name, int cost = 0);
 

@@ -1,11 +1,13 @@
 module spell;
 import <vector>;
 import <string>;
+import <tuple>;
 import <iostream>;
 import state;
 import plard;
 import minion;
 import ritual;
+import carddata;
 
 using namespace std;
 
@@ -21,6 +23,32 @@ Spell::Spell(string name, int cost): Card{name, cost} {
     else if (name == "Raise Dead") { this->desc = "Resurrect the top minion in your graveyard and set its defence to 1"; }
     else if (name == "Blizzard") { this->desc = "Deal 2 damage to all minions"; }
 }
+
+//tuple ctor
+Spell::Spell(string name, vector<tuple<string, int, string>> vec) : Card{name} {
+  cout << "spell ctor" << endl;
+  int i = 0;
+  if (name == "Banish") { i = 0; }
+  else if (name == "Unsummon") { i = 1; }
+  else if (name == "Recharge") { i = 2; }
+  else if (name == "Disenchant") { i = 3; }
+  else if (name == "Raise Dead") { i = 4; }
+  else if (name == "Blizzard") { i = 5; }
+
+  tuple<string, int, string> temp = (vec[i]);
+  this->setName(get<0>(temp));
+  this->setCost(get<1>(temp));
+  this->desc = (get<2>(temp));
+}
+// std::tuple<std::string, int, std::string> banishS{"Banish", 2,"Destroy target minion or ritual"};
+// std::tuple<std::string, int, std::string> unsummonS{"Unsummon", 1, "Return target minion to its owner's hand"};
+// std::tuple<std::string, int, std::string> rechargeS{"Recharge", 1, "Your ritual gains 3 charges"};
+// std::tuple<std::string, int, std::string> disenchantS{"Disenchant", 1, "Destroy the top enchantment"};
+// std::tuple<std::string, int, std::string> raisedeadS{"Raise Dead", 1, "Resurrect the top minion in your graveyard and set its defence to 1"};
+// std::tuple<std::string, int, std::string> blizzardS{"Blizzard", 3, "Deal 2 damage to all minions"};
+
+// std::vector<std::tuple<std::string, int, std::string>> spellData = {banishS, unsummonS, rechargeS, disenchantS, raisedeadS, blizzardS};
+
 
 //selects which spell to use
 // void Spell::playspell(Player *played, Player *owner, Spell s, int *p) {

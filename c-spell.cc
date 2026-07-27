@@ -1,9 +1,11 @@
 export module spell;
 import <vector>;
 import <string>;
+import <tuple>;
 import <iostream>;
 import state;
 import plard;
+import carddata;
 
 using namespace std;
 
@@ -14,6 +16,8 @@ export class Spell: public Card {
     //void setState(State newS);
   public:
     Spell(string name, int cost);
+    Spell(string name, vector<tuple<string, int, string>> vec); 
+
     //owner is owner of card selected in input or opponent based on spell
     //void pointer for card i or ritual r
     //void playspell(Player *played, int indexC, Player *owner, int i);
