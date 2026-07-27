@@ -18,7 +18,7 @@ import <memory>;
 export class Subject{
   EventType eventState;
  public:
-  void notifyObservers(Player &active, Player &inactive);
+  void notifyObservers(Player &active, Player &inactive, int index, bool bothStandstill);
   void setState(EventType e);
   EventType getState();
   virtual ~Subject() = default;

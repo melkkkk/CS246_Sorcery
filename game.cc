@@ -69,7 +69,7 @@ export class Game{
     void printHand();
     void inspectMinion(int index);
 
-    void notifyBoard(EventType e);
+    bool notifyBoard(EventType e, int index = 0);
 
     ~Game();
 };

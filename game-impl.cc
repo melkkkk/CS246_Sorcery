@@ -333,9 +333,25 @@ void Game::printHand(){
     b.printHand(*active);
 }
 
-void Game::notifyBoard(EventType e){
+bool validStandstill(Player* p){
+    if (!p->getBoard().empty()) {
+        auto* tempA = dynamic_cast<Ritual*>(p->getBoard()[0].get());
+        if (tempA && tempA->getName() == "Standstill" && tempA->getCharges() - tempA->getActivation() > 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Game::notifyBoard(EventType e, int index){
+    if (e == EventType::MinionPlayed && dynamic_cast<Minion*>(active->getHand()[index].get()) == nullptr){
+        std::cout << "This is not a minion played " << std:: endl;
+        return true;
+    }
+    bool bothStandstill = validStandstill(active) && validStandstill(inactive);
     b.setState(e);
-    b.notifyObservers(*active, *inactive);
+    b.notifyObservers(*active, *inactive, index, bothStandstill);
+    return !(validStandstill(active) || validStandstill(inactive));
 }
 
 // complete implementation once vector of enchantments is sorted out

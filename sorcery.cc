@@ -176,7 +176,9 @@ int main(int argc, char *argv []){
 
             cout << "CHANGE TURN< WE CAN ADD A GETT AND SETTER IF NEED TO PRINT LATER" << endl;
             // swap(actPlayer, nonPlayer);
+            g.notifyBoard(EventType::EndOfTurn);
             g.changeTurn();
+            g.notifyBoard(EventType::StartOfTurn);
 
             g.getActive()->addM(1);
             if (g.getActive()->getSizeH() < 5) g.drawCard();
@@ -243,9 +245,10 @@ int main(int argc, char *argv []){
                 ss >> i;
                 cout << "PLAY " << i << " CARD NO TARGET" << endl;
 
-                if (testing) g.playCard(stoi(i), true); 
-                else g.playCard(stoi(i), false);
-
+                if (g.notifyBoard(EventType::MinionPlayed, stoi(i))){
+                    if (testing) g.playCard(stoi(i), true); 
+                    else g.playCard(stoi(i), false);
+                }
 
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
         } else if (first == "use") {
@@ -273,6 +276,7 @@ int main(int argc, char *argv []){
             if (inputs >= 1) {
                 ss >> i;
                 cout << "DESCRIBE " << i << " MINION" << endl;
+                g.inspectMinion(stoi(i));
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
         } else if (first == "hand") {
             cout << "SHOWS PLAYER'S HAND" << endl;

@@ -140,9 +140,11 @@ void Board::inspectMinion(Player &active, int i){
 
     std::vector<card_template_t> enchantments;
     auto temp = dynamic_cast<Minion*>(active.getBoard()[i].get());
-    for (int i = 0; i <= temp->getEnchantmentsSize(); ++i) {
+    for (int i = 0; i < temp->getEnchantmentsSize(); ++i) {
         enchantments.push_back(convertCard(temp->getEnchantments()[i]));
     }
+
+    if (enchantments.empty()) { return; }
 
     int groupSize = 5;
 
@@ -184,16 +186,16 @@ Board::~Board(){}
 void Subject::setState(EventType e) {eventState = e;}
 EventType Subject::getState() {return eventState;}
 
-void Subject::notifyObservers(Player &active, Player &inactive){
+void Subject::notifyObservers(Player &active, Player &inactive, int index, bool bothStandstill){
     for (auto& card : active.getBoard()) {
         if (auto* observer = dynamic_cast<Observer*>(card.get())) {
-            observer->notify(eventState, active);
+            observer->notify(eventState, active, index, bothStandstill);
         }
     }
 
     for (auto& card : inactive.getBoard()) {
         if (auto* observer = dynamic_cast<Observer*>(card.get())) {
-            observer->notify(eventState, active);
+            observer->notify(eventState, active, index, bothStandstill);
         }
     }
 }

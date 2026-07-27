@@ -57,33 +57,36 @@ void Ritual::darkRitual(Player &active) {
     active.addMagic(1);
   }
 }
-void Ritual::auraOfPower(Player &active) {
+void Ritual::auraOfPower(Player &active, int index) {
   cout << "auraOfPower called" << endl;
   //change condition to activated for minion in play under activated players control, add to value
   if (owner == active.getId()){
-    Minion *temp = dynamic_cast<Minion*>(active.getBoard()[active.getSizeB() - 1].get());
+    Minion *temp = dynamic_cast<Minion*>(active.getHand()[index].get());
     temp->addA(1);
     temp->addD(1);
   }
 }
-void Ritual::standstill(Player &active) {
+
+void Ritual::standstill(Player &active, int index, bool bothStandstill) {
   cout << "standstill called" << endl;
   //change condition to activated for minion in play, destory it
   // Minion *temp = dynamic_cast<Minion*>(active.getBoard()[active.getSizeB() - 1].get());
-  active.removeFrom(active.getBoard(), active.getSizeB() - 1);
+  if ((bothStandstill && active.getId() == owner) || !bothStandstill){
+    active.removeFrom(active.getHand(), index);
+  }
 }
 
-void Ritual::notify(EventType event, Player &active) {
-  cout << "notified ritual" << endl;
+void Ritual::notify(EventType event, Player &active, int index, bool bothStandstill) {
+  cout << "notified ritual " << owner << endl;
   if (event == EventType::StartOfTurn){
-    if (this->getName() == "Dark Ritual"){
+    if (this->getName() == "Dark Ritual" && active.getId() == owner){
       darkRitual(active);
     }
   } else if (event == EventType::MinionPlayed) {
-    if (this->getName() == "Aura of Power"){
-      auraOfPower(active);
+    if (this->getName() == "Aura of Power" && active.getId() == owner){
+      auraOfPower(active, index);
     } else if (this->getName() == "Standstill"){
-      standstill(active);
+      standstill(active, index, bothStandstill);
     }
   }
 //   if (whoFrom.sType == StateType::StartOfTurn) {

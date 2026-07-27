@@ -42,7 +42,7 @@ export class Minion: public Card, public Observer {
     //void airElemental(Player *played, int *target);
     //void earthElemental(Player *played, int *target);
     void boneGolem(Player &active);
-    void fireElemental(Player &active);
+    void fireElemental(Player &active, int index);
     void potionSeller(Player &active);
     void novicePyromancer(Player *owner, int target);
     void apprenticeSummoner(Player *played);
@@ -89,7 +89,7 @@ export class Minion: public Card, public Observer {
     void setAbilityCost(int i);
 
     //observer overrides
-    void notify(EventType event, Player &active) override;
+    void notify(EventType event, Player &active, int index, bool bothStandstill) override;
     
     
 

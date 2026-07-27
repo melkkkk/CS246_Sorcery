@@ -19,8 +19,8 @@ export class Ritual: public Card, public Observer {
     //owner is owner of card selected in input or opponent based on spell
     //void pointer for card i or ritual r
     void darkRitual(Player &active);
-    void auraOfPower(Player &active);
-    void standstill(Player &active);
+    void auraOfPower(Player &active, int index);
+    void standstill(Player &active, int index, bool bothStandstill);
 
     //add charge
     //multiply charge
@@ -35,7 +35,7 @@ export class Ritual: public Card, public Observer {
     std::string getDesc();
 
     //observer
-    void notify(EventType event, Player &active) override;
+    void notify(EventType event, Player &active, int index, bool bothStandstill) override;
 };
 
 // //add charge

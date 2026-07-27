@@ -103,20 +103,22 @@ void Minion::boneGolem(Player &active) {
   this->addD(1);
   this->addA(1);
 }
-void Minion::fireElemental(Player &active) {
+
+void Minion::fireElemental(Player &active, int index) {
   //needs notify implementation
   cout << "fire elemental called" << endl;
   if (active.getId() != owner){
-    Minion *temp = dynamic_cast<Minion*>(active.getBoard()[active.getSizeB() - 1].get());
+    Minion *temp = dynamic_cast<Minion*>(active.getHand()[index].get());
     temp->addD(-1);
   }
 }
+
 void Minion::potionSeller(Player &active) {
   //needs notify implementation
   cout << "potion seller called" << endl;
 
   if (active.getId() == owner){
-    for (int i = 1; i < active.getSizeB() - 1; ++i) {
+    for (int i = 1; i < active.getSizeB(); ++i) {
       Minion *temp = dynamic_cast<Minion*>(active.getBoard()[i].get());
       temp->addD(1);
     }
@@ -134,12 +136,12 @@ void Minion::masterSummoner(Player *played) {
 //export enum class StateType { StartOfTurn, EndOfTurn, MinionPlayed, Other };
 //export enum class CardType { Ritual, Spell, Enchantment, Minion };
 
-void Minion::notify(EventType event, Player &active) {
+void Minion::notify(EventType event, Player &active, int index, bool bothStandstill) {
   cout << "notified minion" << endl;
   if (event == EventType::EndOfTurn){
     if (this->getName() == "Potion Seller") {potionSeller(active);}
   } else if (event == EventType::MinionPlayed) {
-    if (this->getName() == "Fire Elemental") {fireElemental(active);}
+    if (this->getName() == "Fire Elemental") {fireElemental(active, index);}
   } else if (event == EventType::MinionDied) {
     if (this->getName() == "Bone Golem") {boneGolem(active);}
   }
