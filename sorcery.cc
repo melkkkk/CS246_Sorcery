@@ -287,7 +287,7 @@ int main(int argc, char *argv []){
                 
                 if (testing) g.use(stoi(i), true); 
                 else g.use(stoi(i), false);
-
+                
                 g.notifyBoard(EventType::MinionDied);
 
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
