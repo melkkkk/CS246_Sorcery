@@ -21,6 +21,33 @@ Enchantment::Enchantment(string name, int cost): Card{name, cost} {
     else if (name == "Silence") { this->desc = "Enchanted minion cannot use abilities"; }
 }
 
+//tuple ctor
+Enchantment::Enchantment(string name, vector<tuple<string, int, string>> vec) : Card{name} {
+  cout << "Enchantment ctor" << endl;
+  int i = 0;
+  if (name == "Giant Strength") { i = 0; }
+  else if (name == "Enrage") { i = 1; }
+  else if (name == "Haste") { i = 2; }
+  else if (name == "Magic Fatigue") { i = 3; }
+  else if (name == "Silence") { i = 4; }
+
+  tuple<string, int, string> temp = (vec[i]);
+  this->setName(get<0>(temp));
+  this->setCost(get<1>(temp));
+  this->desc = (get<2>(temp));
+  this->attack = (get<3>(temp));
+  this->defense = (get<4>(temp));
+}
+
+// export std::tuple<std::string, int, std::string, std::string, std::string> giantstrengthE{"Giant Strength", 1, "", "+2", "+2"};
+// export std::tuple<std::string, int, std::string, std::string, std::string> enrageE{"Enrage", 2, "", "*2", "*2"};
+// export std::tuple<std::string, int, std::string, std::string, std::string> hasteE{"Haste", 1, "Enchanted minion gains +1 action each turn", "", ""};
+// export std::tuple<std::string, int, std::string, std::string, std::string> magicfatigueE{"Magic Fatigue", 0, "Enchanted minion's activated ability costs 2 more", "", ""};
+// export std::tuple<std::string, int, std::string, std::string, std::string> silenceE{"Silence", 1, "Enchanted minion cannot use abilities", "", ""};
+
+// export std::vector<std::tuple<std::string, int, std::string, std::string, std::string>> enchantmentData = {giantstrengthE, enrageE, hasteE, magicfatigueE, silenceE};
+
+
 //selects which spell to use
 // void Ritual::playRitual(Player *played, Player *owner, int *p) {
 //     string name = s.getName();

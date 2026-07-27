@@ -322,7 +322,7 @@ void Game::drawCard() {
     } else if (std::find(ritualCards.begin(), ritualCards.end(), s) != ritualCards.end()) {
         active->addToHand(make_unique<Ritual>(s, 0, active->getId()));
     } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), s) != enchantmentCards.end()) {
-        active->addToHand(make_unique<Enchantment>(s, 0));
+        active->addToHand(make_unique<Enchantment>(s, enchantmentData));
     } else {
         cout << "Card found in deck does not match up: " << s << endl;
     }
