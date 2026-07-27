@@ -198,12 +198,12 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
             active->removeFrom(active->getHand(), indexC);
 
         } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), name) != enchantmentCards.end()) {
-            if (!other || !(other->getSizeH() > i)) {
+            if (!other || !(other->getSizeB() > i)) {
                 cout << "bad args play card" << endl; 
                 return;
             }// all enchantments need other
             Enchantment *temp = dynamic_cast<Enchantment*>(c);
-            Card *othercard = other->getCardH(i); // card that the enchantment is played on
+            Card *othercard = other->getCardB(i); // card that the enchantment is played on
             Minion *m = dynamic_cast<Minion*>(othercard); // dynamic cast the card to minion
 
             if (name == "Giant Strength") { temp->giantStrength(active, other, i); }
@@ -220,6 +220,9 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
             if ((testing) && (active->getMagic() < 0)) active->setMagic(0);
             //cout << "if statement" << endl;
             //cout << m->getEnchantments() << endl;
+            cout << othercard << '\n';
+            cout << m << '\n';
+            cout << othercard->getName() << '\n';
             if (!m) {
                 cout << "othercard is not a Minion" << endl;
                 return;
