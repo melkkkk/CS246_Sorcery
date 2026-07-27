@@ -12,14 +12,14 @@ std::string Enchantment::getDefense() {return defense;}
 std::string Enchantment::getDesc() {return desc;}
 
 //CTOR
-Enchantment::Enchantment(string name, int cost): Card{name, cost} {
-    cout << "enchantment ctor" << endl;
-    if (name == "Giant Strength") { this->attack = "+2"; this->defense = "+2"; }
-    else if (name == "Enrage") { this->attack = "*2"; this->defense = "*2"; }
-    else if (name == "Haste") { this->desc = "Enchanted minion gains +1 action each turn"; }
-    else if (name == "Magic Fatigue") { this->desc = "Enchanted minion's activated ability costs 2 more"; }
-    else if (name == "Silence") { this->desc = "Enchanted minion cannot use abilities"; }
-}
+// Enchantment::Enchantment(string name, int cost): Card{name, cost} {
+//     cout << "enchantment ctor" << endl;
+//     if (name == "Giant Strength") { this->attack = "+2"; this->defense = "+2"; }
+//     else if (name == "Enrage") { this->attack = "*2"; this->defense = "*2"; }
+//     else if (name == "Haste") { this->desc = "Enchanted minion gains +1 action each turn"; }
+//     else if (name == "Magic Fatigue") { this->desc = "Enchanted minion's activated ability costs 2 more"; }
+//     else if (name == "Silence") { this->desc = "Enchanted minion cannot use abilities"; }
+// }
 
 //tuple ctor
 Enchantment::Enchantment(string name, vector<tuple<string, int, string, string, string>> vec) : Card{name} {
