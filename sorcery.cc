@@ -179,7 +179,7 @@ int main(int argc, char *argv []){
             g.changeTurn();
 
             g.getActive()->addM(1);
-            if (g.getActive()->getSizeH() < 4) g.drawCard();
+            if (g.getActive()->getSizeH() < 5) g.drawCard();
             g.applyAll();
 
             //notify start of turn state
