@@ -184,6 +184,8 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
             else if (name == "Raise Dead") { temp->raiseDead(active, indexC); }
             else if (!other || !(other->getSizeB() > i)) {
                 cout << "bad args play card" << endl; 
+                cout << "other = " << other << endl;
+                cout << "i = " << i << endl;
                 return;
             }
             else if (name == "Banish") { temp->banish(active, indexC, other, i); }
