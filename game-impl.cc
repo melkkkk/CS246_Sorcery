@@ -336,7 +336,8 @@ void Game::printHand(){
 bool validStandstill(Player* p){
     if (!p->getBoard().empty()) {
         auto* tempA = dynamic_cast<Ritual*>(p->getBoard()[0].get());
-        if (tempA && tempA->getName() == "Standstill" && tempA->getCharges() - tempA->getActivation() > 0) {
+        if (tempA && tempA->getName() == "Standstill" && tempA->getCharges() - tempA->getActivation() >= 0) {
+            std::cout << "checking validSTandstill values " << tempA->getCharges() << " " << tempA->getActivation() << std::endl;
             return true;
         }
     }
@@ -347,6 +348,13 @@ bool Game::notifyBoard(EventType e, int index){
     if (e == EventType::MinionPlayed && dynamic_cast<Minion*>(active->getHand()[index].get()) == nullptr){
         std::cout << "This is not a minion played " << std:: endl;
         return true;
+    } else if (e == EventType::MinionPlayed) {
+        std::cout << "minion about to be played" << std::endl;
+        bool bothStandstill = validStandstill(active) && validStandstill(inactive);
+        bool playCard = !(validStandstill(active) || validStandstill(inactive));
+        b.setState(e);
+        b.notifyObservers(*active, *inactive, index, bothStandstill);
+        return playCard;
     } else if (e == EventType::MinionDied) {
         int deaths = active->getMinionDeaths();
         if (pastMinionDeath != deaths){
@@ -357,11 +365,11 @@ bool Game::notifyBoard(EventType e, int index){
         }
         pastMinionDeath = deaths;
         return true;
+    } else {
+        b.setState(e);
+        b.notifyObservers(*active, *inactive, index, false);
+        return true;
     }
-    bool bothStandstill = validStandstill(active) && validStandstill(inactive);
-    b.setState(e);
-    b.notifyObservers(*active, *inactive, index, bothStandstill);
-    return !(validStandstill(active) || validStandstill(inactive));
 }
 
 // complete implementation once vector of enchantments is sorted out

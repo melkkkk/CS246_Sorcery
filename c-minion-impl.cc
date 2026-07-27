@@ -125,11 +125,17 @@ void Minion::potionSeller(Player &active) {
   }
 }
 
-void Minion::novicePyromancer(Player *owner, int target) {
-  cout << "novice pyromancer called" << endl;}
-void Minion::apprenticeSummoner(Player *played) {
+// CHANGE IF TUPBL VALUE CHANGES
+void Minion::novicePyromancer(Player *targetP, int target) {
+  cout << "novice pyromancer called" << endl;
+  Minion *tempOther = dynamic_cast<Minion*>(targetP->getCardB(target));
+  tempOther->addD(-1);
+}
+
+void Minion::apprenticeSummoner(Player *active) {
   cout << "apprentice summoner called" << endl;}
-void Minion::masterSummoner(Player *played) {
+
+void Minion::masterSummoner(Player *active) {
   cout << "master summoner called" << endl;}
 
 

@@ -53,17 +53,19 @@ Ritual::Ritual(string name, int cost, int owner): Card{name, cost}, owner{owner}
 void Ritual::darkRitual(Player &active) {
   cout << "darkRitual called" << endl;
   //change condition to activated at start of turn, gains value
-  if (charges > 0){
+  if (charges - activation >= 0){
     active.addMagic(1);
+    charges -= activation;
   }
 }
 void Ritual::auraOfPower(Player &active, int index) {
   cout << "auraOfPower called" << endl;
   //change condition to activated for minion in play under activated players control, add to value
-  if (owner == active.getId()){
+  if (owner == active.getId() && charges - activation >= 0){
     Minion *temp = dynamic_cast<Minion*>(active.getHand()[index].get());
     temp->addA(1);
     temp->addD(1);
+    charges -= activation;
   }
 }
 
@@ -71,8 +73,10 @@ void Ritual::standstill(Player &active, int index, bool bothStandstill) {
   cout << "standstill called" << endl;
   //change condition to activated for minion in play, destory it
   // Minion *temp = dynamic_cast<Minion*>(active.getBoard()[active.getSizeB() - 1].get());
-  if ((bothStandstill && active.getId() == owner) || !bothStandstill){
+  if (((bothStandstill && active.getId() == owner) || !bothStandstill) && charges - activation >= 0){
     active.removeFrom(active.getHand(), index);
+    charges -= activation;
+    cout << "charges = " << charges << endl;
   }
 }
 

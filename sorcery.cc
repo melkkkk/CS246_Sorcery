@@ -256,11 +256,13 @@ int main(int argc, char *argv []){
                 ss >> i;
                 cout << "PLAY " << i << " CARD NO TARGET" << endl;
 
-                if (g.notifyBoard(EventType::MinionPlayed, stoi(i))){
-                    if (testing) g.playCard(stoi(i), true); 
-                    else g.playCard(stoi(i), false);
-                }
+                bool playCard = g.notifyBoard(EventType::MinionPlayed, stoi(i));
 
+                if (playCard){
+                    if (testing){ g.playCard(stoi(i), true);} 
+                    else { g.playCard(stoi(i), false);}
+                }
+                
                 g.notifyBoard(EventType::MinionDied);
 
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
