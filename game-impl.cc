@@ -379,3 +379,12 @@ bool Game::notifyBoard(EventType e, int index){
 void Game::inspectMinion(int index){
     b.inspectMinion(*active, index);
 }
+
+void Game::removeDeadMinions(Player &p){
+    for (int i = 1; i < p.getSizeB(); i++){
+        auto* temp = dynamic_cast<Minion*>(p.getBoard()[i].get());
+        if (temp->getDefense() <= 0){
+            moveToFrom(p.getGraveyard(), p.getBoard(), move(p.getBoard()[i].get()), i);
+        }
+    }
+}
