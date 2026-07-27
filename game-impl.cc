@@ -146,8 +146,8 @@ void Game::use(int indexM, bool testing, Player *other, int i) {
         //if not enough magic and not in testing mode, do nothing
         if ((active->getMagic() < temp->getAbilityCost()) && (!testing)) return;
 
-        if (temp->getAction() > 0) {
-            temp->addAction(-1);
+        if (((active->getMagic() < temp->getAbilityCost()) && testing) || active->getMagic() >= temp->getAbilityCost()) {
+            
             // else if (name == "Air Elemental") { airElemental(active, i); }
             // else if (name == "Earth Elemental") { earthElemental(active, i); }
             // if (name == "Bone Golem") { temp->boneGolem(); }
@@ -156,9 +156,10 @@ void Game::use(int indexM, bool testing, Player *other, int i) {
             if (name == "Apprentice Summoner") { temp->apprenticeSummoner(active); }
             else if (name == "Master Summoner") { temp->masterSummoner(active); }
             else if (!other) return; //needs other
-            else if (name == "Novice Pyromancer") { temp->novicePyromancer(other, i); }
+            else if (name == "Novice Pyromancer") { temp->novicePyromancer(active, other, i); }
 
-            active->addM(temp->getAbilityCost() * -1); // remove the magic required to play card
+            // temp->addAction(-1);
+            // active->addM(temp->getAbilityCost() * -1); // remove the magic required to play card
             if ((testing) && (active->getMagic() < 0)) active->setMagic(0);
 
         } else cout << "no actions left" << endl;

@@ -125,22 +125,41 @@ void Minion::potionSeller(Player &active) {
   }
 }
 
-// CHANGE IF TUPBL VALUE CHANGES
-void Minion::novicePyromancer(Player *targetP, int target) {
+void Minion::novicePyromancer(Player *activeP, Player *targetP, int target) {
   cout << "novice pyromancer called" << endl;
-  Minion *tempOther = dynamic_cast<Minion*>(targetP->getCardB(target));
-  tempOther->addD(-1);
+  if (actions > 0 && hasAbility){
+    Minion *tempOther = dynamic_cast<Minion*>(targetP->getCardB(target));
+    tempOther->addD(-1);
+
+    actions -= 1;
+    active->addM(abilityCost * -1);
+    if (actions <= 0) { hasAbility = !hasAbility; }
+  } else {
+    std::cerr << "Not enough items to use this ability" << std::endl;
+  }
 }
 
 void Minion::apprenticeSummoner(Player *active) {
-  cout << "apprentice summoner called" << endl;}
+  cout << "apprentice summoner called" << endl;
+  if (actions > 0 && hasAbility && active->getSizeB() < 6){
+    
+
+    actions -= 1;
+    active->addM(abilityCost * -1);
+    if (actions <= 0) { hasAbility = !hasAbility; }
+  } else {
+    std::cerr << "Not enough items to use this ability" << std::endl;
+  }
+}
 
 void Minion::masterSummoner(Player *active) {
-  cout << "master summoner called" << endl;}
+  cout << "master summoner called" << endl;
+  if (hasAbility){
 
+    hasAbility = !hasAbility;
+  }
+}
 
-//export enum class StateType { StartOfTurn, EndOfTurn, MinionPlayed, Other };
-//export enum class CardType { Ritual, Spell, Enchantment, Minion };
 
 void Minion::notify(EventType event, Player &active, int index, bool bothStandstill) {
   cout << "notified minion" << endl;
@@ -151,16 +170,6 @@ void Minion::notify(EventType event, Player &active, int index, bool bothStandst
   } else if (event == EventType::MinionDied) {
     if (this->getName() == "Bone Golem") {boneGolem(active);}
   }
-  // if (whoFrom.sType == StateType::StartOfTurn) {
-  //   //check enchantment haste (+1 each start of turn)
-  // }
-  // else if (whoFrom.sType == StateType::EndOfTurn) {
-  //   // would add any cards of end of turn type here
-  // } else if (whoFrom.sType == StateType::MinionPlayed) {
-  //   if (whoFrom.cType == CardType::Minion) {
-      
-  //   }
-  // }
 }
 
 int Minion::getEnchantmentsSize(){return enchanted.size();}
