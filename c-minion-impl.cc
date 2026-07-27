@@ -142,7 +142,9 @@ void Minion::novicePyromancer(Player *activeP, Player *targetP, int target) {
 void Minion::apprenticeSummoner(Player *active) {
   cout << "apprentice summoner called" << endl;
   if (actions > 0 && hasAbility && active->getSizeB() < 6){
-    
+    std::string s = "Air Elemental"; 
+    active->addToHand(make_unique<Minion>(s, 0, active->getId()));
+    active->moveToFrom(active->getBoard(), active->getHand(), move(active->getUniqueH(active->getSizeH() -1)), active->getSizeH() -1);
 
     actions -= 1;
     active->addM(abilityCost * -1);

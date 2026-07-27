@@ -148,7 +148,7 @@ void Game::use(int indexM, bool testing, Player *other, int i) {
         //if not enough magic and not in testing mode, do nothing
         if ((active->getMagic() < temp->getAbilityCost()) && (!testing)) return;
 
-        if (((active->getMagic() < temp->getAbilityCost()) && testing) || active->getMagic() >= temp->getAbilityCost()) {
+        if (testing || active->getMagic() >= temp->getAbilityCost()) {
             
             // else if (name == "Air Elemental") { airElemental(active, i); }
             // else if (name == "Earth Elemental") { earthElemental(active, i); }
