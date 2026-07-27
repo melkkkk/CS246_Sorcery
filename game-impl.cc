@@ -175,6 +175,8 @@ void Game::use(int indexM, bool testing, Player *other, int i) {
 
 
 void Game::playCard(int indexC, bool testing, Player *other, int i) {
+    cout << indexC << endl;
+    cout << active->getSizeH() << endl;
     if (active->getSizeH() > indexC) { //  && (other->getSizeH() > i)
 
         Card *c = active->getCardH(indexC);
