@@ -95,6 +95,42 @@ Minion::Minion(string name, int cost, int owner): Card{name, cost}, owner{owner}
     // }
 }
 
+Minion::Minion(string name, int owner, vector<tuple<string, int, int, string, int, int, int, int, bool>> vec) : Card{name} {
+  cout << "Minion ctor" << endl;
+  int i = 0;
+  if (name == "Air Elemental") { i = 0; }
+  else if (name == "Earth Elemental") { i = 1; }
+  else if (name == "Bone Golem") { i = 2; }
+  else if (name == "Fire Elemental") { i = 3; }
+  else if (name == "Potion Seller") { i = 4; }
+  else if (name == "Novice Pyromancer") { i = 5; }
+  else if (name == "Apprentice Summoner") { i = 6; }
+  else if (name == "Master Summoner") { i = 6; }
+
+  tuple<string, int, int, string, int, int, int, int, bool> temp = (vec[i]);
+  this->setName(get<0>(temp));
+  this->setCost(get<1>(temp));
+  this->owner = owner;
+  this->desc = (get<3>(temp));
+  this->ogAttack = (get<4>(temp));
+  this->ogDefense = (get<5>(temp));
+  this->ogAbilityCost = (get<6>(temp));
+  this->ogActions = (get<7>(temp));
+  this->ogHasAbility = (get<8>(temp));
+}
+
+// export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> airelementalM{"Air Elemental", 0, 0, "", 1, 1, -1, 0, false};
+// export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> earthelementalM{"Earth Elemental", 3, 0, "", 4, 4, -1, 0, false};
+// export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> bonegolemM{"Bone Golem", 2, 0, "Gain +1/+1 whenever a minion leaves play.", 1, 3, -1, 0, true};
+// export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> fireelementalM{"Fire Elemental", 2, 0, "Whenever an opponent's minion enters play, deal 1 damage to it.", 2, 2,-1, 0, true};
+// export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> potionsellerM{"Potion Seller", 2, 0, "At the end of your turn, all your minions gain +0/+1.", 1, 3, -1, 0, true};
+// export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> novicepyromancerM{"Novice Pyromancer", 1, 0, "Deal 1 damage to target minion", 0, 1, 1, 0, true};
+// export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> apprenticesummonerM{"Apprentice Summoner", 1, 0, "Summon a 1/1 air elemental", 1, 1, 1, 0, true};
+// export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> mastersummonerM{"Master Summoner", 3, 0, "Summon up to three 1/1 air elementals", 2, 3, 2, 0, true};
+
+// export std::vector<std::tuple<std::string, int, int, std::string, int, int, int, int, bool>> minionData = {airelementalM, earthelementalM, bonegolemM, fireelementalM, potionsellerM, novicepyromancerM, apprenticesummonerM, mastersummonerM};
+
+
 //void Minion::airElemental(Player *played, int *target) {}
 //void Minion::earthElemental(Player *played, int *target) {}
 void Minion::boneGolem(Player &active) {

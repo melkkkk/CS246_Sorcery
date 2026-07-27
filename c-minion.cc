@@ -34,6 +34,7 @@ export class Minion: public Card, public Observer {
     //void setState(State newS);
   public:
     Minion(string name, int cost, int owner);
+    Minion(string name, int owner, vector<tuple<string, int, int, string, int, int, int, int, bool>> vec);
     //owner is owner of card selected in input or opponent based on spell
     //void pointer for card i or ritual r
     std::vector<std::unique_ptr<Card>>& getEnchantments();

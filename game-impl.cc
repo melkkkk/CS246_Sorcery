@@ -316,11 +316,11 @@ void Game::drawCard() {
 
     // Based on what the name is, the correct card is created
     if (std::find(minionCards.begin(), minionCards.end(), s) != minionCards.end()) {
-        active->addToHand(make_unique<Minion>(s, 0, active->getId()));
+        active->addToHand(make_unique<Minion>(s, active->getId(), minionData));
     } else if (std::find(spellCards.begin(), spellCards.end(), s) != spellCards.end()) {
         active->addToHand(make_unique<Spell>(s, spellData));
     } else if (std::find(ritualCards.begin(), ritualCards.end(), s) != ritualCards.end()) {
-        active->addToHand(make_unique<Ritual>(s, 0, active->getId()));
+        active->addToHand(make_unique<Ritual>(s, active->getId(), ritualData));
     } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), s) != enchantmentCards.end()) {
         active->addToHand(make_unique<Enchantment>(s, enchantmentData));
     } else {
