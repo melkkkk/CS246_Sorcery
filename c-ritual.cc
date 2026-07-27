@@ -1,9 +1,11 @@
 export module ritual;
 import <vector>;
 import <string>;
+import <tuple>;
 import state;
 import plard;
 import minion;
+import carddata;
 
 
 export class Ritual: public Card, public Observer {

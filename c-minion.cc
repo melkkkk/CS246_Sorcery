@@ -5,8 +5,10 @@ import <fstream>;
 import <iostream>;
 import <chrono>;   
 import <random>;
+import <tuple>;
 import state;
 import plard;
+import carddata;
 
 using namespace std;
 

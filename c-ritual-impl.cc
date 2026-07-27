@@ -2,9 +2,11 @@ module ritual;
 import <vector>;
 import <string>;
 import <iostream>;
+import <tuple>;
 import state;
 import plard;
 import minion;
+import carddata;
 
 using namespace std;
 

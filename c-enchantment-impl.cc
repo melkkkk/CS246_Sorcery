@@ -2,8 +2,10 @@ module enchantment;
 import <vector>;
 import <string>;
 import <iostream>;
+import <tuple>;
 import plard;
 import minion;
+import carddata;
 
 using namespace std;
 
