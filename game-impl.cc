@@ -114,7 +114,7 @@ void Game::applyAll() {
 
 //default args aready declared for last 2
 void Game::attackM(int indexM, int i) {
-    if ((active->getSizeB() > indexM) && (inactive->getSizeB() > i)) {
+    if ((active->getSizeB() > indexM) && (indexM > 0) && (inactive->getSizeB() > i) && (i > 0)) {
         cout << "called attack" << endl;
         Minion *temp = dynamic_cast<Minion*>(active->getCardB(indexM));
         if (temp->getAction() > 0) {
@@ -131,16 +131,15 @@ void Game::attackM(int indexM, int i) {
                 tempOther->addD(damageTo);
                 temp->addD(damageFrom);
             } 
-        } else cout << "no actions left" << endl;
+        } else cerr << "No actions left!" << endl;
         //delete temp;
-    } else cout << "args out of bounds" << endl;
-    
+    } else cerr << "Incorrect index played/Cannot attack that target." << endl;
 }
 
 // Use minion's special ability, optionally targeting target-card owned by target-player 
 //minion only
 void Game::use(int indexM, bool testing, Player *other, int i) {
-    if ((active->getSizeB() > indexM) && (inactive->getSizeB() > i)) {
+    if ((active->getSizeB() > indexM) && (indexM > 0) && (inactive->getSizeB() > i) && (i > 0)) {
         cout << "called use" << endl;
         Minion *temp = dynamic_cast<Minion*>(active->getCardB(indexM));
         string name = temp->getName();
@@ -164,10 +163,11 @@ void Game::use(int indexM, bool testing, Player *other, int i) {
             // active->addM(temp->getAbilityCost() * -1); // remove the magic required to play card
             if ((testing) && (active->getMagic() < 0)) active->setMagic(0);
 
-        } else cout << "no actions left" << endl;
+        } else cerr << "No actions left!" << endl;
         //delete temp;
-    } else cout << "args out of bounds" << endl;
+    } else cerr << "Incorrect index played/Cannot attack that target." << endl;
 }
+
 
 void Game::playCard(int indexC, bool testing, Player *other, int i) {
     if (active->getSizeH() > indexC) { //  && (other->getSizeH() > i)
