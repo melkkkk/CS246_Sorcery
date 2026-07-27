@@ -56,6 +56,8 @@ export class Player{
   string name;
   int life;
   int magic;
+
+  inline static int minionDeaths;
   
   vector<string> deck;
   vector<unique_ptr<Card>> hand;

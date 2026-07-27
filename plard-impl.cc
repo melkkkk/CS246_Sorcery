@@ -140,6 +140,17 @@ void Player::moveToFrom(vector<unique_ptr<Card>>& to, vector<unique_ptr<Card>>& 
     } //all other locations
     else {
         cout << "reached else" << endl;
+
+        // if (auto* temp = dynamic_cast<Minion*>(card.get())) {
+        // REPLACE WITH TUPLE LATER TT THIS IS JUST A TEST I SWEAR
+        std::string type = card.get()->getName();
+        if (type == "Air Elemental" || type == "Earth Elemental" || type == "Bone Golem" 
+                    || type == "Potion Seller" || type == "Novice Pyromancer" || type == "Apprentice Summoner"
+                    || type == "Fire Elemental" || type == "Master Summoner"){
+            cout << "this is a minion not being moved to board, so it must have died!!!" << endl;
+            ++minionDeaths;
+        }
+
         to.push_back(move(card));
         std::cout << "moved" << endl;
     }
@@ -150,6 +161,13 @@ void Player::moveToFrom(vector<unique_ptr<Card>>& to, vector<unique_ptr<Card>>& 
 
 
 void Player::removeFrom(vector<unique_ptr<Card>>& from, int index){
+    std::string type = from[index].get()->getName();
+    if (type == "Air Elemental" || type == "Earth Elemental" || type == "Bone Golem" 
+                || type == "Potion Seller" || type == "Novice Pyromancer" || type == "Apprentice Summoner"
+                || type == "Fire Elemental" || type == "Master Summoner"){
+        cout << "this is a minion being removed from somehwere, so it must have died!!!" << endl;
+        ++minionDeaths;
+    }
     std::cout << "removed" << endl;
     from.erase(from.begin() + index);
 }
