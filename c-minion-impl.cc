@@ -156,9 +156,21 @@ void Minion::apprenticeSummoner(Player *active) {
 
 void Minion::masterSummoner(Player *active) {
   cout << "master summoner called" << endl;
-  if (hasAbility){
+  if (actions > 0 && hasAbility && active->getSizeB() < 6){
+    std::string s = "Air Elemental"; 
+    int times = 3;
+    if (6 - active->getSizeB() < times) {times = 6 - active->getSizeB();}
 
-    hasAbility = !hasAbility;
+    for (int i = 0; i < times; ++i){
+      active->addToHand(make_unique<Minion>(s, 0, active->getId()));
+      active->moveToFrom(active->getBoard(), active->getHand(), move(active->getUniqueH(active->getSizeH() -1)), active->getSizeH() -1);
+    }
+    
+    actions -= 1;
+    active->addM(abilityCost * -1);
+    if (actions <= 0) { hasAbility = !hasAbility; }
+  } else {
+    std::cerr << "Not enough items to use this ability" << std::endl;
   }
 }
 
