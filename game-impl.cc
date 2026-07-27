@@ -182,18 +182,18 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
             
             if (name == "Recharge") { temp->recharge(active, indexC); }
             else if (name == "Raise Dead") { temp->raiseDead(active, indexC); }
-            else if (!other || !(other->getSizeH() > i)) {
-                cout << "bad args" << endl; 
+            else if (!other || !(other->getSizeB() > i)) {
+                cout << "bad args play card" << endl; 
                 return;
             }
             else if (name == "Banish") { temp->banish(active, indexC, other, i); }
             else if (name == "Unsummon") { temp->unsummon(active, indexC, other, i); }
             else if (name == "Disenchant") { 
                 temp->disenchant(active, indexC, other, i); 
-                if (!other || !(other->getSizeB() > i)) {
-                    cout << "bad args play card" << endl; 
-                    return;
-                }
+                // if (!other || !(other->getSizeB() > i)) {
+                //     cout << "bad args play card" << endl; 
+                //     return;
+                // }
                 Card *othercard = other->getCardB(i); // card that the spell is played on
                 Minion *m = dynamic_cast<Minion*>(othercard); // dynamic cast the card to minion
                 this->applyEnchantments(m);

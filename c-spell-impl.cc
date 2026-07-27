@@ -37,7 +37,8 @@ void Spell::banish(Player *played, int indexC, Player *owner, int i) {
   cout << "banish called" << endl;
   if ((owner) && (owner->getSizeB() > i)) {
     //owner->removeFromBoard(i);
-    owner->removeFrom(owner->getBoard(), i);
+    if (i != 0) owner->removeFrom(owner->getBoard(), i);
+    else owner->getUniqueB(0) = nullptr;
   } else cout << "bad index" << endl;
 }
 

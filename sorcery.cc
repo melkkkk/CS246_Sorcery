@@ -234,6 +234,7 @@ int main(int argc, char *argv []){
                     if (stoi(j) == g.getID()) { g.playCard(stoi(i), true, g.getActive(), stoi(k)); }
                     else { g.playCard(stoi(i), true, g.getInactive(), stoi(k)); }
                 } else {
+                    cout << stoi(j) << " " << g.getID() << endl;
                     if (stoi(j) == g.getID()) { g.playCard(stoi(i), false, g.getActive(), stoi(k)); }
                     else { g.playCard(stoi(i), false, g.getInactive(), stoi(k)); }
                 }
