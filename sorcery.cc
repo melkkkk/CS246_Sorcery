@@ -242,12 +242,12 @@ int main(int argc, char *argv []){
                 cout << "PLAY " << i << " CARD ON PLAYER " << j << " ON THEIR " << k << " MINION" << endl;
                 
                 if (testing) {
-                    if (stoi(j) == g.getID()) { g.playCard(stoi(i) - 1, true, g.getActive(), stoi(k)); }
-                    else { g.playCard(stoi(i) - 1, true, g.getInactive(), stoi(k)); }
+                    if (stoi(j) == g.getID()) { g.playCard(stoi(i), true, g.getActive(), stoi(k)); }
+                    else { g.playCard(stoi(i), true, g.getInactive(), stoi(k)); }
                 } else {
                     cout << stoi(j) << " " << g.getID() << endl;
-                    if (stoi(j) == g.getID()) { g.playCard(stoi(i) - 1, false, g.getActive(), stoi(k)); }
-                    else { g.playCard(stoi(i) - 1, false, g.getInactive(), stoi(k)); }
+                    if (stoi(j) == g.getID()) { g.playCard(stoi(i), false, g.getActive(), stoi(k)); }
+                    else { g.playCard(stoi(i), false, g.getInactive(), stoi(k)); }
                 }
 
                 g.removeDeadMinions();
@@ -260,8 +260,8 @@ int main(int argc, char *argv []){
                 bool playCard = g.notifyBoard(EventType::MinionPlayed, stoi(i));
 
                 if (playCard){
-                    if (testing){ g.playCard(stoi(i) - 1, true);} 
-                    else { g.playCard(stoi(i) - 1, false);}
+                    if (testing){ g.playCard(stoi(i), true);} 
+                    else { g.playCard(stoi(i), false);}
                 }
                 
                 g.removeDeadMinions();
@@ -274,11 +274,11 @@ int main(int argc, char *argv []){
                 cout << "USE " << i << " ACTIVATED ABILITY ON PLAYER " << j << " ON THEIR " << k << " MINION" << endl;
 
                 if (testing) {
-                    if (stoi(j) == g.getID()) { g.use(stoi(i) - 1, true, g.getActive(), stoi(k)); }
-                    else { g.use(stoi(i) - 1, true, g.getInactive(), stoi(k)); }
+                    if (stoi(j) == g.getID()) { g.use(stoi(i), true, g.getActive(), stoi(k)); }
+                    else { g.use(stoi(i), true, g.getInactive(), stoi(k)); }
                 } else {
-                    if (stoi(j) == g.getID()) { g.use(stoi(i) - 1, false, g.getActive(), stoi(k)); }
-                    else { g.use(stoi(i) - 1, false, g.getInactive(), stoi(k)); }
+                    if (stoi(j) == g.getID()) { g.use(stoi(i), false, g.getActive(), stoi(k)); }
+                    else { g.use(stoi(i), false, g.getInactive(), stoi(k)); }
                 }
 
                 g.removeDeadMinions();
@@ -288,8 +288,8 @@ int main(int argc, char *argv []){
                 ss >> i;
                 cout << "PLAY " << i << " ACTIVATED ABILITY NO TARGET" << endl;
                 
-                if (testing) g.use(stoi(i) - 1, true); 
-                else g.use(stoi(i) - 1, false);
+                if (testing) g.use(stoi(i), true); 
+                else g.use(stoi(i) , false);
 
                 g.removeDeadMinions();
                 g.notifyBoard(EventType::MinionDied);
