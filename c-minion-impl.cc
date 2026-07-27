@@ -222,6 +222,8 @@ void Minion::notify(EventType event, Player &active, int index, bool bothStandst
     if (this->getName() == "Fire Elemental") {fireElemental(active, index);}
   } else if (event == EventType::MinionDied) {
     if (this->getName() == "Bone Golem") {boneGolem(active);}
+  } else if (event == EventType::StartOfTurn) {
+    if (actions < 1 && active.getId() == owner) {actions = 1;}
   }
 }
 
