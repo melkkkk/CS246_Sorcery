@@ -22,7 +22,7 @@ export class Spell: public Card {
     void recharge(Player *played, int indexC);
     void disenchant(Player *played, int indexC, Player *owner, int i);
     void raiseDead(Player *played, int indexC);
-    void blizzard(Player *played, int indexC, Player *owner);
+    void blizzard(Player *played, Player *owner);
 
     std::string getDesc();
 };

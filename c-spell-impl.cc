@@ -77,12 +77,17 @@ void Spell::raiseDead(Player *played, int indexC) {
   } else cout << "bad index" << endl;
 }
 
-void Spell::blizzard(Player *played, int indexC, Player *owner){
+void Spell::blizzard(Player *played, Player *owner){
   cout << "blizzard called" << endl;
   if (owner) {
     int len = owner->getSizeB();
     for (int i = 1; i < len; i++) {
       Minion *temp = dynamic_cast<Minion*>(owner->getCardB(i));
+      temp->addD(-2);
+    }
+    len = played->getSizeB();
+    for (int i = 1; i < len; i++) {
+      Minion *temp = dynamic_cast<Minion*>(played->getCardB(i));
       temp->addD(-2);
     }
   } else cout << "bad index" << endl;

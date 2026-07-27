@@ -182,6 +182,7 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
             
             if (name == "Recharge") { temp->recharge(active, indexC); }
             else if (name == "Raise Dead") { temp->raiseDead(active, indexC); }
+            else if (name == "Blizzard") { temp->blizzard(active, inactive); }
             else if (!other || !(other->getSizeB() > i)) {
                 cout << "bad args play card" << endl; 
                 cout << "other = " << other << endl;
@@ -200,7 +201,6 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
                 Minion *m = dynamic_cast<Minion*>(othercard); // dynamic cast the card to minion
                 this->applyEnchantments(m);
             }
-            else if (name == "Blizzard") { temp->blizzard(active, indexC, other); }
 
             lostM = c->getCost() * -1;
             active->addM(lostM); // remove the magic required to play card 
