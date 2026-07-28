@@ -117,12 +117,12 @@ void Game::applyEffects(Minion *m) { //add ability thing here
 
   for (int totalIndex = 0; totalIndex < totalLen; totalIndex++) { //total always moves forward since it is longer than enchantment vec
     applied = m->getAllApplied()[totalIndex];
-    cout << "inside loop of apply all: " <<  totalIndex << " / " << totalLen << " " << applied << endl;
+    cout << "inside loop of apply all: " <<  totalIndex << " / " << totalLen << " " << applied;
     if (enchantmentIndex < enchantmentLen) {
         temp = dynamic_cast<Enchantment*>(m->getCardE(enchantmentIndex));
         name = temp->getName();    
         if (name == applied) { // if equal to each other then that means same index, should just apply immediately
-            cout << "inside loop of apply all: " <<  enchantmentIndex << " / " << enchantmentLen << " " << name << endl;
+            cout << " enchantment loop: " <<  enchantmentIndex << " / " << enchantmentLen << " " << name << endl;
             if (name == "Giant Strength") { temp->giantStrength(m); }
             else if (name == "Enrage") { temp->enrage(m); }
             else if (name == "Haste") { temp->haste(m); }
@@ -131,12 +131,13 @@ void Game::applyEffects(Minion *m) { //add ability thing here
             enchantmentIndex++; // only moves to next enchantment if current is applied properly
         }
     } else { //this means ability is first
+        cout << endl;
         if (applied == "Raise Dead") { m->raiseDeadApply(); }
         else if (applied == "Aura of Power") { m->auraOfPowerApply(); }
         else if (applied == "Blizzard") { m->blizzardApply(); }
         else if (applied == "Potion Seller") { m->potionSeller(*active, -1); }
         else if (applied == "Novice Pyromancer") { m->novicePyromancer(active, active, 1, -1); }
-        else if (applied == "Bone Golem") { m->boneGolem(); }
+        else if (applied == "Bone Golem" && m->getName() == applied) { m->boneGolem(); }
         else if (applied == "Fire Elemental") { m->fireElemental(*active, -1); }
     }
   }
