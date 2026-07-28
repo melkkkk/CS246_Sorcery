@@ -51,6 +51,7 @@ export class Game{
     void changeTurn();
     int getID();
     void applyEnchantments(Minion *m);
+    void applyEffects(Minion *m);
     void applyAll();
 
     void setDeck(int i, std::ifstream& infile);

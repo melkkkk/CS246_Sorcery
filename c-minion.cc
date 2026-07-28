@@ -44,13 +44,14 @@ export class Minion: public Card, public Observer {
     int getEnchantmentsSize();
     std::vector<std::string>& getAllApplied();
     int getSizeA();
+    void addApply(string s);
 
     //void airElemental(Player *played, int *target);
     //void earthElemental(Player *played, int *target);
     void boneGolem();
     void fireElemental(Player &active, int index, int extra = -1);
-    void potionSeller(Player &active);
-    void novicePyromancer(Player *activeP, Player *targetP, int target);
+    void potionSeller(Player &active, int extra = 0);
+    void novicePyromancer(Player *activeP, Player *targetP, int target, int extra = 0);
     void apprenticeSummoner(Player *played);
     void masterSummoner(Player *played);
 
@@ -93,6 +94,11 @@ export class Minion: public Card, public Observer {
     void setDefense(int i);
     void setAction(int i = 1);
     void setAbilityCost(int i);
+
+    //extra functions for purpose of apply all only
+    void raiseDeadApply();
+    void auraOfPowerApply();
+    void blizzardApply();
 
     //observer overrides
     void notify(EventType event, Player &active, int index, int extra) override;

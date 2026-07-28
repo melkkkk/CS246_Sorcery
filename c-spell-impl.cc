@@ -104,6 +104,7 @@ void Spell::raiseDead(Player *played, int indexC) {
     int index = played->getSize(played->getGraveyard()) - 1; //get newest dead value
     Minion *temp = dynamic_cast<Minion*>(played->getCardG(index));
     temp->setDefense(1);
+    temp->addApply("Raise Dead");
     played->moveToFrom(played->getBoard(), played->getGraveyard(), move(played->getUnique(played->getGraveyard(), index)), index);
   } else cout << "bad index" << endl;
 }
@@ -115,11 +116,13 @@ void Spell::blizzard(Player *played, Player *owner){
     for (int i = 1; i < len; i++) {
       Minion *temp = dynamic_cast<Minion*>(owner->getCardB(i));
       temp->addD(-2);
+      temp->addApply("Blizzard");
     }
     len = played->getSizeB();
     for (int i = 1; i < len; i++) {
       Minion *temp = dynamic_cast<Minion*>(played->getCardB(i));
       temp->addD(-2);
+      temp->addApply("Blizzard");
     }
   } else cout << "bad index" << endl;
 }

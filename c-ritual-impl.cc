@@ -91,6 +91,7 @@ void Ritual::auraOfPower(Player &active, int index) {
     Minion *temp = dynamic_cast<Minion*>(active.getHand()[index].get());
     temp->addA(1);
     temp->addD(1);
+    temp->addApply("Aura of Power");
     charges -= activation;
   }
 }

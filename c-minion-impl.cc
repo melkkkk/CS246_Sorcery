@@ -135,6 +135,17 @@ void Minion::multD(int i) { defense *= i; }
 //     // }
 // }
 
+//extra functions for purpose of apply all only
+void Minion::raiseDeadApply() { this->setDefense(1); }
+void Minion::auraOfPowerApply() {
+  this->addD(1);
+  this->addA(1);
+}
+void Minion::blizzardApply() {
+  this->addD(-2);
+}
+
+void Minion::addApply(string s) { this->allApplied.emplace_back(s); }
 
 //void Minion::airElemental(Player *played, int *target) {}
 //void Minion::earthElemental(Player *played, int *target) {}
@@ -143,39 +154,54 @@ void Minion::boneGolem() {
   cout << "bone golem called" << endl;
   this->addD(1);
   this->addA(1);
+  this->addApply("Bone Golem");
 }
 
 void Minion::fireElemental(Player &active, int index, int extra) {
   //needs notify implementation
   cout << "fire elemental called" << endl;
-  if (active.getId() != owner && extra < 0){
+  if (index < 0) { //this is only for apply effects
+    this->addD(-1);
+    return;
+  } else if (active.getId() != owner && extra < 0){
     Minion *temp = dynamic_cast<Minion*>(active.getHand()[index].get());
     temp->addD(-1);
+    temp->addApply("Fire Elemental");
   } else if (active.getId() != owner){
     for (int i = 0; i < extra; ++i){
       Minion *temp = dynamic_cast<Minion*>(active.getBoard()[active.getSizeB() - 1 - i].get());
       temp->addD(-1);
+      temp->addApply("Fire Elemental");
     }
   }
 }
 
-void Minion::potionSeller(Player &active) {
+void Minion::potionSeller(Player &active, int extra) {
   //needs notify implementation
   cout << "potion seller called" << endl;
 
-  if (active.getId() == owner){
+  if (extra < 0) { //this is only for apply effects
+    this->addD(1);
+    return;
+  } else if (active.getId() == owner){
     for (int i = 1; i < active.getSizeB(); ++i) {
       Minion *temp = dynamic_cast<Minion*>(active.getBoard()[i].get());
       temp->addD(1);
+      temp->addApply("Potion Seller");
     }
   }
 }
 
-void Minion::novicePyromancer(Player *activeP, Player *targetP, int target) {
+void Minion::novicePyromancer(Player *activeP, Player *targetP, int target, int extra) {
+  
   cout << "novice pyromancer called" << endl;
-  if (actions > 0 && hasAbility){
+  if (extra < 0) { //this is only for apply effects
+    this->addD(-1);
+    return;
+  } else if (actions > 0 && hasAbility){
     Minion *tempOther = dynamic_cast<Minion*>(targetP->getCardB(target));
     tempOther->addD(-1);
+    tempOther->addApply("Novice Pyromancer");
 
     actions -= 1;
     activeP->addM(abilityCost * -1);

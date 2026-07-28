@@ -100,122 +100,45 @@ void Game::applyEnchantments(Minion *m) { //add ability thing here
 }
 
 //apply vec of enchantments to specific minion
-// void Game::applyEffects(Minion *m) { //add ability thing here
-//   m->reset();
-//   int enchantmentLen = m->getSizeE(); //get size of enchantments vec
-//   int totalLen = m->getSizeA(); //get size of total applied things vec
+void Game::applyEffects(Minion *m) { //add ability thing here
+  m->reset();
+  int enchantmentLen = m->getSizeE(); //get size of enchantments vec
+  int totalLen = m->getSizeA(); //get size of total applied things vec
 
-//   if (enchantmentLen == totalLen) { //if same len that means total is equal to enchantment vec
-//     this->applyEnchantments(m);
-//     return;
-//   }
+  if (enchantmentLen == totalLen) { //if same len that means total is equal to enchantment vec
+    this->applyEnchantments(m);
+    return;
+  }
 
-//   Enchantment *temp = nullptr; // to set to each card in enchantment vec
-//   string name = ""; // to set to each card in enchantment vec
-//   string applied = ""; // to set to each card in total vec
-//   int enchantmentIndex = 0; // to loop through each one in time with total vec
+  Enchantment *temp = nullptr; // to set to each card in enchantment vec
+  string name = ""; // to set to each card in enchantment vec
+  string applied = ""; // to set to each card in total vec
+  int enchantmentIndex = 0; // to loop through each one in time with total vec
 
-//   for (int totalIndex = 0; totalIndex < totalLen; totalIndex++) { //total always moves forward since it is longer than enchantment vec
-//     temp = dynamic_cast<Enchantment*>(m->getCardE(enchantmentIndex));
-//     name = temp->getName();
-//     applied = m->getAppliedAll[totalIndex]
-//     if (name == applied) { // if equal to each other then that means same index, should just apply immediately
-//         if (name == "Giant Strength") { temp->giantStrength(m); }
-//         else if (name == "Enrage") { temp->enrage(m); }
-//         else if (name == "Haste") { temp->haste(m); }
-//         else if (name == "Magic Fatigue") { temp->magicFatigue(m); }
-//         else if (name == "Silence") { temp->silence(m); }
-//         enchantmentIndex++; // only moves to next enchantment if current is applied properly
-//     } else { //this means ability is first
-//         if (applied == "Aura of Power") { m->auraOfPowerApply(m); }
-//         else if (applied == "Raise Dead") { m->raiseDeadApply(m); }
-//         else if (applied == "Blizzard") { m->blizzardApply(m); }
-//         else if (applied == "Potion Seller") { m->haste(m); }
-//         else if (applied == "Novice Pyromancer") { m->haste(m); }
-//         else if (applied == "Bone Golem") { m->boneGolem(); }
-//         else if (applied == "Fire Elemental") { m->haste(m); }
-//     }
+  for (int totalIndex = 0; totalIndex < totalLen; totalIndex++) { //total always moves forward since it is longer than enchantment vec
+    temp = dynamic_cast<Enchantment*>(m->getCardE(enchantmentIndex));
+    name = temp->getName();
+    applied = m->getAllApplied()[totalIndex];
+    if (name == applied) { // if equal to each other then that means same index, should just apply immediately
+        if (name == "Giant Strength") { temp->giantStrength(m); }
+        else if (name == "Enrage") { temp->enrage(m); }
+        else if (name == "Haste") { temp->haste(m); }
+        else if (name == "Magic Fatigue") { temp->magicFatigue(m); }
+        else if (name == "Silence") { temp->silence(m); }
+        enchantmentIndex++; // only moves to next enchantment if current is applied properly
+    } else { //this means ability is first
+        if (applied == "Raise Dead") { m->raiseDeadApply(); }
+        else if (applied == "Aura of Power") { m->auraOfPowerApply(); }
+        else if (applied == "Blizzard") { m->blizzardApply(); }
+        else if (applied == "Potion Seller") { m->potionSeller(*active, -1); }
+        else if (applied == "Novice Pyromancer") { m->novicePyromancer(active, active, 1, -1); }
+        else if (applied == "Bone Golem") { m->boneGolem(); }
+        else if (applied == "Fire Elemental") { m->fireElemental(*active, -1); }
+    }
+  }
+}
 
-//   }
-// }
 
-// |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
-// | Air Elemental           |   0 || Earth Elemental         |   3 || Bone Golem              |   2 || Fire Elemental          |   2 |
-// |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
-// |                        Minion ||                        Minion ||                        Minion ||                        Minion |
-// |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
-// |                               ||                               || Gain +1/+1 whenever a minion  || Whenever an opponent's minion |
-// |                               ||                               || leaves play.                  || enters play, deal 1 damage to |
-// |                               ||                               ||                               || it.                           |
-// |------                   ------||------                   ------||------                   ------||------                   ------|
-// | 1   |                   |   1 || 4   |                   |   4 || 1   |                   |   3 || 2   |                   |   2 |
-// |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
-// |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
-// | Potion Seller           |   2 || Novice Pyromancer       |   1 || Apprentice Summoner     |   1 || Master Summoner         |   3 |
-// |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
-// |                        Minion ||                        Minion ||                        Minion ||                        Minion |
-// |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
-// | At the end of your turn, all  || 1   | Deal 1 damage to target || 1   | Summon a 1/1 air        || 2   | Summon up to three 1/1  |
-// | your minions gain +0/+1.      ||------  minion                 ||------ elemental               ||------ air elementals          |
-// |                               ||                               ||                               ||                               |
-// |------                   ------||------                   ------||------                   ------||------                   ------|
-// | 1   |                   |   3 || 0   |                   |   1 || 1   |                   |   1 || 2   |                   |   3 |
-// |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
-// |-------------------------------||-------------------------------||-------------------------------|
-// | Banish                  |   2 || Unsummon                |   1 || Recharge                |   1 |
-// |-------------------------------||-------------------------------||-------------------------------|
-// |                         Spell ||                         Spell ||                         Spell |
-// |-------------------------------||-------------------------------||-------------------------------|
-// | Destroy target minion or      || Return target minion to its   || Your ritual gains 3 charges   |
-// | ritual                        || owner's hand                  ||                               |
-// |                               ||                               ||                               |
-// |                               ||                               ||                               |
-// |                               ||                               ||                               |
-// |-------------------------------||-------------------------------||-------------------------------|
-// |-------------------------------||-------------------------------||-------------------------------|
-// | Disenchant              |   1 || Raise Dead              |   1 || Blizzard                |   3 |
-// |-------------------------------||-------------------------------||-------------------------------|
-// |                         Spell ||                         Spell ||                         Spell |
-// |-------------------------------||-------------------------------||-------------------------------|
-// | Destroy the top enchantment   || Resurrect the top minion in   || Deal 2 damage to all minions  |
-// | on target minion              || your graveyard and set its    ||                               |
-// |                               || defence to 1                  ||                               |
-// |                               ||                               ||                               |
-// |                               ||                               ||                               |
-// |-------------------------------||-------------------------------||-------------------------------|
-// |-------------------------------||-------------------------------||-------------------------------|
-// | Giant Strength          |   1 || Enrage                  |   2 || Haste                   |   1 |
-// |-------------------------------||-------------------------------||-------------------------------|
-// |                   Enchantment ||                   Enchantment ||                   Enchantment |
-// |-------------------------------||-------------------------------||-------------------------------|
-// |                               ||                               || Enchanted minion gains +1     |
-// |                               ||                               || action each turn              |
-// |                               ||                               ||                               |
-// |------                   ------||------                   ------||                               |
-// | +2  |                   |  +2 || *2  |                   |  *2 ||                               |
-// |-------------------------------||-------------------------------||-------------------------------|
-// |-------------------------------||-------------------------------|
-// | Magic Fatigue           |   0 || Silence                 |   1 |
-// |-------------------------------||-------------------------------|
-// |                   Enchantment ||                   Enchantment |
-// |-------------------------------||-------------------------------|
-// | Enchanted minion's activated  || Enchanted minion cannot use   |
-// | ability costs 2 more          || abilities                     |
-// |                               ||                               |
-// |                               ||                               |
-// |                               ||                               |
-// |-------------------------------||-------------------------------|
-// |-------------------------------||-------------------------------||-------------------------------|
-// | Dark Ritual             |   0 || Aura of Power           |   1 || Standstill              |   3 |
-// |-------------------------------||-------------------------------||-------------------------------|
-// |                        Ritual ||                        Ritual ||                        Ritual |
-// |-------------------------------||-------------------------------||-------------------------------|
-// | 1   | At the start of your    || 1   | Whenever a minion enters|| 2   | Whenever a minion       |
-// |------ turn, gain 1 mana       ||------ play under your control,||------ enters play, destroy it |
-// |                               ||       it gains +1/+1          ||                               |
-// |                         ------||                         ------||                         ------|
-// |                         |   5 ||                         |   4 ||                         |   4 |
-// |-------------------------------||-------------------------------||-------------------------------|
 
 
 //apply vec of enchantments to all minions of active player
@@ -342,6 +265,7 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
 
             lostM = c->getCost() * -1;
             active->addM(lostM); // remove the magic required to play card 
+            
             //if in testing mode, only need to set magic to 0
             if ((testing) && (active->getMagic() < 0)) active->setMagic(0);
 
@@ -365,6 +289,8 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
             lostM = c->getCost() * -1;
             //cout << "lost magic: " << lostM << endl;
             active->addM(lostM); // remove the magic required to play card
+
+            m->addApply(name);
             //cout << "magic removed" << endl;
             //if in testing mode, only need to set magic to 0
             if ((testing) && (active->getMagic() < 0)) active->setMagic(0);
