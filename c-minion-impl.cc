@@ -58,8 +58,8 @@ Minion::Minion(string name, int owner, vector<tuple<string, int, int, string, in
 
 
 vector<unique_ptr<Card>>& Minion::getEnchantments(){return enchanted;}
-vector<string>& getAllApplied() { return allApplied; }
-int getSizeA() { return allApplied.size(); }
+vector<string>& Minion::getAllApplied() { return allApplied; }
+int Minion::getSizeA() { return allApplied.size(); }
 
 int Minion::getAttack() { return attack; }
 int Minion::getDefense() { return defense; }
@@ -138,7 +138,7 @@ void Minion::multD(int i) { defense *= i; }
 
 //void Minion::airElemental(Player *played, int *target) {}
 //void Minion::earthElemental(Player *played, int *target) {}
-void Minion::boneGolem(Player &active) {
+void Minion::boneGolem() {
   //needs notify implementation
   cout << "bone golem called" << endl;
   this->addD(1);
@@ -228,7 +228,7 @@ void Minion::notify(EventType event, Player &active, int index, int extra) {
   } else if (event == EventType::MinionPlayed) {
     if (this->getName() == "Fire Elemental") {fireElemental(active, index);}
   } else if (event == EventType::MinionDied) {
-    if (this->getName() == "Bone Golem") {boneGolem(active);}
+    if (this->getName() == "Bone Golem") {boneGolem();}
   } else if (event == EventType::StartOfTurn) {
     if (actions < 1 && active.getId() == owner) {actions = 1;}
   }
