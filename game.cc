@@ -75,6 +75,8 @@ export class Game{
     bool notifyBoard(EventType e, int index = 0);
     void removeDeadMinions();
 
+    bool playerWin();
+
     ~Game();
 };
 

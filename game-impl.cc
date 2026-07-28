@@ -458,3 +458,11 @@ void Game::removeDeadMinions(){
     removeDeadMinionsP(*active);
     removeDeadMinionsP(*inactive);
 }
+
+bool Game::playerWin(){
+    if (inactive->getLife() <= 0){
+        std::cout << "Player " << active->getId() << " won!" << std::endl;
+        return true;
+    }
+    return false;
+}

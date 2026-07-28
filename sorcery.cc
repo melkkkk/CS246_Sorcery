@@ -31,14 +31,7 @@ int main(int argc, char *argv []){
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
     default_random_engine rng{seed};
 
-    // creating player objects
-    // Player p1;
-    // Player p2;
-    // Player *actPlayer = &p1; // going to be using these pointers for most the time i think
-    // Player *nonPlayer = &p2;
-
-    //make game object to call playcard
-    // Game g = Game(actPlayer, nonPlayer);
+    //make main game object
     Game g = Game();
     
     // for testing mode
@@ -87,64 +80,46 @@ int main(int argc, char *argv []){
     }
 
 
-    // temp fix for deck specification, can change later 
+    // deck specification
     if (!deck1) {
         ifstream infile{"default.deck"};
-        // p1.setDeck(infile);
         g.setDeck(1, infile);
     } 
     if (!deck2) {
         ifstream infile{"default.deck"};
-        // p2.setDeck(infile);
         g.setDeck(2, infile);
     } 
 
     // add more initialization stuff here
     // shuffle decks
     if (!testing) {
-        // p1.shuffleDeck(rng);
-        // p2.shuffleDeck(rng);
         g.shuffleDeck(1, rng);
         g.shuffleDeck(2, rng);
     }
 
-    
     
     // get names of players
     string name;
     cout << "Input Player 1:" << endl;
     if (!init) {getline(cin, name);}
     else {getline(ifs, name);}
-    // p1.setName(name);
     g.setName(1, name);
-
-    // cout << "player name is " << p1.getName() << endl;
-    cout << "player name is " << g.getName(1) << endl;
     
     cout << "Input Player 2:" << endl;
     if (!init) {getline(cin, name);}
     else {getline(ifs, name);}
-    // p2.setName(name);
     g.setName(2, name);
 
-    // cout << "player name is " << p2.getName() << endl;
-    cout << "player name is " << g.getName(2) << endl;
-
-
-// initialize hands of 5 cards
+    // initialize hands of 5 cards
     int startCards = 5;
     for (int i = 0; i < startCards; ++i){
-        // g.drawCard(actPlayer);
-        // g.drawCard(nonPlayer);
         g.drawCard();
         g.changeTurn();
         g.drawCard();
         g.changeTurn();
     }
 
-
     // main game loop
-    // bool quit = false;
     string command;
 
     while ((!init && getline(cin, command) && command != "\n") || (getline(ifs, command) && command != "\n")){
@@ -166,162 +141,153 @@ int main(int argc, char *argv []){
             cout << "   testing -- switches testing mode on or off" << endl;
             cout << "   who -- indicates who's turn it is" << endl;
         } else if (first == "end") {
-            // if (actPlayer == &p1){
-            //     cout << "PLAYER 1 TURN END" << endl;
-            //     cout << "PLAYER 2 TURN START" << endl;
-            // } else {
-            //     cout << "PLAYER 2 TURN END" << endl;
-            //     cout << "PLAYER 1 TURN START" << endl;
-            // }
-
-            //notify end of turn state
-
-            cout << "CHANGE TURN< WE CAN ADD A GETT AND SETTER IF NEED TO PRINT LATER" << endl;
-            // swap(actPlayer, nonPlayer);
-
             g.applyAll(); // applies all changes of current turn to active player before notify
-cout << "applied everything before swap" << endl;
             g.notifyBoard(EventType::EndOfTurn);
-cout << "notified everything before swap" << endl;
             g.changeTurn();
-cout << "swapped" << endl;
             g.applyAll();  // applies all changes of just past turn before notify
-cout << "applied everything after swap" << endl;
             g.notifyBoard(EventType::StartOfTurn);
-cout << "notified everything after swap" << endl;
             g.getActive()->addM(1);
-            if (g.getActive()->getSizeH() < 5) g.drawCard();
-            //notify start of turn state
-            
+            if (g.getActive()->getSizeH() < 5) g.drawCard();            
         } else if (first == "quit"){
-            cout << "END GAME" << endl;
             break;
         } else if (first == "who"){
-            cout << "IT IS PLAYER " << g.getID() << "'S TURN" << endl;
+            cout << "It is player " << g.getID() << "'s turn" << endl;
         } else if (first == "testing"){
             if (testing){
-                cout << "TESTING MODE OFF" << endl;
+                cout << "Testing mode OFF" << endl;
             } else {
-                cout << "TESTING MODE ON" << endl;
+                cout << "Testing mode ON" << endl;
             }
             testing = !testing;
         } else if (first == "draw"){
             if (testing){
-
-                //card drawn
                 if (g.getActive()->getSizeH() < 5) g.drawCard();
-
-                cout << "PLAYER DRAwS CARD! ONLY AVALIABLE IN TEST MODE" << endl;
+                cout << "Card drawn!" << endl;
             } else {
-                cout << "DRAW COMMAND ONLY AVAILABLE IN TESTING MODE" << endl;
+                cout << "Draw command only available in testing mode" << endl;
             }
         } else if (first == "discard") {
             if (inputs >= 1) {
                 ss >> i;
                 if (testing){
-
-                    if (g.getActive()->getSizeH() > stoi(i)) g.getActive()->removeFrom(g.getActive()->getHand(), stoi(i));
-
-                    cout << "PLAYER DISCARDS " << i << " CARD IN HAND! ONLY AVALIABLE IN TEST MODE" << endl;
+                    try {
+                        int m = stoi(i);
+                        if (g.getActive()->getSizeH() > m) g.getActive()->removeFrom(g.getActive()->getHand(), m);
+                    } catch (...) {
+                        cout << "Error with arguments" << endl;
+                    }
                 } else {
-                    cout << "DISCARD COMMAND ONLY AVAILABLE IN TESTING MODE" << endl;
+                    cout << "Discard command only available in testing mode" << endl;
                 }
-            } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
+            } else cout << "Incorrect number of arguments" << endl;
         } else if (first == "attack") {
             if (inputs >= 2) {
                 ss >> i >> j;
-                cout << "MINION " << i << " ATTACKS OPPOSING MINION " << j << endl;
-                //
-
-                g.attackM(stoi(i), stoi(j));
-
-                g.removeDeadMinions();
-                g.notifyBoard(EventType::MinionDied);
-
+                try {
+                    int m = stoi(i);
+                    int n = stoi(j);
+                    g.attackM(m, n);
+                    g.removeDeadMinions();
+                    g.notifyBoard(EventType::MinionDied);
+                } catch (...) {
+                    cout << "Error with arguments" << endl;
+                }
             } else if (inputs >= 1) {
                 ss >> i;
-                cout << "MINION " << i << " ATTACKS PLAYER" << endl;
-                //
-
-                g.attackM(stoi(i));
-
+                try {
+                    int m = stoi(i);
+                    g.attackM(m);
+                    if (g.playerWin()) {break;}
+                } catch (...) {
+                    cout << "Error with arguments" << endl;
+                }
             } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
         } else if (first == "play") {
             if (inputs >= 3) {
-                ss >> i >> j >> k;
-                cout << "PLAY " << i << " CARD ON PLAYER " << j << " ON THEIR " << k << " MINION" << endl;
-                
-                if (testing) {
-                    if (stoi(j) == g.getID()) { g.playCard(stoi(i), true, g.getActive(), stoi(k)); }
-                    else { g.playCard(stoi(i), true, g.getInactive(), stoi(k)); }
-                } else {
-                    cout << stoi(j) << " " << g.getID() << endl;
-                    if (stoi(j) == g.getID()) { g.playCard(stoi(i), false, g.getActive(), stoi(k)); }
-                    else { g.playCard(stoi(i), false, g.getInactive(), stoi(k)); }
+                ss >> i >> j >> k;   
+                try {
+                    int m = stoi(i);
+                    int n = stoi(j);
+                    int o;
+                    if (k == "r") {
+                        o = 0;
+                    } else {o = stoi(k);}           
+                    if (testing) {
+                        if (n == g.getID()) { g.playCard(m - 1, true, g.getActive(), o); }
+                        else { g.playCard(m - 1, true, g.getInactive(), o); }
+                    } else {
+                        if (n == g.getID()) { g.playCard(m - 1, false, g.getActive(), o); }
+                        else { g.playCard(m - 1, false, g.getInactive(), o); }
+                    }
+                    g.removeDeadMinions();
+                    g.notifyBoard(EventType::MinionDied);
+                } catch (...) {
+                    cout << "Error with arguments" << endl;
                 }
-
-                g.removeDeadMinions();
-                g.notifyBoard(EventType::MinionDied);
-
             } else if (inputs >= 1) {
                 ss >> i;
-                cout << "PLAY " << i << " CARD NO TARGET" << endl;
-
-                bool playCard = g.notifyBoard(EventType::MinionPlayed, stoi(i));
-
-                if (playCard){
-                    if (testing){ g.playCard(stoi(i), true);} 
-                    else { g.playCard(stoi(i), false);}
+                try {
+                    int m = stoi(i);
+                    bool playCard = g.notifyBoard(EventType::MinionPlayed, stoi(i));
+                    if (playCard){
+                        if (testing){ g.playCard(m - 1, true);} 
+                        else { g.playCard(m - 1, false);}
+                    }
+                    g.removeDeadMinions();
+                    g.notifyBoard(EventType::MinionDied);
+                } catch (...) {
+                    cout << "Error with arguments" << endl;
                 }
-                
-                g.removeDeadMinions();
-                g.notifyBoard(EventType::MinionDied);
-
-            } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
+            } else cout << "Incorrect number of arguments" << endl;
         } else if (first == "use") {
             if (inputs >= 3) {
                 ss >> i >> j >> k;
-                cout << "USE " << i << " ACTIVATED ABILITY ON PLAYER " << j << " ON THEIR " << k << " MINION" << endl;
-
-                if (testing) {
-                    if (stoi(j) == g.getID()) { g.use(stoi(i), true, g.getActive(), stoi(k)); }
-                    else { g.use(stoi(i), true, g.getInactive(), stoi(k)); }
-                } else {
-                    if (stoi(j) == g.getID()) { g.use(stoi(i), false, g.getActive(), stoi(k)); }
-                    else { g.use(stoi(i), false, g.getInactive(), stoi(k)); }
+                try {
+                    int m = stoi(i);
+                    int n = stoi(j);
+                    int o = stoi(k);   
+                    if (testing) {
+                        if (n == g.getID()) { g.use(m, true, g.getActive(), o); }
+                        else { g.use(m, true, g.getInactive(), o); }
+                    } else {
+                        if (n == g.getID()) { g.use(m, false, g.getActive(), o); }
+                        else { g.use(m, false, g.getInactive(), o); }
+                    }
+                    g.removeDeadMinions();
+                    g.notifyBoard(EventType::MinionDied);
+                } catch (...) {
+                    cout << "Error with arguments" << endl;
                 }
-
-                g.removeDeadMinions();
-                g.notifyBoard(EventType::MinionDied);
-
             } else if (inputs >= 1) {
                 ss >> i;
-                cout << "PLAY " << i << " ACTIVATED ABILITY NO TARGET" << endl;
-                
-                if (testing) g.use(stoi(i), true); 
-                else g.use(stoi(i) , false);
-
-                g.removeDeadMinions();
-                g.notifyBoard(EventType::MinionDied);
-
-            } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
+                try {
+                    int m = stoi(i);
+                    if (testing) g.use(m, true); 
+                    else g.use(m , false);
+                    g.removeDeadMinions();
+                    g.notifyBoard(EventType::MinionDied);
+                } catch (...) {
+                    cout << "Error with arguments" << endl;
+                }
+            } else cout << "Incorrect number of arguments" << endl;
         } else if (first == "inspect") {
             if (inputs >= 1) {
                 ss >> i;
-                cout << "DESCRIBE " << i << " MINION" << endl;
-                g.inspectMinion(stoi(i));
-            } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
+                try {
+                    int m = stoi(i);
+                    g.inspectMinion(m);
+                } catch (...) {
+                    cout << "Error with arguments" << endl;
+                }
+            } else cout << "Incorrect number of arguments" << endl;
         } else if (first == "hand") {
-            cout << "SHOWS PLAYER'S HAND" << endl;
             g.printHand();
         } else if (first == "board") {
-            cout << "SHOWS BOARD" << endl;
             g.printBoard();
         } else {
-            cout << command << " IS UNRECOGNIZED. PLEASE TRY AGAIN :>" << endl;
+            cout << command << " is unrecognized. Please try again" << endl;
         }
     }
-
     return 0;
 }
 
