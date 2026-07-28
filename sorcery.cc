@@ -228,7 +228,7 @@ int main(int argc, char *argv []){
                 ss >> i;
                 try {
                     int m = stoi(i);
-                    bool playCard = g.notifyBoard(EventType::MinionPlayed, stoi(i));
+                    bool playCard = g.notifyBoard(EventType::MinionPlayed, m - 1);
                     if (playCard){
                         if (testing){ g.playCard(m - 1, true);} 
                         else { g.playCard(m - 1, false);}
