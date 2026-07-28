@@ -163,6 +163,8 @@ int main(int argc, char *argv []){
             cout << "   inspect minion -- View a minion's card and all enchantments on that minion." << endl;
             cout << "   hand -- Describe all cards in your hand." << endl;
             cout << "   board -- Describe all cards on the board." << endl;
+            cout << "   testing -- switches testing mode on or off" << endl;
+            cout << "   who -- indicates who's turn it is" << endl;
         } else if (first == "end") {
             // if (actPlayer == &p1){
             //     cout << "PLAYER 1 TURN END" << endl;
@@ -235,6 +237,7 @@ int main(int argc, char *argv []){
 
                 g.attackM(stoi(i), stoi(j));
 
+                g.removeDeadMinions();
                 g.notifyBoard(EventType::MinionDied);
 
             } else if (inputs >= 1) {

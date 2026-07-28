@@ -38,7 +38,7 @@ export class Ritual: public Card, public Observer {
     std::string getDesc();
 
     //observer
-    void notify(EventType event, Player &active, int index, bool bothStandstill) override;
+    void notify(EventType event, Player &active, int index, int extra) override;
 };
 
 // //add charge

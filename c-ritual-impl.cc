@@ -83,6 +83,7 @@ void Ritual::darkRitual(Player &active) {
     charges -= activation;
   }
 }
+
 void Ritual::auraOfPower(Player &active, int index) {
   cout << "auraOfPower called" << endl;
   //change condition to activated for minion in play under activated players control, add to value
@@ -105,7 +106,7 @@ void Ritual::standstill(Player &active, int index, bool bothStandstill) {
   }
 }
 
-void Ritual::notify(EventType event, Player &active, int index, bool bothStandstill) {
+void Ritual::notify(EventType event, Player &active, int index, int extra) {
   cout << "notified ritual " << owner << endl;
   if (event == EventType::StartOfTurn){
     if (this->getName() == "Dark Ritual" && active.getId() == owner){
@@ -115,7 +116,7 @@ void Ritual::notify(EventType event, Player &active, int index, bool bothStandst
     if (this->getName() == "Aura of Power" && active.getId() == owner){
       auraOfPower(active, index);
     } else if (this->getName() == "Standstill"){
-      standstill(active, index, bothStandstill);
+      standstill(active, index, extra);
     }
   }
 //   if (whoFrom.sType == StateType::StartOfTurn) {

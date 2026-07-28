@@ -159,8 +159,17 @@ void Game::use(int indexM, bool testing, Player *other, int i) {
             // if (name == "Bone Golem") { temp->boneGolem(); }
             // else if (name == "Fire  Elemental") { temp->fireElemental(); }
             // else if (name == "Potion Seller") { temp->potionSeller(); }
-            if (name == "Apprentice Summoner") { temp->apprenticeSummoner(active); }
-            else if (name == "Master Summoner") { temp->masterSummoner(active); }
+            if (name == "Apprentice Summoner") { 
+                int space = 6 - active->getSizeB();
+                b.setState(EventType::MinionSummoned);
+                b.notifyObservers(*active, *inactive, indexM, space);
+                temp->apprenticeSummoner(active); 
+            } else if (name == "Master Summoner") { 
+                int space = 6 - active->getSizeB();
+                b.setState(EventType::MinionSummoned);
+                b.notifyObservers(*active, *inactive, indexM, space);
+                temp->masterSummoner(active); 
+            }
             else if (!other) return; //needs other
             else if (name == "Novice Pyromancer") { temp->novicePyromancer(active, other, i); }
 

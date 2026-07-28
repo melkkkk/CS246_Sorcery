@@ -186,16 +186,16 @@ Board::~Board(){}
 void Subject::setState(EventType e) {eventState = e;}
 EventType Subject::getState() {return eventState;}
 
-void Subject::notifyObservers(Player &active, Player &inactive, int index, bool bothStandstill){
+void Subject::notifyObservers(Player &active, Player &inactive, int index, int extra){
     for (auto& card : active.getBoard()) {
         if (auto* observer = dynamic_cast<Observer*>(card.get())) {
-            observer->notify(eventState, active, index, bothStandstill);
+            observer->notify(eventState, active, index, extra);
         }
     }
 
     for (auto& card : inactive.getBoard()) {
         if (auto* observer = dynamic_cast<Observer*>(card.get())) {
-            observer->notify(eventState, active, index, bothStandstill);
+            observer->notify(eventState, active, index, extra);
         }
     }
 }

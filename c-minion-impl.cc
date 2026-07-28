@@ -214,7 +214,7 @@ void Minion::masterSummoner(Player *active) {
 }
 
 
-void Minion::notify(EventType event, Player &active, int index, bool bothStandstill) {
+void Minion::notify(EventType event, Player &active, int index, int extra) {
   cout << "notified minion" << endl;
   if (event == EventType::EndOfTurn){
     if (this->getName() == "Potion Seller") {potionSeller(active);}
