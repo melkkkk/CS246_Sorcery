@@ -198,6 +198,13 @@ int main(int argc, char *argv []){
             break;
         } else if (first == "who"){
             cout << "IT IS PLAYER " << g.getID() << "'S TURN" << endl;
+        } else if (first == "testing"){
+            if (testing){
+                cout << "TESTING MODE OFF" << endl;
+            } else {
+                cout << "TESTING MODE ON" << endl;
+            }
+            testing = !testing;
         } else if (first == "draw"){
             if (testing){
 

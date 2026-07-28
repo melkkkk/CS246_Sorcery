@@ -21,10 +21,10 @@ import <memory>;
 card_template_t convertCard(std::unique_ptr<Card>& card){
     if (auto temp = dynamic_cast<Minion*>(card.get())) {
         // checking what type of minion it is
-        if (temp->getHasAbility() && (temp->getAbilityCost() < 0)){
+        if (temp->getHasAbilityO() && (temp->getAbilityCost() < 0)){
             return display_minion_triggered_ability(temp->getName(), 
                     temp->getCost(), temp->getAttack(), temp->getDefense(), temp->getDesc());
-        } else if (temp->getHasAbility()) {
+        } else if (temp->getHasAbilityO()) {
             return display_minion_activated_ability(temp->getName(), temp->getCost(), 
                     temp->getAttack(), temp->getDefense(), temp->getAbilityCost(), temp->getDesc());
         } else {
