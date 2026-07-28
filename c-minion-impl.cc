@@ -149,12 +149,12 @@ void Minion::addApply(string s) { this->allApplied.emplace_back(s); }
 
 //void Minion::airElemental(Player *played, int *target) {}
 //void Minion::earthElemental(Player *played, int *target) {}
-void Minion::boneGolem() {
+void Minion::boneGolem(int extra) {
   //needs notify implementation
   cout << "bone golem called" << endl;
   this->addD(1);
   this->addA(1);
-  this->addApply("Bone Golem");
+  if (extra < 0) this->addApply("Bone Golem");
 }
 
 void Minion::fireElemental(Player &active, int index, int extra) {
@@ -262,7 +262,7 @@ void Minion::notify(EventType event, Player &active, int index, int extra) {
   } else if (event == EventType::MinionSummoned) {
     if (this->getName() == "Fire Elemental") {fireElemental(active, index, extra);}
   } else if (event == EventType::MinionDied) {
-    if (this->getName() == "Bone Golem") {boneGolem();}
+    if (this->getName() == "Bone Golem") {boneGolem(-1);}
   } else if (event == EventType::StartOfTurn) {
     if (actions < 1 && active.getId() == owner) {actions = 1;}
   }
