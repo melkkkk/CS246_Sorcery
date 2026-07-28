@@ -4,3 +4,4 @@ gcm.cache/*
 .vscode/*
 order-copy.txt
 sorcery-copy.cc
+test.deck
