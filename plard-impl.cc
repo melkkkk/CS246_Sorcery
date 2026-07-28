@@ -39,6 +39,7 @@ void Player::addM(int i) { magic += i; }
 
 Card *Player::getCardH(int i) { return hand[i].get(); }
 Card *Player::getCardB(int i) { return board[i].get(); }
+Card *Player::getCardG(int i) { return graveyard[i].get(); }
 
 unique_ptr<Card>& Player::getUniqueH(int i) { return hand[i]; }
 unique_ptr<Card>& Player::getUniqueB(int i) { return board[i]; }

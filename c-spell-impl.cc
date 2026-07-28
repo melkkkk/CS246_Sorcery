@@ -101,7 +101,10 @@ void Spell::raiseDead(Player *played, int indexC) {
   cout << "raise dead called" << endl;
   //check not null, i is in board, hand not already full
   if ((played->getSizeB() < 5) && (played->getSize(played->getGraveyard()) > 0)){
-    played->moveToFrom(played->getBoard(), played->getGraveyard(), move(played->getUnique(played->getGraveyard(), 0)), 0);
+    int index = played->getSize(played->getGraveyard()) - 1; //get newest dead value
+    Minion *temp = dynamic_cast<Minion*>(played->getCardG(index));
+    temp->setDefense(1);
+    played->moveToFrom(played->getBoard(), played->getGraveyard(), move(played->getUnique(played->getGraveyard(), index)), index);
   } else cout << "bad index" << endl;
 }
 

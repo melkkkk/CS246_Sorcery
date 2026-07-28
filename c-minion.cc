@@ -29,6 +29,7 @@ export class Minion: public Card, public Observer {
     bool hasAbility = false;
     
     vector<unique_ptr<Card>> enchanted;
+    vector<string> allApplied;
     // vector of enchantments
     //vector<Enchantment *> enchanted;
 
@@ -41,10 +42,12 @@ export class Minion: public Card, public Observer {
     //void pointer for card i or ritual r
     std::vector<std::unique_ptr<Card>>& getEnchantments();
     int getEnchantmentsSize();
+    std::vector<std::string>& getAllApplied();
+    int getSizeA();
 
     //void airElemental(Player *played, int *target);
     //void earthElemental(Player *played, int *target);
-    void boneGolem(Player &active);
+    void boneGolem(Player &active = nullptr);
     void fireElemental(Player &active, int index, int extra = -1);
     void potionSeller(Player &active);
     void novicePyromancer(Player *activeP, Player *targetP, int target);

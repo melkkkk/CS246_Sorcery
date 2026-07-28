@@ -91,6 +91,7 @@ export class Player{
 
     Card *getCardH(int i);
     Card *getCardB(int i);
+    Card *getCardG(int i);
     unique_ptr<Card>& getUniqueH(int i);
     unique_ptr<Card>& getUniqueB(int i);
     unique_ptr<Card>& getUnique(vector<unique_ptr<Card>>& vec, int i);

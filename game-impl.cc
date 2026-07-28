@@ -99,6 +99,46 @@ void Game::applyEnchantments(Minion *m) { //add ability thing here
   }
 }
 
+//apply vec of enchantments to specific minion
+void Game::applyEffects(Minion *m) { //add ability thing here
+  m->reset();
+  int enchantmentLen = m->getSizeE(); //get size of enchantments vec
+  int totalLen = m->getSizeA(); //get size of total applied things vec
+
+  if (enchantmentLen == totalLen) { //if same len that means total is equal to enchantment vec
+    this->applyEnchantments(m);
+    return;
+  }
+
+  Enchantment *temp = nullptr; // to set to each card in enchantment vec
+  string name = ""; // to set to each card in enchantment vec
+  string applied = ""; // to set to each card in total vec
+  int enchantmentIndex = 0; // to loop through each one in time with total vec
+
+  for (int totalIndex = 0; totalIndex < totalLen; totalIndex++) { //total always moves forward since it is longer than enchantment vec
+    temp = dynamic_cast<Enchantment*>(m->getCardE(enchantmentIndex));
+    name = temp->getName();
+    applied = m->getAppliedAll[totalIndex]
+    if (name == applied) { // if equal to each other then that means same index, should just apply immediately
+        if (name == "Giant Strength") { temp->giantStrength(m); }
+        else if (name == "Enrage") { temp->enrage(m); }
+        else if (name == "Haste") { temp->haste(m); }
+        else if (name == "Magic Fatigue") { temp->magicFatigue(m); }
+        else if (name == "Silence") { temp->silence(m); }
+        enchantmentIndex++; // only moves to next enchantment if current is applied properly
+    } else { //this means ability is first
+        if (applied == "Aura of Power") { temp->giantStrength(m); }
+        else if (applied == "Raise Dead") { temp->enrage(m); }
+        else if (applied == "Blizzard") { temp->haste(m); }
+        else if (applied == "Potion Seller") { temp->haste(m); }
+        else if (applied == "Novice Pyromancer") { temp->haste(m); }
+        else if (applied == "Bone Golem") { temp->haste(m); }
+        else if (applied == "Fire Elemental") { temp->haste(m); }
+    }
+
+  }
+}
+
 //apply vec of enchantments to all minions of active player
 void Game::applyAll() {
   int len = active->getSizeB();

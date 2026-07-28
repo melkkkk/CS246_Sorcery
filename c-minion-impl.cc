@@ -58,6 +58,8 @@ Minion::Minion(string name, int owner, vector<tuple<string, int, int, string, in
 
 
 vector<unique_ptr<Card>>& Minion::getEnchantments(){return enchanted;}
+vector<string>& getAllApplied() { return allApplied; }
+int getSizeA() { return allApplied.size(); }
 
 int Minion::getAttack() { return attack; }
 int Minion::getDefense() { return defense; }
