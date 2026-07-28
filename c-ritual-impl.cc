@@ -35,15 +35,13 @@ Ritual::Ritual(string name, int owner, vector<tuple<string, int, int, string, in
 }
 
 void Ritual::darkRitual(Player &active) {
-  //change condition to activated at start of turn, gains value
   if (charges - activation >= 0){
-    active.addMagic(1);
+    active.addM(1);
     charges -= activation;
   }
 }
 
 void Ritual::auraOfPower(Player &active, int index, int extra) {
-  //change condition to activated for minion in play under activated players control, add to value
   if (extra >= 0) {
     for (int i = 0; i < extra && charges >= activation; ++i) {
       Minion *temp = dynamic_cast<Minion*>(active.getBoard()[active.getSizeB() - 1 - i].get());
@@ -64,7 +62,6 @@ void Ritual::auraOfPower(Player &active, int index, int extra) {
 }
 
 void Ritual::standstill(Player &active, int index, int ss, int extra) {
-  //change condition to activated for minion in play, destory it
   if (extra >= 0) {
     int removed = 0;
     while (removed < extra && charges >= activation) {

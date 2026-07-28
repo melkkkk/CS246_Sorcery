@@ -200,15 +200,20 @@ void Game::use(int indexM, bool testing, Player *other, int i) {
 
 
 void Game::playCard(int indexC, bool testing, Player *other, int i) {
-    // indexC is within hand bounds and if other is non null then i is within board bounds
-    if ((active->getSizeH() > indexC) && (indexC >= 0) && (!other || ((i > 0) && (other->getSizeB() > i)))){ 
-
+    // indexC is within hand bounds
+    if ((active->getSizeH() > indexC) && (indexC >= 0)) { 
         Card *c = active->getCardH(indexC);
+        string name = c->getName();
+
+        //if other is non null then i is within board bounds
+        if (!(!other || ((other->getSizeB() > i) && ((i > 0) || (name == "Banish"))))) {
+            cerr << "Incorrect arguments given to play card!" << endl;
+            return;
+        }
         
         //if not enough magic and not in testing mode, do nothing
         if ((active->getMagic() < c->getCost()) && (!testing)) return;
         int lostM = 0; //magic required to play card
-        string name = c->getName();
 
 
         if (std::find(spellCards.begin(), spellCards.end(), name) != spellCards.end()) {
