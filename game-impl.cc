@@ -117,11 +117,12 @@ void Game::applyEffects(Minion *m) { //add ability thing here
 
   for (int totalIndex = 0; totalIndex < totalLen; totalIndex++) { //total always moves forward since it is longer than enchantment vec
     applied = m->getAllApplied()[totalIndex];
-    cout << "inside loop of apply all: " <<  totalIndex << " / " << totalLen << endl;
+    cout << "inside loop of apply all: " <<  totalIndex << " / " << totalLen << " " << applied << endl;
     if (enchantmentIndex < enchantmentLen) {
         temp = dynamic_cast<Enchantment*>(m->getCardE(enchantmentIndex));
         name = temp->getName();    
         if (name == applied) { // if equal to each other then that means same index, should just apply immediately
+            cout << "inside loop of apply all: " <<  enchantmentIndex << " / " << enchantmentLen << " " << name << endl;
             if (name == "Giant Strength") { temp->giantStrength(m); }
             else if (name == "Enrage") { temp->enrage(m); }
             else if (name == "Haste") { temp->haste(m); }
@@ -431,6 +432,7 @@ bool Game::notifyBoard(EventType e, int index){
         pastMinionDeath = deaths;
         return true;
     } else {
+        std::cout << "else case called in notify game" << std::endl;
         b.setState(e);
         b.notifyObservers(*active, *inactive, index, 0);
         return true;
