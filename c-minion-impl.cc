@@ -21,7 +21,6 @@ void Minion::reset() {
 }
 
 Minion::Minion(string name, int owner, vector<tuple<string, int, int, string, int, int, int, int, bool>> vec) : Card{name} {
-  cout << "Minion ctor" << endl;
   int i = 0;
   if (name == "Air Elemental") { i = 0; }
   else if (name == "Earth Elemental") { i = 1; }
@@ -44,18 +43,6 @@ Minion::Minion(string name, int owner, vector<tuple<string, int, int, string, in
   this->ogHasAbility = (get<8>(temp));
   this->reset();
 }
-
-// export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> airelementalM{"Air Elemental", 0, 0, "", 1, 1, -1, 0, false};
-// export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> earthelementalM{"Earth Elemental", 3, 0, "", 4, 4, -1, 0, false};
-// export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> bonegolemM{"Bone Golem", 2, 0, "Gain +1/+1 whenever a minion leaves play.", 1, 3, -1, 0, true};
-// export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> fireelementalM{"Fire Elemental", 2, 0, "Whenever an opponent's minion enters play, deal 1 damage to it.", 2, 2,-1, 0, true};
-// export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> potionsellerM{"Potion Seller", 2, 0, "At the end of your turn, all your minions gain +0/+1.", 1, 3, -1, 0, true};
-// export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> novicepyromancerM{"Novice Pyromancer", 1, 0, "Deal 1 damage to target minion", 0, 1, 1, 0, true};
-// export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> apprenticesummonerM{"Apprentice Summoner", 1, 0, "Summon a 1/1 air elemental", 1, 1, 1, 0, true};
-// export std::tuple<std::string, int, int, std::string, int, int, int, int, bool> mastersummonerM{"Master Summoner", 3, 0, "Summon up to three 1/1 air elementals", 2, 3, 2, 0, true};
-
-// export std::vector<std::tuple<std::string, int, int, std::string, int, int, int, int, bool>> minionData = {airelementalM, earthelementalM, bonegolemM, fireelementalM, potionsellerM, novicepyromancerM, apprenticesummonerM, mastersummonerM};
-
 
 vector<unique_ptr<Card>>& Minion::getEnchantments(){return enchanted;}
 vector<string>& Minion::getAllApplied() { return allApplied; }
@@ -99,30 +86,28 @@ int Minion::getSizeE() { return enchanted.size(); }
 
 void Minion::removeE(int i) {
   if (this->getSizeE() > i) {
-    std::cout << "removed" << endl;
     enchanted.erase(enchanted.begin() + i);
   }
 }
 
+int Minion::getEnchantmentsSize(){return enchanted.size();}
+
 void Minion::removeA(int i) {
   if (this->getSizeA() > i) {
     allApplied.erase(allApplied.begin() + i);
-    std::cout << "removed" << endl;
   }
 }
 
 void Minion::clearEffects() {
-  int enchantmentLen = this->getSizeE() - 1; //get size of enchantments vec
-  int totalLen = this->getAllApplied().size() - 1; //get size of total applied things vec
+  int enchantmentLen = this->getSizeE() - 1;
+  int totalLen = this->getAllApplied().size() - 1;
   
-  //Enchantment *temp = nullptr; // to set to each card in enchantment vec
-  string name = ""; // to set to each card in enchantment vec
-  string current = ""; // to set to each card in total vec
+  string name = ""; 
+  string current = ""; 
   int enchantmentIndex = enchantmentLen;
 
   for (int totalIndex = totalLen; totalIndex >= 0; totalIndex--) { //total always moves forward since it is longer than enchantment vec
     current = this->getAllApplied()[totalIndex];
-    cout << "inside loop of clear effects: " <<  totalIndex << " / " << totalLen << " " << current << endl;
     if (enchantmentIndex >= 0) {
       this->removeE(enchantmentIndex);
       enchantmentIndex--; // only moves to next enchantment if within bounds
@@ -138,86 +123,43 @@ void Minion::clearEffects() {
 void Minion::multA(int i) { attack *= i; }
 void Minion::multD(int i) { defense *= i; }
 
-// Minion::Minion(string name, int cost, int owner): Card{name, cost}, owner{owner} {
-//     //set defense and actions if applicable
-
-//     cout << "minion ctor" << endl;
-    
-
-//     // if (name == "Dark Ritual") { 
-//     //   desc = "At the start of your turn, gain 1 magic"; 
-//     //   abilityCost = 1;
-//     //   //charges = 5;
-//     //   //activation = 1;
-//     // }
-//     // else if (name == "Apprentice Summoner") { 
-//     //   desc = "Whenever a minion enters play under your control it gains +1/+1"; 
-//     //   abilityCost = 1;
-//     //   //charges = 4;
-//     //   //activation = 1;
-//     // }
-//     // else if (name == "Master Summoner") { 
-//     //   desc = "Whenever a minion enters play, destroy it"; 
-//     //   abilityCost = 2;
-//     //   //charges = 4;
-//     //   //activation = 2;
-//     // }
-// }
-
 //extra functions for purpose of apply all only
 void Minion::raiseDeadApply() { this->setDefense(1); }
 void Minion::auraOfPowerApply() {
   this->addD(1);
   this->addA(1);
 }
+
 void Minion::blizzardApply() {
   this->addD(-2);
 }
 
 void Minion::addApply(string s) { this->allApplied.emplace_back(s); }
 
-//void Minion::airElemental(Player *played, int *target) {}
-//void Minion::earthElemental(Player *played, int *target) {}
 void Minion::boneGolem(int extra) {
-  //needs notify implementation
-  cout << "bone golem called" << endl;
   this->addD(1);
   this->addA(1);
   if (extra < 0) this->addApply("Bone Golem");
 }
 
 void Minion::fireElemental(Player &active, int index, int extra) {
-  //needs notify implementation
-  cout << "fire elemental called" << endl;
   if (index < 0) { //this is only for apply effects
-  //cout << "fire elemental for apply all" << endl;
-  cout << "fire elemental called apply only!!!" << endl;
     this->addD(-1);
     return;
   } else if (active.getId() != owner && extra < 0 && active.getSizeH() > index && index >= 0){
-  cout << "index: " << index << " / " << active.getSizeH();
-  //cout << "fire elemental called normally?" << endl;
     Minion *temp = dynamic_cast<Minion*>(active.getHand()[index].get());
-  cout << "health before: " << temp->getDefense();
     temp->addD(-1);
-  cout << " / " << temp->getDefense() << endl;
     temp->addApply("Fire Elemental");
   } else if (active.getId() != owner && active.getSizeB() > extra && extra >= 0){
-  //cout << "fire elemental looping through each value?" << endl;
     for (int i = 0; i < extra; ++i){
       Minion *temp = dynamic_cast<Minion*>(active.getBoard()[active.getSizeB() - 1 - i].get());
-      cout << "health before: " << temp->getDefense();
       temp->addD(-1);
-      cout << " / " << temp->getDefense() << endl;
       temp->addApply("Fire Elemental");
     }
   }
-  //cout << "about to return from fire elemental" << endl;
 }
 
 void Minion::potionSeller(Player &active, int extra) {
-  //needs notify implementation
-  cout << "potion seller called" << endl;
 
   if (extra < 0) { //this is only for apply effects
     this->addD(1);
@@ -232,8 +174,6 @@ void Minion::potionSeller(Player &active, int extra) {
 }
 
 void Minion::novicePyromancer(Player *activeP, Player *targetP, int target, int extra) {
-  
-  cout << "novice pyromancer called" << endl;
   if (extra < 0) { //this is only for apply effects
     this->addD(-1);
     return;
@@ -246,29 +186,24 @@ void Minion::novicePyromancer(Player *activeP, Player *targetP, int target, int 
     activeP->addM(abilityCost * -1);
     if (actions <= 0) { hasAbility = !hasAbility; }
   } else {
-    std::cerr << "Not enough items to use this ability" << std::endl;
+    std::cerr << "Not enough items to use this ability!" << std::endl;
   }
 }
 
 void Minion::apprenticeSummoner(Player *active) {
-  cout << "apprentice summoner called" << endl;
   if (actions > 0 && hasAbility && active->getSizeB() < 6){
     std::string s = "Air Elemental"; 
     active->addToHand(make_unique<Minion>(s, active->getId(), minionData));
     active->moveToFrom(active->getBoard(), active->getHand(), move(active->getUniqueH(active->getSizeH() -1)), active->getSizeH() -1);
-
-    std::cout << "BOARD IS IN SUMMONER" << active->getSizeB() << std::endl;
-
     actions -= 1;
     active->addM(abilityCost * -1);
     if (actions <= 0) { hasAbility = !hasAbility; }
   } else {
-    std::cerr << "Not enough items to use this ability" << std::endl;
+    std::cerr << "Not enough items to use this ability!" << std::endl;
   }
 }
 
 void Minion::masterSummoner(Player *active) {
-  cout << "master summoner called" << endl;
   if (actions > 0 && hasAbility && active->getSizeB() < 6){
     std::string s = "Air Elemental"; 
     int times = 3;
@@ -283,13 +218,12 @@ void Minion::masterSummoner(Player *active) {
     active->addM(abilityCost * -1);
     if (actions <= 0) { hasAbility = !hasAbility; }
   } else {
-    std::cerr << "Not enough items to use this ability" << std::endl;
+    std::cerr << "Not enough items to use this ability!" << std::endl;
   }
 }
 
 
 void Minion::notify(EventType event, Player &active, int index, int extra) {
-  cout << "notified minion" << endl;
   if (event == EventType::EndOfTurn){
     if (this->getName() == "Potion Seller") {potionSeller(active);}
   } else if (event == EventType::MinionPlayed) {
@@ -302,30 +236,3 @@ void Minion::notify(EventType event, Player &active, int index, int extra) {
     if (actions < 1 && active.getId() == owner) {actions = 1;}
   }
 }
-
-int Minion::getEnchantmentsSize(){return enchanted.size();}
-
-
-
-// |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
-// | Air Elemental           |   0 || Earth Elemental         |   3 || Bone Golem              |   2 || Fire Elemental          |   2 |
-// |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
-// |                        Minion ||                        Minion ||                        Minion ||                        Minion |
-// |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
-// |                               ||                               || Gain +1/+1 whenever a minion  || Whenever an opponent's minion |
-// |                               ||                               || leaves play.                  || enters play, deal 1 damage to |
-// |                               ||                               ||                               || it.                           |
-// |------                   ------||------                   ------||------                   ------||------                   ------|
-// | 1   |                   |   1 || 4   |                   |   4 || 1   |                   |   3 || 2   |                   |   2 |
-// |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
-// |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
-// | Potion Seller           |   2 || Novice Pyromancer       |   1 || Apprentice Summoner     |   1 || Master Summoner         |   3 |
-// |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
-// |                        Minion ||                        Minion ||                        Minion ||                        Minion |
-// |-------------------------------||-------------------------------||-------------------------------||-------------------------------|
-// | At the end of your turn, all  || 1   | Deal 1 damage to target || 1   | Summon a 1/1 air        || 2   | Summon up to three 1/1  |
-// | your minions gain +0/+1.      ||------  minion                 ||------ elemental               ||------ air elementals          |
-// |                               ||                               ||                               ||                               |
-// |------                   ------||------                   ------||------                   ------||------                   ------|
-// | 1   |                   |   3 || 0   |                   |   1 || 1   |                   |   1 || 2   |                   |   3 |
-// |-------------------------------||-------------------------------||-------------------------------||-------------------------------|

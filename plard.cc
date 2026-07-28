@@ -16,10 +16,9 @@ export class Player;
 export class Card {
     std::string name;
     int cost;
-    //std::vector<Observer*> observers;
-    //State state;
+
   protected:
-    //void setState(State newS);
+  
     void setName(std::string s);
     void setCost(int i);
   public:
@@ -29,15 +28,7 @@ export class Card {
     int getCost();
 
     virtual ~Card();
-    // player that played card i from their deck
-    // owner is the selected players card
-    // void pointer is for card i, or ritual r
-    //void playcard(Player played, int i, Player owner, void *p);
-
-    //void attach(Observer *o);  
-    //void notifyObservers();
-    //virtual Info getInfo() const = 0;
-    //State getState() const;
+    
 };
 
 export class Observer {
@@ -46,12 +37,6 @@ export class Observer {
     virtual void notify(EventType event, Player &active, int index, int extra) = 0; 
     virtual ~Observer() = default;
 };
-
-//void Subject::attach(Observer *o) { observers.emplace_back(o); }
-//void Subject::notifyObservers() { for (auto &ob : observers) ob->notify(*this); }
-//void Subject::setState(State newS) { state = newS; }
-//State Subject::getState() const { return state; }
-
 
 export class Player{
   int id;
@@ -66,6 +51,11 @@ export class Player{
   vector<unique_ptr<Card>> graveyard;
   vector<unique_ptr<Card>> board;
 
+
+  inline static std::vector<std::string> minionCards = {"Air Elemental", "Earth Elemental", "Bone Golem", "Potion Seller", 
+                                                            "Novice Pyromancer", "Apprentice Summoner", "Fire Elemental", "Master Summoner"};
+
+
   public:
     Player(int id, string name = "", int life = 20, int magic = 3);
     void setName(string name);
@@ -73,13 +63,7 @@ export class Player{
     void shuffleDeck(default_random_engine &rng);
     void setMagic(int i);
 
-    // new functions because everything is private ohhh soft private
     void addToHand(unique_ptr<Card> card);
-    //void moveToBoard(unique_ptr<Card> card, int indexH, int i = 1);
-    //void moveToGraveyard(unique_ptr<Card> card, int indexB);
-
-    //void removeFromHand(int indexH);
-    //void removeFromBoard(int indexB);
 
     void moveToFrom(vector<unique_ptr<Card>>& to, vector<unique_ptr<Card>>& from, unique_ptr<Card> card, int index, int i = 1);
     void removeFrom(vector<unique_ptr<Card>>& from, int index, int testing = -1);

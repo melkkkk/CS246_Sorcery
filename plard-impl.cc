@@ -17,11 +17,6 @@ std::string Card::getName() {return name;}
 int Card::getCost() {return cost; }
 void Card::setName(string s) {name = s;}
 void Card::setCost(int i) {cost = i;}
-//void Subject::attach(Observer *o) { observers.emplace_back(o); }
-//void Subject::notifyObservers() { for (auto &ob : observers) ob->notify(*this); }
-//void Subject::setState(State newS) { state = newS; }
-//State Subject::getState() const { return state; }
-
 
 Player::Player(int id, string name, int life, int magic): id{id}, name{name}, life{life}, magic{magic} {
 }
@@ -69,109 +64,46 @@ void Player::setDeck(ifstream& infile){
 // shuffles deck vector
 void Player::shuffleDeck(default_random_engine &rng){
     shuffle(deck.begin(), deck.end(), rng);
-    // for (const auto& card : deck) {
-    //     cout << card << endl;
-    // }
-    // cout << endl;
 }
 
 // adds a card to hand
 void Player::addToHand(unique_ptr<Card> card){
     hand.push_back(move(card));
-
-    int i = hand.size() - 1;
-    std::cout << hand[i]->getName() << " has been added to hand!" << endl;
 }
-
-//remove from hand when card is played (used up a spell)
-// void Player::removeFromHand(int indexH){
-//     std::cout << hand[indexH]->getName() << " has been removed from hand!" << endl;
-//     hand.erase(hand.begin() + indexH);
-// }
-
-
-//remove from board (for spell banish but can be used for other things also)
-// void Player::removeFromBoard(int indexB){
-//     std::cout << board[indexB]->getName() << " has been removed from board!" << endl;
-//     board.erase(board.begin() + indexB);
-// }
-
-// void Player::moveToBoard(unique_ptr<Card> card, int indexH, int i){
-//     //leave space for ritua;
-//     if (board.size() == 0) {
-//         board.push_back(nullptr);
-//     }
-    
-//     if (i != 0) {
-//         board.push_back(move(card));
-//         int j = board.size() - 1;
-//         std::cout << board[j]->getName() << " has been added to board!" << endl;
-//     } else if (i == 0) {
-//         //set ritual pointer to given ritual
-//         board[i] = move(card);
-//         std::cout << board[i]->getName() << " has been added to board!" << endl;
-//     }
-//     //deletes from hand
-//     hand.erase(hand.begin() + indexH);
-// }
-
-// void Player::moveToGraveyard(unique_ptr<Card> card, int indexB){
-//     graveyard.push_back(move(card));
-//     int j = graveyard.size() - 1;
-//     std::cout << graveyard[j]->getName() << " has been added to graveyard!" << endl;
-//     board.erase(board.begin() + indexB);
-// }
 
 
 void Player::moveToFrom(vector<unique_ptr<Card>>& to, vector<unique_ptr<Card>>& from, unique_ptr<Card> card, int index, int i){
-    
-    //leave space for ritual
+        //leave space for ritual slot
     if (board.size() == 0) board.push_back(nullptr);
-    cout << "reached move" << endl;
 
     //board specific
     if (&to == &board) {
         if (i != 0) {
             board.push_back(move(card));
-            int j = board.size() - 1;
-            std::cout << board[j]->getName() << " has been added to board!" << endl;
         } else if (i == 0) {
-            //set ritual pointer to given ritual
+            //set ritual slot to given ritual
             board[i] = move(card);
-            std::cout << board[i]->getName() << " has been added to board!" << endl;
         }
     } //all other locations
     else {
-        cout << "reached else" << endl;
-
-        // if (auto* temp = dynamic_cast<Minion*>(card.get())) {
-        // REPLACE WITH TUPLE LATER TT THIS IS JUST A TEST I SWEAR
         std::string type = card.get()->getName();
-        if (type == "Air Elemental" || type == "Earth Elemental" || type == "Bone Golem" 
-                    || type == "Potion Seller" || type == "Novice Pyromancer" || type == "Apprentice Summoner"
-                    || type == "Fire Elemental" || type == "Master Summoner"){
-            cout << "this is a minion not being moved to board, so it must have died!!!" << endl;
+        if (std::find(minionCards.begin(), minionCards.end(), type) != minionCards.end()){
+                        
             ++minionDeaths;
         }
-
+        //add to new location
         to.push_back(move(card));
-        std::cout << "moved" << endl;
     }
-    
-    //deletes from original place
+    //removes from original location
     from.erase(from.begin() + index);
 }
 
-
 void Player::removeFrom(vector<unique_ptr<Card>>& from, int index, int testing){
     std::string type = from[index].get()->getName();
-    if ((type == "Air Elemental" || type == "Earth Elemental" || type == "Bone Golem" 
-                || type == "Potion Seller" || type == "Novice Pyromancer" || type == "Apprentice Summoner"
-                || type == "Fire Elemental" || type == "Master Summoner") && testing != 1){
-        cout << "this is a minion being removed from somehwere, so it must have died!!!" << endl;
+    if ((std::find(minionCards.begin(), minionCards.end(), type) != minionCards.end()) && testing != 1){
+                    
         ++minionDeaths;
     }
-    std::cout << "removed" << endl;
     from.erase(from.begin() + index);
 }
 

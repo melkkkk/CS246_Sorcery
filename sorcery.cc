@@ -48,18 +48,15 @@ int main(int argc, char *argv []){
     // parsing through command line arguments
     for (int i = 1; i < argc; ++i){
         string command(argv[i]);
-        // cout << command << endl; // default.deck if no specified
         if (command == "-deck1") {
             ++i;
             ifstream infile{argv[i]};
-            // p1.setDeck(infile);
             g.setDeck(1, infile);
             deck1 = true;
             // create deck for p1 from file
         } else if (command == "-deck2") {
             ++i;
             ifstream infile{argv[i]};
-            // p2.setDeck(infile);
             g.setDeck(2, infile);
             deck2 = true;
             // create deck for p2 file
@@ -72,7 +69,7 @@ int main(int argc, char *argv []){
         } else if (command == "-testing") {
             testing = true;
         } else if (command == "-graphics") {
-            // activate graphics idk
+            
         } else {
             cerr << "'" << command << "' is an invalid command" << endl;
             return 2;
@@ -90,14 +87,12 @@ int main(int argc, char *argv []){
         g.setDeck(2, infile);
     } 
 
-    // add more initialization stuff here
     // shuffle decks
     if (!testing) {
         g.shuffleDeck(1, rng);
         g.shuffleDeck(2, rng);
     }
 
-    
     // get names of players
     string name;
     cout << "Input Player 1:" << endl;
@@ -162,9 +157,8 @@ int main(int argc, char *argv []){
         } else if (first == "draw"){
             if (testing){
                 if (g.getActive()->getSizeH() < 5) g.drawCard();
-                cout << "Card drawn!" << endl;
             } else {
-                cout << "Draw command only available in testing mode" << endl;
+                cerr << "Draw command only available in testing mode" << endl;
             }
         } else if (first == "discard") {
             if (inputs >= 1) {
@@ -174,12 +168,12 @@ int main(int argc, char *argv []){
                         int m = stoi(i);
                         if ((g.getActive()->getSizeH() > m - 1) && (m - 1 >= 0)) {g.getActive()->removeFrom(g.getActive()->getHand(), m - 1, 1);}
                     } catch (...) {
-                        cout << "Error with arguments" << endl;
+                        cerr << "Error with arguments/out of bounds!" << endl;
                     }
                 } else {
-                    cout << "Discard command only available in testing mode" << endl;
+                    cerr << "Discard command only available in testing mode" << endl;
                 }
-            } else cout << "Incorrect number of arguments" << endl;
+            } else cerr << "Incorrect number of arguments" << endl;
         } else if (first == "attack") {
             if (inputs >= 2) {
                 ss >> i >> j;
@@ -190,7 +184,7 @@ int main(int argc, char *argv []){
                     g.removeDeadMinions();
                     g.notifyBoard(EventType::MinionDied);
                 } catch (...) {
-                    cout << "Error with arguments" << endl;
+                    cerr << "Error with arguments/out of bounds!" << endl;
                 }
             } else if (inputs >= 1) {
                 ss >> i;
@@ -199,9 +193,9 @@ int main(int argc, char *argv []){
                     g.attackM(m);
                     if (g.playerWin()) {break;}
                 } catch (...) {
-                    cout << "Error with arguments" << endl;
+                    cerr << "Error with arguments/out of bounds!" << endl;
                 }
-            } else cout << "NOT CORRECT NUMBER OF ARGS" << endl;
+            } else cerr << "Error with arguments/out of bounds!" << endl;
         } else if (first == "play") {
             if (inputs >= 3) {
                 ss >> i >> j >> k;   
@@ -222,7 +216,7 @@ int main(int argc, char *argv []){
                     g.removeDeadMinions();
                     g.notifyBoard(EventType::MinionDied);
                 } catch (...) {
-                    cout << "Error with arguments" << endl;
+                    cerr << "Error with arguments/out of bounds!" << endl;
                 }
             } else if (inputs >= 1) {
                 ss >> i;
@@ -236,9 +230,9 @@ int main(int argc, char *argv []){
                     g.removeDeadMinions();
                     g.notifyBoard(EventType::MinionDied);
                 } catch (...) {
-                    cout << "Error with arguments" << endl;
+                    cerr << "Error with arguments/out of bounds!" << endl;
                 }
-            } else cout << "Incorrect number of arguments" << endl;
+            } else cerr << "Error with arguments/out of bounds!" << endl;
         } else if (first == "use") {
             if (inputs >= 3) {
                 ss >> i >> j >> k;
@@ -256,7 +250,7 @@ int main(int argc, char *argv []){
                     g.removeDeadMinions();
                     g.notifyBoard(EventType::MinionDied);
                 } catch (...) {
-                    cout << "Error with arguments" << endl;
+                    cerr << "Error with arguments/out of bounds!" << endl;
                 }
             } else if (inputs >= 1) {
                 ss >> i;
@@ -267,9 +261,9 @@ int main(int argc, char *argv []){
                     g.removeDeadMinions();
                     g.notifyBoard(EventType::MinionDied);
                 } catch (...) {
-                    cout << "Error with arguments" << endl;
+                    cerr << "Error with arguments/out of bounds!" << endl;
                 }
-            } else cout << "Incorrect number of arguments" << endl;
+            } else cerr << "Error with arguments/out of bounds!" << endl;
         } else if (first == "inspect") {
             if (inputs >= 1) {
                 ss >> i;
@@ -277,9 +271,9 @@ int main(int argc, char *argv []){
                     int m = stoi(i);
                     g.inspectMinion(m);
                 } catch (...) {
-                    cout << "Error with arguments" << endl;
+                    cerr << "Error with arguments/out of bounds!" << endl;
                 }
-            } else cout << "Incorrect number of arguments" << endl;
+            } else cerr << "Error with arguments/out of bounds!" << endl;
         } else if (first == "hand") {
             g.printHand();
         } else if (first == "board") {
