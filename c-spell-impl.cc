@@ -65,7 +65,12 @@ void Spell::banish(Player *played, int indexC, Player *owner, int i) {
   cout << "banish called" << endl;
   if ((owner) && (owner->getSizeB() > i)) {
     //owner->removeFromBoard(i);
-    if (i != 0) owner->removeFrom(owner->getBoard(), i);
+    if (i != 0) {
+      Minion *temp = dynamic_cast<Minion*>(owner->getCardB(i));
+      temp->clearEffects();
+
+      owner->removeFrom(owner->getBoard(), i);
+    }
     else owner->getUniqueB(0) = nullptr;
   } else cout << "bad index" << endl;
 }
@@ -74,6 +79,9 @@ void Spell::unsummon(Player *played, int indexC, Player *owner, int i) {
   cout << "unsummon called" << endl;
   // check not null, i is in board, hand not already full
   if ((owner) && (owner->getSizeB() > i) && (owner->getSizeH() < 5) && (i != 0)) {
+    Minion *temp = dynamic_cast<Minion*>(owner->getCardB(i));
+    temp->clearEffects();
+      
     owner->moveToFrom(owner->getHand(), owner->getBoard(), move(owner->getUniqueB(i)), i);
   } else cout << "bad index" << endl;
 }
@@ -94,6 +102,18 @@ void Spell::disenchant(Player *played, int indexC, Player *owner, int i) {
     Minion *temp = dynamic_cast<Minion*>(owner->getCardB(i));
     int in = temp->getSizeE() - 1; //remove most recently added value
     temp->removeE(in);
+
+    //loop the strings and remove most recent enchantment
+    int len = temp->getSizeA() - 1;
+    string current = "";
+    for (int j = len; j >= 0; j--) {
+      current = temp->getAllApplied()[j];
+      if (current == "Giant Strength" || current == "Enrage" || current == "Haste" || current == "Magic Fatigue" || current == "Silence") {
+        temp->removeA(j);
+        return;
+      }
+    }
+
   } else cout << "bad index" << endl;
 }
 

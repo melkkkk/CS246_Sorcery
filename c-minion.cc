@@ -45,6 +45,9 @@ export class Minion: public Card, public Observer {
     std::vector<std::string>& getAllApplied();
     int getSizeA();
     void addApply(string s);
+    void removeA(int i);
+
+    void clearEffects();
 
     //void airElemental(Player *played, int *target);
     //void earthElemental(Player *played, int *target);

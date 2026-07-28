@@ -449,6 +449,8 @@ void removeDeadMinionsP(Player &p){
         auto* temp = dynamic_cast<Minion*>(p.getBoard()[i].get());
         if (temp->getDefense() <= 0){
             // add removing enchantment function
+            temp->clearEffects();
+
             p.moveToFrom(p.getGraveyard(), p.getBoard(), std::move(p.getBoard()[i]), i);
         } else {++i;}
     }

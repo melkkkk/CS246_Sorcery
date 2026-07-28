@@ -104,6 +104,35 @@ void Minion::removeE(int i) {
   }
 }
 
+void Minion::removeA(int i) {
+  if (this->getSizeA() > i) {
+    allApplied.erase(allApplied.begin() + i);
+    std::cout << "removed" << endl;
+  }
+}
+
+void Minion::clearEffects() {
+  int enchantmentLen = this->getSizeE() - 1; //get size of enchantments vec
+  int totalLen = this->getAllApplied().size() - 1; //get size of total applied things vec
+  
+  //Enchantment *temp = nullptr; // to set to each card in enchantment vec
+  string name = ""; // to set to each card in enchantment vec
+  string current = ""; // to set to each card in total vec
+  int enchantmentIndex = enchantmentLen;
+
+  for (int totalIndex = totalLen; totalIndex >= 0; totalIndex--) { //total always moves forward since it is longer than enchantment vec
+    current = this->getAllApplied()[totalIndex];
+    cout << "inside loop of clear effects: " <<  totalIndex << " / " << totalLen << " " << current << endl;
+    if (enchantmentIndex < enchantmentLen) {
+      this->removeE(enchantmentIndex);
+      enchantmentIndex--; // only moves to next enchantment if within bounds
+    }
+    if (current == "Giant Strength" || current == "Enrage" || current == "Haste" || current == "Magic Fatigue" || current == "Silence") {
+      this->removeA(totalIndex);
+    }
+  }
+}
+
 //multiply Attack
 //multiply Defense
 void Minion::multA(int i) { attack *= i; }
