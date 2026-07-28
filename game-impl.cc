@@ -147,7 +147,7 @@ void Game::applyAll() {
   Minion *temp = nullptr;
   for (int i = 1; i < len; i++) {
     temp = dynamic_cast<Minion*>(active->getCardB(i));
-    this->applyEnchantments(temp);
+    this->applyEffects(temp);
   }
 }
 
@@ -228,7 +228,8 @@ void Game::use(int indexM, bool testing, Player *other, int i) {
 void Game::playCard(int indexC, bool testing, Player *other, int i) {
     cout << indexC << endl;
     cout << active->getSizeH() << endl;
-    if (active->getSizeH() > indexC) { //  && (other->getSizeH() > i)
+    // indexC is within hand bounds and if other is non null then i is within board bounds
+    if ((active->getSizeH() > indexC) && (indexC >= 0) && (!other || ((i > 0) && (other->getSizeB() > i)))){ 
 
         Card *c = active->getCardH(indexC);
         
@@ -244,36 +245,32 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
             if (name == "Recharge") { temp->recharge(active, indexC); }
             else if (name == "Raise Dead") { temp->raiseDead(active, indexC); }
             else if (name == "Blizzard") { temp->blizzard(active, inactive); }
-            else if (!other || !(other->getSizeB() > i)) {
-                cout << "bad args play card" << endl; 
-                cout << "other = " << other << endl;
-                cout << "i = " << i << endl;
+            else if (!other) {
+                cerr << "Incorrect arguments given to play spell:" << name << endl; 
+                // cout << "other = " << other << endl;
+                // cout << "i = " << i << endl;
                 return;
             }
             else if (name == "Banish") { temp->banish(active, indexC, other, i); }
             else if (name == "Unsummon") { temp->unsummon(active, indexC, other, i); }
             else if (name == "Disenchant") { 
                 temp->disenchant(active, indexC, other, i); 
-                // if (!other || !(other->getSizeB() > i)) {
-                //     cout << "bad args play card" << endl; 
-                //     return;
-                // }
                 Card *othercard = other->getCardB(i); // card that the spell is played on
                 Minion *m = dynamic_cast<Minion*>(othercard); // dynamic cast the card to minion
-                this->applyEnchantments(m);
+                this->applyEffects(m);
             }
 
             lostM = c->getCost() * -1;
-            active->addM(lostM); // remove the magic required to play card 
+            active->addM(lostM); // remove the magic required to play spell card 
             
             //if in testing mode, only need to set magic to 0
             if ((testing) && (active->getMagic() < 0)) active->setMagic(0);
 
-            active->removeFrom(active->getHand(), indexC);
+            active->removeFrom(active->getHand(), indexC); //remove played spell
 
         } else if (std::find(enchantmentCards.begin(), enchantmentCards.end(), name) != enchantmentCards.end()) {
-            if (!other || !(other->getSizeB() > i)) {
-                cout << "bad args play card" << endl; 
+            if (!other) {
+                cerr << "Incorrect arguments given to play enchantment:" << name << endl; 
                 return;
             }// all enchantments need other
             Enchantment *temp = dynamic_cast<Enchantment*>(c);
@@ -285,17 +282,14 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
             else if (name == "Haste") { temp->haste(active, other, i); }
             else if (name == "Magic Fatigue") { temp->magicFatigue(active, other, i); }
             else if (name == "Silence") { temp->silence(active, other, i); }
-            //cout << "done calling" << endl;
             lostM = c->getCost() * -1;
-            //cout << "lost magic: " << lostM << endl;
             active->addM(lostM); // remove the magic required to play card
 
-            m->addApply(name);
-            //cout << "magic removed" << endl;
+            m->addApply(name); // add string enchantment to list of total applied
+            
             //if in testing mode, only need to set magic to 0
             if ((testing) && (active->getMagic() < 0)) active->setMagic(0);
-            //cout << "if statement" << endl;
-            //cout << m->getEnchantments() << endl;
+            
             cout << othercard << '\n';
             cout << m << '\n';
             cout << othercard->getName() << '\n';
@@ -305,7 +299,7 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
             }
 
             active->moveToFrom(m->getEnchantments(), active->getHand(), move(active->getUniqueH(indexC)), indexC);
-            cout << "moved to minion" << endl;
+            cout << "Moved the enchantment to minion" << endl;
             
 
         } else if (std::find(ritualCards.begin(), ritualCards.end(), name) != ritualCards.end()) {
@@ -350,7 +344,7 @@ void Game::playCard(int indexC, bool testing, Player *other, int i) {
         }
     //delete c;
     } else {
-        cout << "args out of bounds" << endl;
+        cerr << "Incorrect arguments given to play card!" << endl;
     }
 }
 
@@ -409,10 +403,10 @@ bool validStandstill(Player* p){
 }
 
 bool Game::notifyBoard(EventType e, int index){
-    if (e == EventType::MinionPlayed && active->getSizeH() > index  && dynamic_cast<Minion*>(active->getHand()[index].get()) == nullptr){
+    if (e == EventType::MinionPlayed && active->getSizeH() > index && index >= 0 && dynamic_cast<Minion*>(active->getHand()[index].get()) == nullptr){
         std::cout << "This is not a minion played " << std:: endl;
         return true;
-    } else if (e == EventType::MinionPlayed) {
+    } else if (e == EventType::MinionPlayed && active->getSizeH() > index && index >= 0) {
         std::cout << "minion about to be played" << std::endl;
         bool bothStandstill = validStandstill(active) && validStandstill(inactive);
         bool playCard = !(validStandstill(active) || validStandstill(inactive));
