@@ -84,10 +84,19 @@ void Ritual::darkRitual(Player &active) {
   }
 }
 
-void Ritual::auraOfPower(Player &active, int index) {
+void Ritual::auraOfPower(Player &active, int index, int extra) {
   cout << "auraOfPower called" << endl;
   //change condition to activated for minion in play under activated players control, add to value
-  if (owner == active.getId() && charges - activation >= 0){
+  if (extra >= 0) {
+    for (int i = 0; i < extra && charges >= activation; ++i) {
+      Minion *temp = dynamic_cast<Minion*>(active.getBoard()[active.getSizeB() - 1 - i].get());
+      if (temp) {
+        temp->addA(1);
+        temp->addD(1);
+        charges -= activation;
+      }
+    }
+  } else if (owner == active.getId() && charges - activation >= 0 && extra < 0){
     Minion *temp = dynamic_cast<Minion*>(active.getHand()[index].get());
     temp->addA(1);
     temp->addD(1);
@@ -96,11 +105,20 @@ void Ritual::auraOfPower(Player &active, int index) {
   }
 }
 
-void Ritual::standstill(Player &active, int index, bool bothStandstill) {
+void Ritual::standstill(Player &active, int index, int ss, int extra) {
   cout << "standstill called" << endl;
   //change condition to activated for minion in play, destory it
   // Minion *temp = dynamic_cast<Minion*>(active.getBoard()[active.getSizeB() - 1].get());
-  if (((bothStandstill && active.getId() == owner) || !bothStandstill) && charges - activation >= 0){
+  if (extra >= 0) {
+    std::cout << "STANDSTILL WITH VALUE " << extra << std::endl;
+    int removed = 0;
+    while (removed < extra && charges >= activation) {
+      std::cout << "REMOVING FROM BOARD INDEX" << active.getSizeB() - 1 << std::endl;
+      active.removeFrom(active.getBoard(), active.getSizeB() - 1);
+      charges -= activation;
+      ++removed;
+    }
+  } else if (((ss && active.getId() == owner) || !ss) && charges - activation >= 0){
     active.removeFrom(active.getHand(), index);
     charges -= activation;
     cout << "charges = " << charges << endl;
@@ -118,6 +136,12 @@ void Ritual::notify(EventType event, Player &active, int index, int extra) {
       auraOfPower(active, index);
     } else if (this->getName() == "Standstill"){
       standstill(active, index, extra);
+    }
+  } else if (event == EventType::MinionSummoned){
+    if (this->getName() == "Aura of Power" && active.getId() == owner){
+      auraOfPower(active, index, extra);
+    } else if (this->getName() == "Standstill"){
+      standstill(active, index, -1, extra);
     }
   }
 //   if (whoFrom.sType == StateType::StartOfTurn) {

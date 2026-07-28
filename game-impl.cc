@@ -202,15 +202,17 @@ void Game::use(int indexM, bool testing, Player *other, int i) {
             // else if (name == "Fire  Elemental") { temp->fireElemental(); }
             // else if (name == "Potion Seller") { temp->potionSeller(); }
             if (name == "Apprentice Summoner") { 
+                int prev = active->getSizeB();
                 temp->apprenticeSummoner(active); 
-                int space = 6 - active->getSizeB();
+                int summons = active->getSizeB() - prev;
                 b.setState(EventType::MinionSummoned);
-                b.notifyObservers(*active, *inactive, indexM, space);
+                b.notifyObservers(*active, *inactive, indexM, summons);
             } else if (name == "Master Summoner") { 
-                int space = 6 - active->getSizeB();
-                b.setState(EventType::MinionSummoned);
-                b.notifyObservers(*active, *inactive, indexM, space);
+                int prev = active->getSizeB();
                 temp->masterSummoner(active); 
+                int summons = active->getSizeB() - prev;
+                b.setState(EventType::MinionSummoned);
+                b.notifyObservers(*active, *inactive, indexM, summons);
             }
             else if (!other) return; //needs other
             else if (name == "Novice Pyromancer") { temp->novicePyromancer(active, other, i); }
@@ -418,14 +420,14 @@ bool Game::notifyBoard(EventType e, int index){
         if (pastMinionDeath != deaths){
             b.setState(e);
             for (int i = pastMinionDeath; i < deaths; ++i){
-                b.notifyObservers(*active, *inactive, index, false);
+                b.notifyObservers(*active, *inactive, index, 0);
             }
         }
         pastMinionDeath = deaths;
         return true;
     } else {
         b.setState(e);
-        b.notifyObservers(*active, *inactive, index, false);
+        b.notifyObservers(*active, *inactive, index, 0);
         return true;
     }
 }
@@ -439,6 +441,7 @@ void removeDeadMinionsP(Player &p){
     for (int i = 1; i < p.getSizeB();){
         auto* temp = dynamic_cast<Minion*>(p.getBoard()[i].get());
         if (temp->getDefense() <= 0){
+            // add removing enchantment function
             p.moveToFrom(p.getGraveyard(), p.getBoard(), std::move(p.getBoard()[i]), i);
         } else {++i;}
     }

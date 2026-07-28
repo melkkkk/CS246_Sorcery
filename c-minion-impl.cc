@@ -222,6 +222,8 @@ void Minion::apprenticeSummoner(Player *active) {
     active->addToHand(make_unique<Minion>(s, active->getId(), minionData));
     active->moveToFrom(active->getBoard(), active->getHand(), move(active->getUniqueH(active->getSizeH() -1)), active->getSizeH() -1);
 
+    std::cout << "BOARD IS IN SUMMONER" << active->getSizeB() << std::endl;
+
     actions -= 1;
     active->addM(abilityCost * -1);
     if (actions <= 0) { hasAbility = !hasAbility; }
@@ -257,6 +259,8 @@ void Minion::notify(EventType event, Player &active, int index, int extra) {
     if (this->getName() == "Potion Seller") {potionSeller(active);}
   } else if (event == EventType::MinionPlayed) {
     if (this->getName() == "Fire Elemental") {fireElemental(active, index);}
+  } else if (event == EventType::MinionSummoned) {
+    if (this->getName() == "Fire Elemental") {fireElemental(active, index, extra);}
   } else if (event == EventType::MinionDied) {
     if (this->getName() == "Bone Golem") {boneGolem();}
   } else if (event == EventType::StartOfTurn) {

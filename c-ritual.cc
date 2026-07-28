@@ -22,8 +22,8 @@ export class Ritual: public Card, public Observer {
     //owner is owner of card selected in input or opponent based on spell
     //void pointer for card i or ritual r
     void darkRitual(Player &active);
-    void auraOfPower(Player &active, int index);
-    void standstill(Player &active, int index, bool bothStandstill);
+    void auraOfPower(Player &active, int index, int extra = -1);
+    void standstill(Player &active, int index, int ss, int extra = -1);
 
     //add charge
     //multiply charge
