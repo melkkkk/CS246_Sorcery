@@ -193,7 +193,7 @@ void Game::attackM(int indexM, int i) {
 // Use minion's special ability, optionally targeting target-card owned by target-player 
 //minion only
 void Game::use(int indexM, bool testing, Player *other, int i) {
-    if ((active->getSizeB() > indexM) && (indexM > 0) && ((i == -1) || ((inactive->getSizeB() > i) && (i > 0)))) {
+    if ((active->getSizeB() > indexM) && (indexM > 0) && ((i == -1) || ((other->getSizeB() > i) && (i > 0)))) {
         cout << "called use" << endl;
         Minion *temp = dynamic_cast<Minion*>(active->getCardB(indexM));
         string name = temp->getName();

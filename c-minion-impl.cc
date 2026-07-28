@@ -123,7 +123,7 @@ void Minion::clearEffects() {
   for (int totalIndex = totalLen; totalIndex >= 0; totalIndex--) { //total always moves forward since it is longer than enchantment vec
     current = this->getAllApplied()[totalIndex];
     cout << "inside loop of clear effects: " <<  totalIndex << " / " << totalLen << " " << current << endl;
-    if (enchantmentIndex < enchantmentLen) {
+    if (enchantmentIndex >= 0) {
       this->removeE(enchantmentIndex);
       enchantmentIndex--; // only moves to next enchantment if within bounds
     }

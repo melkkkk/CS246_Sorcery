@@ -82,7 +82,7 @@ export class Player{
     //void removeFromBoard(int indexB);
 
     void moveToFrom(vector<unique_ptr<Card>>& to, vector<unique_ptr<Card>>& from, unique_ptr<Card> card, int index, int i = 1);
-    void removeFrom(vector<unique_ptr<Card>>& from, int index);
+    void removeFrom(vector<unique_ptr<Card>>& from, int index, int testing = -1);
 
     vector<string>& getDeck();
 

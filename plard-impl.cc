@@ -163,11 +163,11 @@ void Player::moveToFrom(vector<unique_ptr<Card>>& to, vector<unique_ptr<Card>>& 
 }
 
 
-void Player::removeFrom(vector<unique_ptr<Card>>& from, int index){
+void Player::removeFrom(vector<unique_ptr<Card>>& from, int index, int testing){
     std::string type = from[index].get()->getName();
-    if (type == "Air Elemental" || type == "Earth Elemental" || type == "Bone Golem" 
+    if ((type == "Air Elemental" || type == "Earth Elemental" || type == "Bone Golem" 
                 || type == "Potion Seller" || type == "Novice Pyromancer" || type == "Apprentice Summoner"
-                || type == "Fire Elemental" || type == "Master Summoner"){
+                || type == "Fire Elemental" || type == "Master Summoner") && testing != 1){
         cout << "this is a minion being removed from somehwere, so it must have died!!!" << endl;
         ++minionDeaths;
     }

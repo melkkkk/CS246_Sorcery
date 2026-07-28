@@ -172,7 +172,7 @@ int main(int argc, char *argv []){
                 if (testing){
                     try {
                         int m = stoi(i);
-                        if (g.getActive()->getSizeH() > m - 1 && m - 1 >= 0) g.getActive()->removeFrom(g.getActive()->getHand(), m - 1);
+                        if ((g.getActive()->getSizeH() > m - 1) && (m - 1 >= 0)) {g.getActive()->removeFrom(g.getActive()->getHand(), m - 1, 1);}
                     } catch (...) {
                         cout << "Error with arguments" << endl;
                     }
