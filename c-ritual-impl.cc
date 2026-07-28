@@ -97,6 +97,7 @@ void Ritual::auraOfPower(Player &active, int index, int extra) {
       }
     }
   } else if (owner == active.getId() && charges - activation >= 0 && extra < 0){
+    if (!(active.getSizeH() > index && index >= 0)) return;
     Minion *temp = dynamic_cast<Minion*>(active.getHand()[index].get());
     temp->addA(1);
     temp->addD(1);
@@ -119,6 +120,7 @@ void Ritual::standstill(Player &active, int index, int ss, int extra) {
       ++removed;
     }
   } else if (((ss && active.getId() == owner) || !ss) && charges - activation >= 0){
+    if (!(active.getSizeH() > index && index >= 0)) return;
     active.removeFrom(active.getHand(), index);
     charges -= activation;
     cout << "charges = " << charges << endl;
@@ -139,7 +141,7 @@ void Ritual::notify(EventType event, Player &active, int index, int extra) {
     }
   } else if (event == EventType::MinionSummoned){
     if (this->getName() == "Aura of Power" && active.getId() == owner){
-      auraOfPower(active, index, extra);
+      if (active.getSizeH() > index && index > 0) auraOfPower(active, index, extra);
     } else if (this->getName() == "Standstill"){
       standstill(active, index, -1, extra);
     }

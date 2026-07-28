@@ -164,12 +164,12 @@ void Minion::fireElemental(Player &active, int index, int extra) {
   //cout << "fire elemental for apply all" << endl;
     this->addD(-1);
     return;
-  } else if (active.getId() != owner && extra < 0){
+  } else if (active.getId() != owner && extra < 0 && active.getSizeH() > index && index >= 0){
   //cout << "fire elemental called normally?" << endl;
     Minion *temp = dynamic_cast<Minion*>(active.getHand()[index].get());
     temp->addD(-1);
     temp->addApply("Fire Elemental");
-  } else if (active.getId() != owner){
+  } else if (active.getId() != owner && active.getSizeH() > extra && extra >= 0){
   //cout << "fire elemental looping through each value?" << endl;
     for (int i = 1; i < extra; ++i){
       Minion *temp = dynamic_cast<Minion*>(active.getBoard()[active.getSizeB() - 1 - i].get());

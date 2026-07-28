@@ -180,19 +180,17 @@ int main(int argc, char *argv []){
             // swap(actPlayer, nonPlayer);
 
             g.applyAll(); // applies all changes of current turn to active player before notify
-
+cout << "applied everything before swap" << endl;
             g.notifyBoard(EventType::EndOfTurn);
-
+cout << "notified everything before swap" << endl;
             g.changeTurn();
-
+cout << "swapped" << endl;
             g.applyAll();  // applies all changes of just past turn before notify
-
+cout << "applied everything after swap" << endl;
             g.notifyBoard(EventType::StartOfTurn);
-
+cout << "notified everything after swap" << endl;
             g.getActive()->addM(1);
-            
             if (g.getActive()->getSizeH() < 5) g.drawCard();
-
             //notify start of turn state
             
         } else if (first == "quit"){
