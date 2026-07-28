@@ -160,10 +160,10 @@ void Game::use(int indexM, bool testing, Player *other, int i) {
             // else if (name == "Fire  Elemental") { temp->fireElemental(); }
             // else if (name == "Potion Seller") { temp->potionSeller(); }
             if (name == "Apprentice Summoner") { 
+                temp->apprenticeSummoner(active); 
                 int space = 6 - active->getSizeB();
                 b.setState(EventType::MinionSummoned);
                 b.notifyObservers(*active, *inactive, indexM, space);
-                temp->apprenticeSummoner(active); 
             } else if (name == "Master Summoner") { 
                 int space = 6 - active->getSizeB();
                 b.setState(EventType::MinionSummoned);

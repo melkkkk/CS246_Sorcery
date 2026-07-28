@@ -143,12 +143,17 @@ void Minion::boneGolem(Player &active) {
   this->addA(1);
 }
 
-void Minion::fireElemental(Player &active, int index) {
+void Minion::fireElemental(Player &active, int index, int extra) {
   //needs notify implementation
   cout << "fire elemental called" << endl;
-  if (active.getId() != owner){
+  if (active.getId() != owner && extra < 0){
     Minion *temp = dynamic_cast<Minion*>(active.getHand()[index].get());
     temp->addD(-1);
+  } else if (active.getId() != owner){
+    for (int i = 0; i < extra; ++i){
+      Minion *temp = dynamic_cast<Minion*>(active.getBoard()[active.getSizeB() - 1 - i].get());
+      temp->addD(-1);
+    }
   }
 }
 
