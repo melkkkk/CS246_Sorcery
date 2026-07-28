@@ -133,6 +133,10 @@ void Board::printHand(Player &active){
 
 // prints minion and enchantments
 void Board::inspectMinion(Player &active, int i){
+    if (!(active.getSizeB() > i) || !(i > 0)) {
+        std::cerr << "Incorrect arguments given to inspect minion!" << std::endl;
+        return;
+    }
     auto minion = convertCard(active.getBoard()[i]);
     for (const auto& c : minion) {
         std::cout << c << std::endl;
